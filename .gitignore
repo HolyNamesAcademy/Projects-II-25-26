@@ -116,9 +116,7 @@ replay_pid*
 
 # Gradle
 .gradle/
-gradle/
 build/
-!gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
@@ -261,8 +259,8 @@ log/
 application-local.properties
 application-dev.properties
 application-prod.properties
-application-*.yml
-application-*.yaml
+# application-*.yml
+# application-*.yaml
 !application.properties
 !application.yml
 

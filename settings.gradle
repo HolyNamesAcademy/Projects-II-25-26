@@ -1,4 +1,4 @@
 rootProject.name = 'webserver'
 
 include 'backend'
-include 'frontend'
+// include 'frontend'

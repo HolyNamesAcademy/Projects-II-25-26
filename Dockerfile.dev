@@ -1,0 +1,11 @@
+FROM eclipse-temurin:17-jdk
+
+# Tools for Gradle/Maven wrappers & general dev niceties
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    bash curl unzip git ca-certificates procps \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
+
+# Pre-warm permissions; actual project is mounted at runtime
+# (wrappers will download their own distributions to /root/.gradle or /root/.m2)
