@@ -67,6 +67,24 @@ run_in_app() {
   $DC exec -it "$APP_SERVICE" bash -lc "$1"
 }
 
+run_frontend() {
+  cd frontend && npm run "$1"
+}
+
+run_backend() {
+  check_docker
+  tool=$($DC exec -it "$APP_SERVICE" bash -lc "$detect_cmd")
+  if [[ "$tool" == "none" ]]; then
+    echo "No Gradle/Maven wrapper found in project."; exit 1
+  fi
+  if [[ "$tool" == "./gradlew" || "$tool" == "gradle" ]]; then
+    run_in_app "$tool bootRun -x test"
+  else
+    # Maven
+    run_in_app "$tool spring-boot:run -DskipTests"
+  fi
+}
+
 cmd="${1:-help}"
 shift || true
 
@@ -118,6 +136,34 @@ case "$cmd" in
       run_in_app "$tool spring-boot:run -DskipTests"
     fi
     ;;
+  frontend|frontend:dev)
+    run_frontend "dev"
+    ;;
+  frontend:build)
+    run_frontend "build"
+    ;;
+  frontend:start)
+    run_frontend "start"
+    ;;
+  frontend:lint)
+    run_frontend "lint"
+    ;;
+  backend|backend:dev)
+    run_backend
+    ;;
+  both|dev)
+    echo "Starting both frontend and backend..."
+    echo "Frontend will run on http://localhost:3000"
+    echo "Backend will run on http://localhost:8080"
+    echo ""
+    echo "Starting backend in background..."
+    run_backend &
+    BACKEND_PID=$!
+    echo "Backend started with PID: $BACKEND_PID"
+    echo ""
+    echo "Starting frontend..."
+    run_frontend "dev"
+    ;;
   debug)
     check_docker
     tool=$($DC exec -it "$APP_SERVICE" bash -lc "$detect_cmd")
@@ -168,10 +214,26 @@ Spring Sail commands:
   ./sail down           Stop everything
   ./sail restart        Restart containers
   ./sail build          Rebuild the app image
-  ./sail run            Run the app (hot reload via devtools)
-  ./sail debug          Run the app with debug port 5005 enabled
-  ./sail test           Run tests in the container
+
+  # Backend commands
+  ./sail run            Run the backend (hot reload via devtools)
+  ./sail backend        Run the backend (alias for run)
+  ./sail debug          Run the backend with debug port 5005 enabled
+  ./sail test           Run backend tests in the container
   ./sail clean          Clean build artifacts
+
+  # Frontend commands
+  ./sail frontend       Run the frontend dev server
+  ./sail frontend:dev   Run the frontend dev server (alias)
+  ./sail frontend:build Build the frontend for production
+  ./sail frontend:start Start the frontend production server
+  ./sail frontend:lint  Run frontend linting
+
+  # Combined commands
+  ./sail both           Run both frontend and backend together
+  ./sail dev            Run both frontend and backend together (alias)
+
+  # Docker commands
   ./sail sh             Shell into the app container
   ./sail logs           Tail logs
   ./sail ps             Show container status
