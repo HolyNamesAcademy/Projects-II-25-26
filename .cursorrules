@@ -13,6 +13,11 @@
 - `./sail both` - Run both backend and frontend together
 - `./sail down` - Stop all services
 
+## Backend Commands (from root directory)
+- `cd backend && ./gradlew build` - Build Spring Boot application
+- `cd backend && ./gradlew test` - Run backend tests
+- `cd backend && ./gradlew checkstyleMain checkstyleTest` - Run code quality checks
+
 ## Key Integration Features
 - **CORS**: Spring Boot configured to allow frontend requests from localhost:3000
 - **API Proxy**: Next.js rewrites `/api/*` to backend at localhost:8080
