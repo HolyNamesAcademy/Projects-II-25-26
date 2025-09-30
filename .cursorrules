@@ -1,0 +1,46 @@
+# Spring Boot + Next.js Full-Stack Development Rules
+
+## Project Structure
+- **Backend**: Spring Boot 3.5.6 with Java 17 in `backend/` directory
+- **Frontend**: Next.js 15.5.4 with React 19 in `frontend/` directory
+- **Database**: PostgreSQL 16, Redis 7, Mailpit in Docker containers
+- **Development**: Use `sail` script for all commands
+
+## Development Commands
+- `./sail up` - Start all Docker services (database, redis, mail)
+- `./sail backend` - Run Spring Boot backend in Docker
+- `./sail frontend` - Run Next.js frontend locally (outside Docker)
+- `./sail both` - Run both backend and frontend together
+- `./sail down` - Stop all services
+
+## Key Integration Features
+- **CORS**: Spring Boot configured to allow frontend requests from localhost:3000
+- **API Proxy**: Next.js rewrites `/api/*` to backend at localhost:8080
+- **Type Safety**: TypeScript interfaces for API responses in `frontend/src/lib/api.ts`
+- **Hot Reload**: Frontend runs locally for fast development, backend in Docker
+
+## File Locations
+- Backend CORS config: `backend/src/main/java/com/hna/webserver/config/CorsConfig.java`
+- Frontend API utilities: `frontend/src/lib/api.ts`
+- Next.js config: `frontend/next.config.ts`
+- API demo page: `frontend/src/app/api-demo/page.tsx`
+
+## Development URLs
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8080/api
+- API Demo: http://localhost:3000/api-demo
+- Database: localhost:5432
+- Redis: localhost:6379
+- Mail UI: http://localhost:8025
+
+## Important Notes
+- Frontend runs OUTSIDE Docker for better development experience
+- Backend runs INSIDE Docker for consistent environment
+- Never run `./sail frontend` or `./sail backend` automatically - user manages these
+- API endpoints: `/api/hello`, `/api/health`, `/api/users`
+- Environment variables in `frontend/.env.local` (if needed)
+
+## Troubleshooting
+- CORS errors: Check `CorsConfig.java` and ensure backend is on port 8080
+- API connection failed: Verify backend is running with `./sail ps`
+- Frontend 404s: Ensure `frontend/src/lib/api.ts` exists and is properly imported
