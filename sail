@@ -15,6 +15,19 @@ check_docker() {
   fi
 }
 
+# Check if containers are running, auto-start if not
+check_containers() {
+  check_docker
+
+  # Check if any containers from our compose file are running
+  if ! $DC ps --format "{{.Name}}" 2>/dev/null | grep -qE "(app|db|redis|mail)"; then
+    echo "📦 No Spring Sail containers are running"
+    echo "🚀 Starting development environment..."
+    $DC up -d
+    echo "✅ Development environment started!"
+  fi
+}
+
 # Check Docker status with detailed information
 docker_status() {
   echo "🐳 Docker Status Check"
@@ -67,7 +80,7 @@ run_frontend() {
 }
 
 run_backend() {
-  check_docker
+  check_containers
   run_in_backend "./gradlew bootRun -x test"
 }
 
@@ -76,8 +89,7 @@ shift || true
 
 case "$cmd" in
   up)
-    check_docker
-    $DC up -d
+    check_containers
     ;;
   down)
     check_docker
@@ -88,15 +100,15 @@ case "$cmd" in
     $DC down && $DC up -d
     ;;
   build)
-    check_docker
+    check_containers
     $DC build --no-cache "$APP_SERVICE"
     ;;
   logs)
-    check_docker
+    check_containers
     $DC logs -f --tail=200
     ;;
   ps)
-    check_docker
+    check_containers
     $DC ps
     ;;
   docker-status|status)
@@ -106,11 +118,11 @@ case "$cmd" in
     echo "Spring Sail version: $SAIL_VERSION"
     ;;
   sh|bash|shell)
-    check_docker
+    check_containers
     run_in_app "bash"
     ;;
   run)
-    check_docker
+    check_containers
     run_in_backend "./gradlew bootRun -x test"
     ;;
   frontend|frontend:dev)
@@ -129,7 +141,7 @@ case "$cmd" in
     run_backend
     ;;
   backend:lint)
-    check_docker
+    check_containers
     echo "Running checkstyle checks..."
     run_in_backend "./gradlew checkstyleMain checkstyleTest"
     echo "Running SpotBugs checks..."
@@ -149,23 +161,23 @@ case "$cmd" in
     run_frontend "dev"
     ;;
   debug)
-    check_docker
+    check_containers
     run_in_backend "./gradlew bootRun -x test --debug-jvm"
     ;;
   test)
-    check_docker
+    check_containers
     run_in_backend "./gradlew test"
     ;;
   clean)
-    check_docker
+    check_containers
     run_in_backend "./gradlew clean"
     ;;
   psql)
-    check_docker
+    check_containers
     $DC exec -it db psql -U app -d app
     ;;
   redis-cli)
-    check_docker
+    check_containers
     $DC exec -it redis redis-cli
     ;;
   *)
