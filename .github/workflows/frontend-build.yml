@@ -37,6 +37,16 @@ jobs:
       working-directory: ./frontend
       run: npm run build
 
+    - name: Verify build output
+      working-directory: ./frontend
+      run: |
+        if [ ! -d ".next" ]; then
+          echo "Build output directory .next does not exist"
+          exit 1
+        fi
+        echo "Build output verified:"
+        ls -la .next/
+
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
