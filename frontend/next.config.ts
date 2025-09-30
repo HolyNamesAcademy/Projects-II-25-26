@@ -4,7 +4,9 @@ const nextConfig: NextConfig = {
   // Enable experimental features for better development experience
   experimental: {
     // Enable server actions
-    serverActions: true,
+    serverActions: {
+      allowedOrigins: ['localhost:3000'],
+    },
   },
 
   // Environment variables
