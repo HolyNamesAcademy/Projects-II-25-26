@@ -103,6 +103,7 @@ tramp
 
 # Package Files
 *.jar
+!backend/gradle/wrapper/gradle-wrapper.jar
 *.war
 *.nar
 *.ear
@@ -122,6 +123,8 @@ build/
 
 # Gradle Wrapper
 # Note: gradle-wrapper.properties should be committed
+# Exception: gradle-wrapper.jar should be committed for GitHub Actions compatibility
+!backend/gradle/wrapper/gradle-wrapper.jar
 
 # Maven
 target/
@@ -290,6 +293,7 @@ docker-compose.override.yml
 *.gz
 *.iso
 *.jar
+!backend/gradle/wrapper/gradle-wrapper.jar
 *.rar
 *.tar
 *.zip
