@@ -27,6 +27,11 @@ jobs:
     uses: ./.github/workflows/backend-build.yml
     secrets: inherit
 
+  gradle-wrapper-validation:
+    name: Gradle Wrapper Validation
+    uses: ./.github/workflows/gradle-wrapper-validation.yml
+    secrets: inherit
+
   integration-test:
     name: Integration Test
     runs-on: ubuntu-latest

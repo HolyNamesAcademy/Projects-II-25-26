@@ -121,7 +121,7 @@ build/
 !**/src/test/**/build/
 
 # Gradle Wrapper
-gradle-wrapper.properties
+# Note: gradle-wrapper.properties should be committed
 
 # Maven
 target/
