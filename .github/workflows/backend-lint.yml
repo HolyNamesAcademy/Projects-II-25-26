@@ -41,7 +41,9 @@ jobs:
       run: chmod +x ./backend/gradlew
 
     - name: Run Gradle checkstyle
-      run: ./backend/gradlew checkstyleMain checkstyleTest
+      working-directory: ./backend
+      run: ./gradlew checkstyleMain checkstyleTest
 
     - name: Run Gradle spotbugs
-      run: ./backend/gradlew spotbugsMain spotbugsTest
+      working-directory: ./backend
+      run: ./gradlew spotbugsMain spotbugsTest
