@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { api, handleApiError } from '@/lib/api';
 
 interface ApiResponse {
@@ -24,7 +24,7 @@ export default function ApiDemo() {
   const [error, setError] = useState<string | null>(null);
   const [endpoint, setEndpoint] = useState<'hello' | 'health' | 'users'>('hello');
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -51,11 +51,11 @@ export default function ApiDemo() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [endpoint]);
 
   useEffect(() => {
     fetchData();
-  }, [endpoint]);
+  }, [fetchData]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
