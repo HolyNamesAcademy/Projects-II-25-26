@@ -54,16 +54,6 @@ docker_status() {
   return 0
 }
 
-# Pick build tool inside the container
-detect_cmd='
-cd backend
-if [ -f "./gradlew" ]; then echo "./gradlew";
-elif [ -f "./mvnw" ]; then echo "./mvnw";
-elif command -v gradle >/dev/null 2>&1; then echo "gradle";
-elif command -v mvn >/dev/null 2>&1; then echo "mvn";
-else echo "none"; fi
-'
-
 run_in_app() {
   $DC exec -it "$APP_SERVICE" bash -lc "$1"
 }
@@ -78,16 +68,7 @@ run_frontend() {
 
 run_backend() {
   check_docker
-  tool=$($DC exec -it "$APP_SERVICE" bash -lc "$detect_cmd")
-  if [[ "$tool" == "none" ]]; then
-    echo "No Gradle/Maven wrapper found in project."; exit 1
-  fi
-  if [[ "$tool" == "./gradlew" || "$tool" == "gradle" ]]; then
-    run_in_backend "$tool bootRun -x test"
-  else
-    # Maven
-    run_in_backend "$tool spring-boot:run -DskipTests"
-  fi
+  run_in_backend "./gradlew bootRun -x test"
 }
 
 cmd="${1:-help}"
@@ -130,16 +111,7 @@ case "$cmd" in
     ;;
   run)
     check_docker
-    tool=$($DC exec -it "$APP_SERVICE" bash -lc "$detect_cmd")
-    if [[ "$tool" == "none" ]]; then
-      echo "No Gradle/Maven wrapper found in project."; exit 1
-    fi
-    if [[ "$tool" == "./gradlew" || "$tool" == "gradle" ]]; then
-      run_in_backend "$tool bootRun -x test"
-    else
-      # Maven
-      run_in_backend "$tool spring-boot:run -DskipTests"
-    fi
+    run_in_backend "./gradlew bootRun -x test"
     ;;
   frontend|frontend:dev)
     run_frontend "dev"
@@ -158,20 +130,10 @@ case "$cmd" in
     ;;
   backend:lint)
     check_docker
-    tool=$($DC exec -it "$APP_SERVICE" bash -lc "$detect_cmd")
-    if [[ "$tool" == "none" ]]; then
-      echo "No Gradle/Maven wrapper found in project."; exit 1
-    fi
-    if [[ "$tool" == "./gradlew" || "$tool" == "gradle" ]]; then
-      echo "Running checkstyle checks..."
-      run_in_backend "$tool checkstyleMain checkstyleTest"
-      echo "Running SpotBugs checks..."
-      run_in_backend "$tool spotbugsMain spotbugsTest"
-    else
-      # Maven - you might want to add checkstyle plugin configuration
-      echo "Checkstyle not configured for Maven. Please add checkstyle-maven-plugin to pom.xml"
-      exit 1
-    fi
+    echo "Running checkstyle checks..."
+    run_in_backend "./gradlew checkstyleMain checkstyleTest"
+    echo "Running SpotBugs checks..."
+    run_in_backend "./gradlew spotbugsMain spotbugsTest"
     ;;
   both|dev)
     echo "Starting both frontend and backend..."
@@ -188,38 +150,15 @@ case "$cmd" in
     ;;
   debug)
     check_docker
-    tool=$($DC exec -it "$APP_SERVICE" bash -lc "$detect_cmd")
-    if [[ "$tool" == "none" ]]; then
-      echo "No Gradle/Maven wrapper found in project."; exit 1
-    fi
-    if [[ "$tool" == "./gradlew" || "$tool" == "gradle" ]]; then
-      run_in_backend "$tool bootRun -x test --debug-jvm"
-    else
-      # Maven
-      run_in_backend "$tool spring-boot:run -DskipTests -Dspring-boot.run.jvmArguments='-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:5005'"
-    fi
+    run_in_backend "./gradlew bootRun -x test --debug-jvm"
     ;;
   test)
     check_docker
-    tool=$($DC exec -it "$APP_SERVICE" bash -lc "$detect_cmd")
-    if [[ "$tool" == "none" ]]; then
-      echo "No Gradle/Maven wrapper found in project."; exit 1
-    fi
-    if [[ "$tool" == "./gradlew" || "$tool" == "gradle" ]]; then
-      run_in_backend "$tool test"
-    else
-      run_in_backend "$tool -DskipITs=false test"
-    fi
+    run_in_backend "./gradlew test"
     ;;
   clean)
     check_docker
-    tool=$($DC exec -it "$APP_SERVICE" bash -lc "$detect_cmd")
-    if [[ "$tool" == "none" ]]; then exit 0; fi
-    if [[ "$tool" == "./gradlew" || "$tool" == "gradle" ]]; then
-      run_in_backend "$tool clean"
-    else
-      run_in_backend "$tool clean"
-    fi
+    run_in_backend "./gradlew clean"
     ;;
   psql)
     check_docker
