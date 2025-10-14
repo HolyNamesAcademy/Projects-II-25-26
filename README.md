@@ -1,5 +1,9 @@
 # Spring Boot + Next.js Full-Stack Template
 
+## Team Members
+
+-
+
 A modern full-stack web application template featuring Spring Boot backend and Next.js frontend with Docker-based development environment.
 
 **Zero-install development setup** - Get started instantly with Docker containers for all services and dependencies. No need to install Java, Gradle, or databases locally.
