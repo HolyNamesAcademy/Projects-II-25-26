@@ -32,6 +32,13 @@ A modern full-stack web application template featuring Spring Boot backend and N
 
 **Note**: No Java or Gradle installation needed - backend runs in Docker containers.
 
+**Windows users:**  
+To ensure all files use Linux (LF) line endings (required for Docker and shell scripts), run this command in Git Bash before starting:
+
+```bash
+find . -type f -not -path '*/\.git/*' -exec dos2unix {} +; git checkout .
+```
+
 ## Quick Start
 
 1. **Start the development environment:**
