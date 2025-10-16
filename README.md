@@ -32,16 +32,16 @@ A modern full-stack web application template featuring Spring Boot backend and N
 
 **Note**: No Java or Gradle installation needed - backend runs in Docker containers.
 
-<details>
-<summary><strong>🏫 School Network Users - Important Note</strong></summary>
+  <details>
+  <summary><strong>🏫 School Network Users - Important Note</strong></summary>
 
-If you're on a school network with security restrictions, you may need to:
-- Use a specific NVM mirror for Node.js installation
-- Temporarily disable SSL verification for npm installs
+  If you're on a school network with security restrictions, you may need to:
+  - Use a specific NVM mirror for Node.js installation
+  - Temporarily disable SSL verification for npm installs
 
-See the [Initial Setup](#initial-setup) section for detailed instructions.
+  See the [Initial Setup](#initial-setup) section for detailed instructions.
 
-</details>
+  </details>
 
 ## Initial Setup
 
@@ -59,18 +59,18 @@ See the [Initial Setup](#initial-setup) section for detailed instructions.
 - **Windows users**: Download from https://gitforwindows.org/ (includes Git Bash)
 - **Mac users**: Install Xcode Command Line Tools: `xcode-select --install`
 
-<details>
-<summary><strong>🍎 Mac Users - Xcode Command Line Tools</strong></summary>
+  <details>
+  <summary><strong>🍎 Mac Users - Xcode Command Line Tools</strong></summary>
 
-If you don't have Git installed on Mac, run this command in Terminal:
+  If you don't have Git installed on Mac, run this command in Terminal:
 
-```bash
-xcode-select --install
-```
+  ```bash
+  xcode-select --install
+  ```
 
-This will install Git and other essential development tools. You may be prompted to install additional software - click "Install" when prompted.
+  This will install Git and other essential development tools. You may be prompted to install additional software - click "Install" when prompted.
 
-</details>
+  </details>
 
 ### 2. Clone the Repository
 
@@ -82,18 +82,18 @@ This will install Git and other essential development tools. You may be prompted
 
 ### 3. Fix Line Endings (Windows Users Only)
 
-<details>
-<summary><strong>🪟 Windows Users - Line Endings Fix</strong></summary>
+  <details>
+  <summary><strong>🪟 Windows Users - Line Endings Fix</strong></summary>
 
-To ensure all files use Linux (LF) line endings (required for Docker and shell scripts), run this command in Git Bash:
+  To ensure all files use Linux (LF) line endings (required for Docker and shell scripts), run this command in Git Bash:
 
-```bash
-find . -type f -not -path '*/\.git/*' -exec dos2unix {} +; git checkout .
-```
+  ```bash
+  find . -type f -not -path '*/\.git/*' -exec dos2unix {} +; git checkout .
+  ```
 
-This converts Windows (CRLF) line endings to Unix (LF) format, which is required for proper Docker container execution.
+  This converts Windows (CRLF) line endings to Unix (LF) format, which is required for proper Docker container execution.
 
-</details>
+  </details>
 
 ### 4. Install Node Version Manager (NVM)
 
@@ -118,49 +118,49 @@ Save with: `Ctrl+X`, then `Y`, then `Enter`
 
 ### 5. Install Node.js
 
-<details>
-<summary><strong>🏫 School Network (with security restrictions)</strong></summary>
+  <details>
+  <summary><strong>🏫 School Network (with security restrictions)</strong></summary>
 
-```bash
-NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install
-```
+  ```bash
+  NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install
+  ```
 
-</details>
+  </details>
 
-<details>
-<summary><strong>🏠 Home Network</strong></summary>
+  <details>
+  <summary><strong>🏠 Home Network</strong></summary>
 
-```bash
-nvm install
-```
+  ```bash
+  nvm install
+  ```
 
-</details>
+  </details>
 
 ### 6. Install Project Dependencies
 
-<details>
-<summary><strong>🏫 School Network (with security restrictions)</strong></summary>
+  <details>
+  <summary><strong>🏫 School Network (with security restrictions)</strong></summary>
 
-```bash
-cd frontend
-# Disable SSL verification temporarily for school network
-npm config set strict-ssl false
-npm install
-# Re-enable SSL verification for security
-npm config set strict-ssl true
-```
+  ```bash
+  cd frontend
+  # Disable SSL verification temporarily for school network
+  npm config set strict-ssl false
+  npm install
+  # Re-enable SSL verification for security
+  npm config set strict-ssl true
+  ```
 
-</details>
+  </details>
 
-<details>
-<summary><strong>🏠 Home Network</strong></summary>
+  <details>
+  <summary><strong>🏠 Home Network</strong></summary>
 
-```bash
-cd frontend
-npm install
-```
+  ```bash
+  cd frontend
+  npm install
+  ```
 
-</details>
+  </details>
 
 ## Quick Start
 
@@ -312,69 +312,69 @@ This template is ready for deployment to any cloud provider that supports Spring
 
 ### Common Issues
 
-<details>
-<summary><strong>🌐 CORS Errors</strong></summary>
+  <details>
+  <summary><strong>🌐 CORS Errors</strong></summary>
 
-- Ensure backend is running on port 8080
-- Check CORS configuration in `backend/src/main/java/com/hna/webserver/config/CorsConfig.java`
-- Verify frontend is running on localhost:3000
+  - Ensure backend is running on port 8080
+  - Check CORS configuration in `backend/src/main/java/com/hna/webserver/config/CorsConfig.java`
+  - Verify frontend is running on localhost:3000
 
-</details>
+  </details>
 
-<details>
-<summary><strong>🔌 API Connection Failed</strong></summary>
+  <details>
+  <summary><strong>🔌 API Connection Failed</strong></summary>
 
-- Verify backend is running: `./sail ps`
-- Check backend logs: `./sail logs`
-- Ensure services are up: `./sail up`
+  - Verify backend is running: `./sail ps`
+  - Check backend logs: `./sail logs`
+  - Ensure services are up: `./sail up`
 
-</details>
+  </details>
 
-<details>
-<summary><strong>⚛️ Frontend Not Loading</strong></summary>
+  <details>
+  <summary><strong>⚛️ Frontend Not Loading</strong></summary>
 
-- Ensure Node.js version matches `.nvmrc` (22.20.0)
-- Install dependencies: `cd frontend && npm install`
-- Check if port 3000 is available
+  - Ensure Node.js version matches `.nvmrc` (22.20.0)
+  - Install dependencies: `cd frontend && npm install`
+  - Check if port 3000 is available
 
-</details>
+  </details>
 
-<details>
-<summary><strong>🗄️ Database Connection Issues</strong></summary>
+  <details>
+  <summary><strong>🗄️ Database Connection Issues</strong></summary>
 
-- Ensure PostgreSQL is running: `./sail ps`
-- Check database logs: `./sail logs db`
-- Verify connection settings in `application-dev.yml`
+  - Ensure PostgreSQL is running: `./sail ps`
+  - Check database logs: `./sail logs db`
+  - Verify connection settings in `application-dev.yml`
 
-</details>
+  </details>
 
-<details>
-<summary><strong>🐳 Docker Issues</strong></summary>
+  <details>
+  <summary><strong>🐳 Docker Issues</strong></summary>
 
-- Check Docker daemon is running: `./sail status`
-- Restart Docker Desktop if needed
-- Clean up containers: `./sail down && docker system prune`
-- Rebuild containers: `./sail build`
+  - Check Docker daemon is running: `./sail status`
+  - Restart Docker Desktop if needed
+  - Clean up containers: `./sail down && docker system prune`
+  - Rebuild containers: `./sail build`
 
-</details>
+  </details>
 
-<details>
-<summary><strong>🔌 Port Conflicts</strong></summary>
+  <details>
+  <summary><strong>🔌 Port Conflicts</strong></summary>
 
-- Ensure ports 3000, 8080, 5432, 6379, and 8025 are available
-- Check what's using a port: `lsof -i :PORT_NUMBER` (macOS/Linux)
-- Kill process using port: `kill -9 PID` (replace PID with actual process ID)
+  - Ensure ports 3000, 8080, 5432, 6379, and 8025 are available
+  - Check what's using a port: `lsof -i :PORT_NUMBER` (macOS/Linux)
+  - Kill process using port: `kill -9 PID` (replace PID with actual process ID)
 
-</details>
+  </details>
 
-<details>
-<summary><strong>🪟 Windows Terminal Issues</strong></summary>
+  <details>
+  <summary><strong>🪟 Windows Terminal Issues</strong></summary>
 
-- Always use Git Bash instead of PowerShell for running `./sail` commands
-- In VSCode, click the arrow next to the `+` button in terminal and select "Git Bash"
-- If commands don't work, ensure you're in the project root directory
+  - Always use Git Bash instead of PowerShell for running `./sail` commands
+  - In VSCode, click the arrow next to the `+` button in terminal and select "Git Bash"
+  - If commands don't work, ensure you're in the project root directory
 
-</details>
+  </details>
 
 ### Debug Commands
 ```bash
