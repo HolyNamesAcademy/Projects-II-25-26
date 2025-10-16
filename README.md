@@ -2,6 +2,7 @@
 
 ## Team Members
 
+- Claire
 - Jenny
 - Julia
 - Laurie
