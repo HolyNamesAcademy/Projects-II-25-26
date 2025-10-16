@@ -1,0 +1,10 @@
+# Ensure shell scripts use Unix line endings
+*.sh text eol=lf
+sail text eol=lf
+
+# Ensure gradlew files use Unix line endings
+gradlew text eol=lf
+gradlew.bat text eol=crlf
+
+# Default to Unix line endings for text files
+* text eol=lf
