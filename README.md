@@ -55,9 +55,22 @@ See the [Initial Setup](#initial-setup) section for detailed instructions.
 - Download from: https://code.visualstudio.com/download
 - Install and verify it works
 
-**Git (Windows users)**
-- Download from: https://gitforwindows.org/
-- Install Git for Windows (includes Git Bash)
+**Git**
+- **Windows users**: Download from https://gitforwindows.org/ (includes Git Bash)
+- **Mac users**: Install Xcode Command Line Tools: `xcode-select --install`
+
+<details>
+<summary><strong>🍎 Mac Users - Xcode Command Line Tools</strong></summary>
+
+If you don't have Git installed on Mac, run this command in Terminal:
+
+```bash
+xcode-select --install
+```
+
+This will install Git and other essential development tools. You may be prompted to install additional software - click "Install" when prompted.
+
+</details>
 
 ### 2. Clone the Repository
 
