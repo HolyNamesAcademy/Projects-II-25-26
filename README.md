@@ -2,6 +2,7 @@
 
 ## Team Members
 
+- Jenny
 - Laurie
 
 A modern full-stack web application template featuring Spring Boot backend and Next.js frontend with Docker-based development environment.
