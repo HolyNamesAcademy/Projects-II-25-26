@@ -220,16 +220,16 @@ If any of these commands fail, go back to the relevant setup step above.
    - Open http://localhost:3000/api-demo - you should see API integration working
    - Open http://localhost:8080/api/health - you should see `{"status":"UP"}`
 
-   ## 🌐 Development URLs
+## 🌐 Development URLs
 
-   | Service | URL | Description |
-   |---------|-----|-------------|
-   | **Frontend** | http://localhost:3000 | Main application interface |
-   | **API Demo** | http://localhost:3000/api-demo | API integration demonstration |
-   | **Backend API** | http://localhost:8080/api | REST API endpoints |
-   | **Mailpit UI** | http://localhost:8025 | Email testing interface (SMTP: 1025) |
-   | **PostgreSQL** | localhost:5432 | Database (user: `app`, pass: `app`, db: `app`) |
-   | **Redis** | localhost:6379 | Cache and session storage |
+| Service | URL | Description |
+|---------|-----|-------------|
+| **Frontend** | http://localhost:3000 | Main application interface |
+| **API Demo** | http://localhost:3000/api-demo | API integration demonstration |
+| **Backend API** | http://localhost:8080/api | REST API endpoints |
+| **Mailpit UI** | http://localhost:8025 | Email testing interface (SMTP: 1025) |
+| **PostgreSQL** | localhost:5432 | Database (user: `app`, pass: `app`, db: `app`) |
+| **Redis** | localhost:6379 | Cache and session storage |
 
 ## Development Commands
 
