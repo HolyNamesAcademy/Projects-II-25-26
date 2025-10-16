@@ -25,30 +25,147 @@ A modern full-stack web application template featuring Spring Boot backend and N
 
 ## Prerequisites
 
-- Docker Desktop (macOS/Windows) or Docker Engine (Linux)
-- Node.js 22.20.0 (see `.nvmrc` file)
-- Terminal access for running commands
-- (Windows users) Git Bash or WSL recommended for best experience
+- **Docker Desktop** (macOS/Windows) or **Docker Engine** (Linux)
+- **Node.js 22.20.0** (see `.nvmrc` file for exact version)
+- **Terminal access** for running commands
+- **(Windows users)** Git Bash or WSL recommended for best experience
 
 **Note**: No Java or Gradle installation needed - backend runs in Docker containers.
 
-**Windows users:**  
-To ensure all files use Linux (LF) line endings (required for Docker and shell scripts), run this command in Git Bash before starting:
+<details>
+<summary><strong>🏫 School Network Users - Important Note</strong></summary>
+
+If you're on a school network with security restrictions, you may need to:
+- Use a specific NVM mirror for Node.js installation
+- Temporarily disable SSL verification for npm installs
+
+See the [Initial Setup](#initial-setup) section for detailed instructions.
+
+</details>
+
+## Initial Setup
+
+### 1. Install Required Software
+
+**Docker Desktop**
+- Download from: https://www.docker.com/products/docker-desktop/
+- Install and start Docker Desktop (takes a moment to boot)
+
+**Visual Studio Code**
+- Download from: https://code.visualstudio.com/download
+- Install and verify it works
+
+**Git (Windows users)**
+- Download from: https://gitforwindows.org/
+- Install Git for Windows (includes Git Bash)
+
+### 2. Clone the Repository
+
+1. Open the repository: https://github.com/HolyNamesAcademy/Projects-II-25-26/
+2. Click the green "Code" button and copy the repository URL
+3. Open VSCode and click "Clone Repository"
+4. Paste the repository URL and clone
+5. Open the project in VSCode
+
+### 3. Fix Line Endings (Windows Users Only)
+
+<details>
+<summary><strong>🪟 Windows Users - Line Endings Fix</strong></summary>
+
+To ensure all files use Linux (LF) line endings (required for Docker and shell scripts), run this command in Git Bash:
 
 ```bash
 find . -type f -not -path '*/\.git/*' -exec dos2unix {} +; git checkout .
 ```
 
+This converts Windows (CRLF) line endings to Unix (LF) format, which is required for proper Docker container execution.
+
+</details>
+
+### 4. Install Node Version Manager (NVM)
+
+**Install NVM:**
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+```
+
+**Configure NVM:**
+- **Windows (Git Bash):** `nano ~/.bash_profile`
+- **Mac:** `nano ~/.zshrc`
+
+Add this content:
+```bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+```
+
+Save with: `Ctrl+X`, then `Y`, then `Enter`
+
+**Open a new terminal** (Git Bash on Windows)
+
+### 5. Install Node.js
+
+<details>
+<summary><strong>🏫 School Network (with security restrictions)</strong></summary>
+
+```bash
+NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist nvm install
+```
+
+</details>
+
+<details>
+<summary><strong>🏠 Home Network</strong></summary>
+
+```bash
+nvm install
+```
+
+</details>
+
+### 6. Install Project Dependencies
+
+<details>
+<summary><strong>🏫 School Network (with security restrictions)</strong></summary>
+
+```bash
+cd frontend
+# Disable SSL verification temporarily for school network
+npm config set strict-ssl false
+npm install
+# Re-enable SSL verification for security
+npm config set strict-ssl true
+```
+
+</details>
+
+<details>
+<summary><strong>🏠 Home Network</strong></summary>
+
+```bash
+cd frontend
+npm install
+```
+
+</details>
+
 ## Quick Start
+
+> **First time?** Make sure you've completed the [Initial Setup](#initial-setup) steps above.
 
 1. **Start the development environment:**
    ```bash
    ./sail up
    ```
 
-2. **Run both frontend and backend:**
+2. **Run the backend:**
    ```bash
-   ./sail both
+   ./sail backend
+   ```
+
+3. **Run the frontend (in a new terminal):**
+   ```bash
+   ./sail frontend
    ```
 
 **Development URLs:**
@@ -64,8 +181,6 @@ find . -type f -not -path '*/\.git/*' -exec dos2unix {} +; git checkout .
 ### Full-Stack Development
 ```text
 ./sail up        Start dev environment (services only)
-./sail both      Run both frontend and backend together
-./sail dev       Run both frontend and backend together (alias)
 ./sail down      Stop everything
 ./sail restart   Restart all containers
 ```
@@ -77,7 +192,7 @@ find . -type f -not -path '*/\.git/*' -exec dos2unix {} +; git checkout .
 ./sail debug     Run the backend with debug port 5005 enabled
 ./sail test      Run backend tests in the container
 ./sail clean     Clean build artifacts in the container
-./sail backend:lint Run backend checkstyle linting
+./sail backend:lint Run backend checkstyle and SpotBugs linting
 ```
 
 ### Frontend Commands
@@ -111,7 +226,8 @@ find . -type f -not -path '*/\.git/*' -exec dos2unix {} +; git checkout .
 │   ├── src/main/resources/    # Application configuration
 │   │   ├── application.properties
 │   │   └── application-dev.yml # Docker dev profile
-│   └── build.gradle           # Gradle build configuration
+│   ├── build.gradle           # Gradle build configuration
+│   └── config/checkstyle/     # Code quality configuration
 ├── frontend/                  # Next.js frontend
 │   ├── src/app/              # App router pages
 │   │   ├── api-demo/         # API integration demo page
@@ -119,10 +235,15 @@ find . -type f -not -path '*/\.git/*' -exec dos2unix {} +; git checkout .
 │   ├── src/lib/              # API utilities
 │   │   └── api.ts            # Centralized API client
 │   ├── package.json          # Frontend dependencies
-│   └── next.config.ts        # Next.js configuration
+│   ├── next.config.ts        # Next.js configuration
+│   └── tsconfig.json         # TypeScript configuration
 ├── .github/workflows/         # GitHub Actions CI/CD workflows
+│   ├── ci.yml                # Main CI pipeline
+│   ├── backend-*.yml         # Backend-specific workflows
+│   └── frontend-*.yml        # Frontend-specific workflows
 ├── docker-compose.yml         # Docker services configuration
 ├── Dockerfile.dev             # App container image
+├── .nvmrc                     # Node.js version specification
 ├── sail                       # Command helper script
 └── README.md                  # This file
 ```
@@ -157,6 +278,15 @@ const data = await api.hello();
 - **Caching**: Redis available for caching
 - **Email**: Mailpit for email testing
 
+### Development Workflow
+
+1. **Start services**: `./sail up` (starts Docker containers)
+2. **Run backend**: `./sail backend` (in one terminal)
+3. **Run frontend**: `./sail frontend` (in another terminal)
+4. **Make changes**: Edit code in your IDE
+5. **See changes**: Frontend updates automatically, backend restarts automatically
+6. **Test API**: Visit `http://localhost:3000/api-demo` to test integration
+
 ## CI/CD Pipeline
 
 The `.github/workflows/` folder contains GitHub Actions workflows that automatically run on every push and pull request, handling linting, building, and testing for both frontend and backend.
@@ -169,30 +299,69 @@ This template is ready for deployment to any cloud provider that supports Spring
 
 ### Common Issues
 
-1. **CORS Errors**
-   - Ensure backend is running on port 8080
-   - Check CORS configuration in `backend/src/main/java/com/hna/webserver/config/CorsConfig.java`
-   - Verify frontend is running on localhost:3000
+<details>
+<summary><strong>🌐 CORS Errors</strong></summary>
 
-2. **API Connection Failed**
-   - Verify backend is running: `./sail ps`
-   - Check backend logs: `./sail logs`
-   - Ensure services are up: `./sail up`
+- Ensure backend is running on port 8080
+- Check CORS configuration in `backend/src/main/java/com/hna/webserver/config/CorsConfig.java`
+- Verify frontend is running on localhost:3000
 
-3. **Frontend Not Loading**
-   - Ensure Node.js version matches `.nvmrc` (22.20.0)
-   - Install dependencies: `cd frontend && npm install`
-   - Check if port 3000 is available
+</details>
 
-4. **Database Connection Issues**
-   - Ensure PostgreSQL is running: `./sail ps`
-   - Check database logs: `./sail logs db`
-   - Verify connection settings in `application-dev.yml`
+<details>
+<summary><strong>🔌 API Connection Failed</strong></summary>
 
-5. **Docker Issues**
-   - Check Docker daemon is running: `./sail status`
-   - Restart Docker Desktop if needed
-   - Clean up containers: `./sail down && docker system prune`
+- Verify backend is running: `./sail ps`
+- Check backend logs: `./sail logs`
+- Ensure services are up: `./sail up`
+
+</details>
+
+<details>
+<summary><strong>⚛️ Frontend Not Loading</strong></summary>
+
+- Ensure Node.js version matches `.nvmrc` (22.20.0)
+- Install dependencies: `cd frontend && npm install`
+- Check if port 3000 is available
+
+</details>
+
+<details>
+<summary><strong>🗄️ Database Connection Issues</strong></summary>
+
+- Ensure PostgreSQL is running: `./sail ps`
+- Check database logs: `./sail logs db`
+- Verify connection settings in `application-dev.yml`
+
+</details>
+
+<details>
+<summary><strong>🐳 Docker Issues</strong></summary>
+
+- Check Docker daemon is running: `./sail status`
+- Restart Docker Desktop if needed
+- Clean up containers: `./sail down && docker system prune`
+- Rebuild containers: `./sail build`
+
+</details>
+
+<details>
+<summary><strong>🔌 Port Conflicts</strong></summary>
+
+- Ensure ports 3000, 8080, 5432, 6379, and 8025 are available
+- Check what's using a port: `lsof -i :PORT_NUMBER` (macOS/Linux)
+- Kill process using port: `kill -9 PID` (replace PID with actual process ID)
+
+</details>
+
+<details>
+<summary><strong>🪟 Windows Terminal Issues</strong></summary>
+
+- Always use Git Bash instead of PowerShell for running `./sail` commands
+- In VSCode, click the arrow next to the `+` button in terminal and select "Git Bash"
+- If commands don't work, ensure you're in the project root directory
+
+</details>
 
 ### Debug Commands
 ```bash
