@@ -11,6 +11,20 @@ A modern full-stack web application template featuring Spring Boot backend and N
 
 **Zero-install development setup** - Get started instantly with Docker containers for all services and dependencies. No need to install Java, Gradle, or databases locally.
 
+## Table of Contents
+
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Initial Setup](#initial-setup)
+- [Quick Start](#quick-start)
+- [Development Commands](#development-commands)
+- [Project Structure](#project-structure)
+- [API Integration](#api-integration)
+- [Development Notes](#development-notes)
+- [CI/CD Pipeline](#cicd-pipeline)
+- [Deployment](#deployment)
+- [Troubleshooting](#troubleshooting)
+
 ## Features
 
 - **Full-Stack Integration** - Spring Boot 3.5.6 backend with Next.js 15.5.4 frontend
@@ -162,6 +176,26 @@ Save with: `Ctrl+X`, then `Y`, then `Enter`
 
   </details>
 
+### 7. Verify Your Setup
+
+After completing all setup steps, verify everything is working:
+
+```bash
+# Check if Docker is running
+docker --version
+
+# Check if Node.js is installed
+node --version  # Should show v22.20.0
+
+# Check if Git is working
+git --version
+
+# Test the sail script
+./sail --version
+```
+
+If any of these commands fail, go back to the relevant setup step above.
+
 ## Quick Start
 
 > **First time?** Make sure you've completed the [Initial Setup](#initial-setup) steps above.
@@ -181,13 +215,21 @@ Save with: `Ctrl+X`, then `Y`, then `Enter`
    ./sail frontend
    ```
 
-**Development URLs:**
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8080/api
-- **API Demo**: http://localhost:3000/api-demo
-- **Mailpit UI**: http://localhost:8025 (SMTP on `1025`)
-- **Postgres**: `localhost:5432` (db/user/pass: `app` / `app` / `app`)
-- **Redis**: `localhost:6379`
+4. **Verify everything is working:**
+   - Open http://localhost:3000 - you should see the frontend
+   - Open http://localhost:3000/api-demo - you should see API integration working
+   - Open http://localhost:8080/api/health - you should see `{"status":"UP"}`
+
+   ## 🌐 Development URLs
+
+   | Service | URL | Description |
+   |---------|-----|-------------|
+   | **Frontend** | http://localhost:3000 | Main application interface |
+   | **API Demo** | http://localhost:3000/api-demo | API integration demonstration |
+   | **Backend API** | http://localhost:8080/api | REST API endpoints |
+   | **Mailpit UI** | http://localhost:8025 | Email testing interface (SMTP: 1025) |
+   | **PostgreSQL** | localhost:5432 | Database (user: `app`, pass: `app`, db: `app`) |
+   | **Redis** | localhost:6379 | Cache and session storage |
 
 ## Development Commands
 
@@ -226,6 +268,38 @@ Save with: `Ctrl+X`, then `Y`, then `Enter`
 ./sail status    Check Docker daemon and container status
 ./sail psql      Open psql in the Postgres container
 ./sail redis-cli Open redis-cli in the Redis container
+```
+
+## 🚀 Common Workflows
+
+### Daily Development
+```bash
+# Start your day
+./sail up              # Start all services
+./sail backend         # Run backend (Terminal 1)
+./sail frontend        # Run frontend (Terminal 2)
+```
+
+### Making Changes
+```bash
+# Backend changes - automatic restart via DevTools
+# Frontend changes - automatic hot reload
+
+# Test your changes
+./sail test            # Run backend tests
+./sail frontend:lint   # Check frontend code quality
+```
+
+### Debugging Issues
+```bash
+./sail ps              # Check what's running
+./sail logs            # View all logs
+./sail status          # Check Docker status
+```
+
+### Stopping Everything
+```bash
+./sail down            # Stop all containers
 ```
 
 ## Project Structure
@@ -393,4 +467,29 @@ This template is ready for deployment to any cloud provider that supports Spring
 # Test API endpoints directly
 curl http://localhost:8080/api/health
 curl http://localhost:8080/api/hello
+```
+
+### Getting Help
+
+If you're still having issues:
+
+1. **Check the logs**: `./sail logs` - look for error messages
+2. **Restart everything**: `./sail restart`
+3. **Verify your setup**: Make sure you completed all [Initial Setup](#initial-setup) steps
+4. **Check your environment**: Ensure Docker is running and ports are available
+5. **Ask for help**: Contact your instructor or team members
+
+### Quick Health Check
+
+Run this command to verify everything is working:
+
+```bash
+# Check all services
+./sail ps
+
+# Test API connectivity
+curl http://localhost:8080/api/health
+
+# Check frontend
+open http://localhost:3000
 ```
