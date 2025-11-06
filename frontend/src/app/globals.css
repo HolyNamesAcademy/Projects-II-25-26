@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --hna-color: #861f41;
+  --hna-color-dark: #652239;
+  --light-gray: #e8e8e8;
 }
 
 @theme inline {
@@ -10,6 +13,42 @@
   --color-foreground: var(--foreground);
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Platinum/Light Gray */
+  --platinum: #e8e8e8;
+  --platinum-900: #2e2e2e;
+  --platinum-800: #5d5d5d;
+  --platinum-700: #8b8b8b;
+  --platinum-600: #bababa;
+  --platinum-500: #e8e8e8;
+  --platinum-400: #ededed;
+  --platinum-300: #f1f1f1;
+  --platinum-200: #f6f6f6;
+  --platinum-100: #fafafa;
+  
+  /* HNA Red/Claret */
+  --claret: #861f41;
+  --claret-900: #1a060d;
+  --claret-800: #350c1a;
+  --claret-700: #4f1327;
+  --claret-600: #6a1934;
+  --claret-500: #861f41;
+  --claret-400: #bc2c5c;
+  --claret-300: #d75681;
+  --claret-200: #e58fab;
+  --claret-100: #f2c7d5;
+
+  /* Dark Gray/Davy's gray */
+  --davys-gray: #585b56
+  --davys-gray-900: #121211;
+  --davys-gray-800: #232523;
+  --davys-gray-700: #353734;
+  --davys-gray-600: #474a45;
+  --davys-gray-500: #585b56;
+  --davys-gray-400: #7a7e77;
+  --davys-gray-300: #9b9f99;
+  --davys-gray-200: #bcbfbb;
+  --davys-gray-100: #dedfdd;
 }
 
 @media (prefers-color-scheme: dark) {
