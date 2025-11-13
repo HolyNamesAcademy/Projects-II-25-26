@@ -1,0 +1,257 @@
+import Image from "next/image";
+import PrimaryButton from "@/components/primaryButton";
+
+{/*
+export default function ViewItem() {
+  return (
+    <div>
+      <main className="flex flex-col gap-[32px] row-start-3 items-center sm:items-start">
+        <h1 className="text-5xl">
+          White Knit Sweater
+        </h1>
+
+        <Image
+            src="/images/whiteknitsweater-demo.png"
+            alt="white knit sweater picture"
+            width={200}
+            height={200}
+        />
+
+        <ItemInfo />
+
+      </main>
+
+    </div>
+  );
+}
+*/}
+
+{/*next todo: create variables for name, size, price*/}
+{/*function ItemInfo (){
+  const contact = "Julia Zhang '26";
+  const size = "S";
+  const cost = 15;
+
+  return (
+    <div className = "flex flex-col items-center gap-1"> 
+        <p>Contact: Julia Zhang '26</p>
+        <p>Size: S</p>
+        <p>${cost}</p>
+    </div>
+    );
+}
+*/}
+
+
+{/*
+function ItemInfo ({contact, size, cost}: {contact: string, size: string, cost: string}){
+  return (
+    <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
+      <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
+        <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
+          <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
+            <img className="w-full dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg" alt="" />
+            <img className="w-full hidden dark:block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg" alt="" />
+          </div>
+
+        <div className="mt-6 sm:mt-8 lg:mt-0">
+          <h1
+            className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white"
+          >
+            White Knit Sweater
+          </h1>
+
+          <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
+            <p
+              className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white"
+            >
+              ${cost}
+            </p>
+
+          
+            </div>
+          </div>
+
+          <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
+            <a
+              href="#"
+              title=""
+              className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              role="button"
+            >
+              <svg
+                className="w-5 h-5 -ms-2 me-2"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
+                />
+              </svg>
+              Add to favorites
+            </a>
+
+            <a
+              href="#"
+              title=""
+              className="text-white mt-4 sm:mt-0 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
+              role="button"
+            >
+              <svg
+                className="w-5 h-5 -ms-2 me-2"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
+                />
+              </svg>
+
+              Add to cart
+            </a>
+          </div>
+
+          <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
+
+          <p className="mb-6 text-gray-500 dark:text-gray-400">
+            Studio quality three mic array for crystal clear calls and voice
+            recordings. Six-speaker sound system for a remarkably robust and
+            high-quality audio experience. Up to 256GB of ultrafast SSD storage.
+          </p>
+
+          <p className="text-gray-500 dark:text-gray-400">
+            Two Thunderbolt USB 4 ports and up to two USB 3 ports. Ultrafast
+            Wi-Fi 6 and Bluetooth 5.0 wireless. Color matched Magic Mouse with
+            Magic Keyboard or Magic Keyboard with Touch ID.
+        </p>
+      </div>
+    </div>
+  );
+}
+*/}
+
+function ItemInfo({ contact, size, cost }: {contact: string, size: string, cost: string}) {
+  return (
+  <section className="min-h-screen flex flex-col justify-between mx-4 py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
+      <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
+        <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
+          <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
+
+            <img
+              className="w-full dark:hidden rounded-lg object-cover"
+              src="/images/whiteknitsweater-demo.png"
+              alt="white knit sweater picture"
+              width={200}
+              height={200}
+            />
+          </div>
+
+          <div className="mt-6 sm:mt-8 lg:mt-0">
+            <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
+              White Knit Sweater
+            </h1>
+
+            <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
+              <a
+                href="#"
+                title="Add to favorites"
+                className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                role="button"
+              >
+
+                {/*TODO: change url to be specific to the item */}
+                <svg
+                  className="w-5 h-5 -ms-2 me-2"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
+                  />
+                </svg>
+                Add to favorites
+              </a>
+
+              {/*buy button
+              <a
+                href="#"
+                title="Buy"
+                className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                role="button"
+              >
+                <svg 
+                  className="w-5 h-5 -ms-2 me-2"
+                  xmlns="http://www.w3.org/2000/svg" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  width = "24"
+                  height = "24"
+                >
+                  <path 
+                    stroke="currentColor" 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width = "2"
+                    d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                Buy
+              </a>
+              */}
+            </div>
+
+            <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
+
+            <p className="text-gray-500 dark:text-gray-400">
+              John + Jenn <br />
+              100% cotton <br />
+              Like-new quality <br />
+            </p>
+
+            {/* Display contact, size, and cost*/}
+            <div className="mt-4 text-gray-500 dark:text-gray-300">
+              <p>Contact: {contact}</p>
+              <p>Size: {size}</p>
+              <p>${cost}</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <PrimaryButton 
+              text="🪙 Buy" 
+              href="/viewitem" 
+            />
+
+    </section>
+  );
+}
+
+export default ItemInfo;
+
+
+        
