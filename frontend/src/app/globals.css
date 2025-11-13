@@ -5,7 +5,7 @@
   --foreground: #171717;
   --hna-color: #861f41;
   --hna-color-dark: #652239;
-  --light-gray: #e8e8e8;
+  /*--light-gray: #e8e8e8;*/
 }
 
 @theme inline {
@@ -39,7 +39,7 @@
   --claret-100: #f2c7d5;
 
   /* Dark Gray/Davy's gray */
-  --davys-gray: #585b56
+  --davys-gray: #585b56;
   --davys-gray-900: #121211;
   --davys-gray-800: #232523;
   --davys-gray-700: #353734;
