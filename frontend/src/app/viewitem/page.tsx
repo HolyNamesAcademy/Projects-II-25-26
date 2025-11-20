@@ -175,7 +175,6 @@ function ItemInfo({ contact, size, cost }: {contact: string, size: string, cost:
                 role="button"
               >
 
-                {/*TODO: change url to be specific to the item */}
                 <svg
                   className="w-5 h-5 -ms-2 me-2"
                   aria-hidden="true"
@@ -225,14 +224,16 @@ function ItemInfo({ contact, size, cost }: {contact: string, size: string, cost:
 
             <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
 
-            <p className="text-gray-500 dark:text-gray-400">
+            {/* underlined header */}
+            <h1><u>Description:</u></h1>
+            <p >
               John + Jenn <br />
               100% cotton <br />
               Like-new quality <br />
             </p>
 
             {/* Display contact, size, and cost*/}
-            <div className="mt-4 text-gray-500 dark:text-gray-300">
+            <div className="mt-4">
               <p>Contact: {contact}</p>
               <p>Size: {size}</p>
               <p>${cost}</p>
