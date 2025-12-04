@@ -29,10 +29,10 @@ export default function Home() {
                 <img className="rounded-full w-36 h-36 object-cover" src="/images/Shoes.png" alt="Shoes" />
               </a>
             </div>
-            <div className="flex items-center justify-center">
-              <PrimaryButton text="Shop All Items" href="#" />
-            </div>
           </div>
+          <div className="flex items-center justify-center">
+            <PrimaryButton text="Shop All Items" href="#" />
+        </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
       </footer>
