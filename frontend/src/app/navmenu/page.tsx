@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function NavMenu_SideBar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -49,9 +51,9 @@ export default function NavMenu_SideBar() {
         <div className="h-full px-3 py-4 overflow-y-auto bg-neutral-primary-soft border-e border-default">
           
           {/*href takes user to homepage*/}
-          <a href="/" className="flex items-center ps-2.5 mb-5">
+          <Link href="/" className="flex items-center ps-2.5 mb-5">
             {/* h-# corresponds to image size, specifically height */}
-            <img
+            <Image
               src="https://sportshub2-uploads.vnn-prod.zone/files/sites/2879/2020/12/03002822/HolyNames_Logo.png"
               className="h-8 me-3"
               alt="HNA Cougars Logo"
@@ -59,7 +61,7 @@ export default function NavMenu_SideBar() {
             <span className="self-center text-lg text-heading font-semibold whitespace-nowrap">
               HNA Swapeeee
             </span>
-          </a>
+          </Link>
           <ul className="space-y-2 font-medium">
             <li>
               <a
