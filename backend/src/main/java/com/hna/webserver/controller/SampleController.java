@@ -29,13 +29,13 @@ public class SampleController {
         user1.put("id", 1);
         user1.put("name", "John Doe");
         user1.put("email", "john.doe@example.com");
-        user1.put("role", "admin");
+        user1.put("password", "password123");
 
         Map<String, Object> user2 = new HashMap<>();
         user2.put("id", 2);
         user2.put("name", "Jane Smith");
         user2.put("email", "jane.smith@example.com");
-        user2.put("role", "user");
+        user2.put("password", "securepass");
 
         response.put("users", new Object[]{user1, user2});
         response.put("total", 2);
