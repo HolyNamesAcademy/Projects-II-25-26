@@ -52,10 +52,11 @@ export default function NavMenu_SideBar() {
           
           {/*href takes user to homepage*/}
           <Link href="/" className="flex items-center ps-2.5 mb-5">
-            {/* h-# corresponds to image size, specifically height */}
             <Image
-              src="https://sportshub2-uploads.vnn-prod.zone/files/sites/2879/2020/12/03002822/HolyNames_Logo.png"
-              className="h-8 me-3"
+              src="/images/HNALogo.png"
+              className="pr-3 pt-1"
+              width= {50}
+              height= {50}
               alt="HNA Cougars Logo"
             />
             <span className="self-center text-lg text-heading font-semibold whitespace-nowrap">
