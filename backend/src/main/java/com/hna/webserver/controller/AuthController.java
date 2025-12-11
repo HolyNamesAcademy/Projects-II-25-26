@@ -54,7 +54,7 @@ public class AuthController {
             User user = userService.createUser(
                     registerRequest.getName(),
                     registerRequest.getPassword(),
-                    registerRequest.getEmail(),
+                    registerRequest.getEmail()
             );
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -118,11 +118,7 @@ public class AuthController {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Set<String> roles = user.getRoles().stream()
-                .map(Enum::name)
-                .collect(Collectors.toSet());
-
-        AuthResponse response = new AuthResponse(null, user.getName(), user.getEmail(), roles);
+        AuthResponse response = new AuthResponse(null, user.getName(), user.getEmail());
         return ResponseEntity.ok(response);
     }
 }
