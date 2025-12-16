@@ -1,11 +1,19 @@
 "use client";
+import {useState} from "react";
 import PrimaryButton from "@/components/primaryButton";
 import TextInput from "@/components/textInput";
-const login = () => {
-  //login logic here
-  console.log("Logging in..." );
-};
+
 export default function Login() {
+  const [email,setEmail] = useState("");
+  const[password, setPassword] = useState("");
+  const[rememberMe, setRememberMe] = useState(false);
+  const login = () => {
+    //login logic here
+    console.log("Logging in..." );
+    console.log("Email:", email);
+    console.log("Password:", password);
+    console.log("Remember Me:", rememberMe);
+  };
   return (
     <div>
       <main className="flex flex-col gap-[32px] row-start-2 items-center">
@@ -15,8 +23,8 @@ export default function Login() {
 
         <form>
     <div className="grid gap-6 mb-6 md:grid-cols-2">
-        <TextInput label="Your email" type="email" placeholder="name@holynames-sea.org" required />
-        <TextInput label="Password" type="password" placeholder="•••••••••" required />
+        <TextInput label="Your email" type="email" placeholder="name@holynames-sea.org" required value={email} onChange = {(e) => setEmail(e.target.value)}/>
+        <TextInput label="Password" type="password" placeholder="•••••••••" required value={password} onChange = {(e) => setPassword(e.target.value)}/>
         
     </div> 
     {/* <div className="flex items-start mb-6">
@@ -27,7 +35,7 @@ export default function Login() {
     </div> */}
     <div className="flex items-start mb-6">
     <div className="flex items-center h-5">
-      <input id="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+      <input id="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" checked={rememberMe} onChange ={(e) => setRememberMe(e.target.checked)}/>
       </div>
       <label htmlFor="remember" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
     </div>
