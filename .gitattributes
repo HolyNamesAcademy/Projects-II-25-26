@@ -2,18 +2,19 @@
 * text=auto eol=lf
 
 # Binary files (should not be affected by line ending conversion)
-*.png binary
-*.jpg binary
-*.jpeg binary
-*.gif binary
-*.ico binary
-*.svg binary
-*.woff binary
-*.woff2 binary
-*.ttf binary
-*.eot binary
-*.jar binary
-*.class binary
+# Explicitly mark as -text to prevent any text processing
+*.png -text binary
+*.jpg -text binary
+*.jpeg -text binary
+*.gif -text binary
+*.ico -text binary
+*.svg -text binary
+*.woff -text binary
+*.woff2 -text binary
+*.ttf -text binary
+*.eot -text binary
+*.jar -text binary
+*.class -text binary
 
 # Ensure shell scripts use Unix line endings
 *.sh text eol=lf
