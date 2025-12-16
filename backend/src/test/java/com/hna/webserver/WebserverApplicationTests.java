@@ -10,6 +10,7 @@ class WebserverApplicationTests {
 
     @Test
     void contextLoads() {
+        // This test verifies that the Spring application context loads successfully
+        // without any configuration errors
     }
-
 }

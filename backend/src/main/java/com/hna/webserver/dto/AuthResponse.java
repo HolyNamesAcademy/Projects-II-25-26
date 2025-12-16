@@ -1,8 +1,5 @@
 package com.hna.webserver.dto;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class AuthResponse {
 
     private String token;
