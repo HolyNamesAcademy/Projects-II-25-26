@@ -31,8 +31,8 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <PrimaryButton type = "link" text="Shop All Items" href="#" />
-        </div>
+            <PrimaryButton type = "link" text="Shop All Items" href="/list" />
+          </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
       </footer>
