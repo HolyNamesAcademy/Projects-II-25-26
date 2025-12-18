@@ -21,6 +21,11 @@ spring:
         enabled: false
   cache:
     type: none
+  security:
+    user:
+      name: test
+      password: test
+      roles: USER
 
 # Explicitly disable Redis and other services for tests
 management:
@@ -29,7 +34,7 @@ management:
 
 # JWT configuration for tests
 jwt:
-  secret: test-secret-key-for-testing-purposes-at-least-256-bits-long
+  secret: test-secret-key-for-testing-purposes-at-least-256-bits-long-enough-for-hmac-sha256
   expiration: 86400000
 
 logging:
@@ -38,3 +43,4 @@ logging:
     org.springframework.mail: WARN
     org.springframework.security: WARN
     com.hna.webserver: DEBUG
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: WARN
