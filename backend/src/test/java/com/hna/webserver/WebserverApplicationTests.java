@@ -12,7 +12,7 @@ import org.springframework.test.context.TestPropertySource;
     "spring.jpa.hibernate.ddl-auto=create-drop",
     "spring.security.user.name=test",
     "spring.security.user.password=test",
-    "jwt.secret=test-secret-key-for-testing-purposes-at-least-256-bits-long-enough",
+    "jwt.secret=test-secret-key-for-testing-purposes-at-least-256-bits-long-enough-for-hmac-sha256",
     "jwt.expiration=86400000"
 })
 class WebserverApplicationTests {
