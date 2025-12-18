@@ -1,9 +1,11 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
     password:
+    hikari:
+      auto-commit: true
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -13,10 +15,17 @@ spring:
         format_sql: false
         dialect: org.hibernate.dialect.H2Dialect
     open-in-view: false
+  data:
+    redis:
+      repositories:
+        enabled: false
+  cache:
+    type: none
 
-# Disable Redis for tests
-spring.data.redis.repositories.enabled: false
-spring.cache.type: none
+# Explicitly disable Redis and other services for tests
+management:
+  endpoints:
+    enabled-by-default: false
 
 # JWT configuration for tests
 jwt:
