@@ -28,9 +28,9 @@ export default function Home() {
         </ol>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <PrimaryButton text="🚀 API Demo" href="/demo/api-demo" />
+          <PrimaryButton type ="link" text="🚀 API Demo" href="/demo/api-demo" />
 
-          <SecondaryButton text="Read our docs" href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app" />
+          <SecondaryButton type ="link" text="Read our docs" href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app" />
         </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
