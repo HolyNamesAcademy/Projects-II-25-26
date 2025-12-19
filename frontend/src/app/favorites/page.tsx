@@ -9,15 +9,15 @@ const items = [
   { name: "Item 5", type: "Shoes", size: "Medium", image: "placeholder", price: 18, favorite: true }
 ]
 
-export default function List() {
+export default function FavoriteList() {
   return (
     <div>
       <main className="flex flex-col gap-[32px] row-start-2 items-center">
         <h1 className="text-5xl align-middle text-center">
-          All Items
+          Favorites
         </h1>
 
-        <ItemList items={items} />
+        <ItemList items={items.filter(item => item.favorite)} />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
       </footer>
