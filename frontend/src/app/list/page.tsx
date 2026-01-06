@@ -1,5 +1,14 @@
 import PrimaryButton from "@/components/primaryButton";
-import ItemList from "@/components/itemList";
+import ItemListToggle from "@/components/itemListToggle";
+
+interface Item {
+  name: string;
+  type: string;
+  size: string;
+  image: string;
+  price: number;
+  favorite: boolean;
+}
 
 const items = [
   { name: "Item 1", type: "Tops", size: "Large", image: "placeholder", price: 10, favorite: true },
@@ -9,6 +18,11 @@ const items = [
   { name: "Item 5", type: "Shoes", size: "Medium", image: "placeholder", price: 18, favorite: true }
 ]
 
+const UpdateFavorite = async (item: Item) => {
+  "use server";
+  console.log("Favorite clicked for:", item.name, "New status:", item.favorite);
+}
+
 export default function List() {
   return (
     <div>
@@ -17,7 +31,7 @@ export default function List() {
           All Items
         </h1>
 
-        <ItemList items={items} />
+        <ItemListToggle items={items} UpdateFavorite={UpdateFavorite} />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
       </footer>
