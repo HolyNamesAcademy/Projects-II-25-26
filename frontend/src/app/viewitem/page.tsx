@@ -1,9 +1,12 @@
 import Image from "next/image";
 import PrimaryButton from "@/components/primaryButton";
+import NavMenu from "@/components/navMenu";
 
 function ItemInfo({ contact, size, cost }: {contact: string, size: string, cost: string}) {
   return (
-  <section className="min-h-screen flex flex-col justify-between mx dark:hidden-4 py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
+    <>
+      <NavMenu />
+      <section className="min-h-screen flex flex-col justify-between mx dark:hidden-4 py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
       <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
         <div className="lg:grid dark:hidden lg:grid-cols-2 lg:gap-8 xl:gap-16">
           <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
@@ -108,7 +111,8 @@ function ItemInfo({ contact, size, cost }: {contact: string, size: string, cost:
         </div>
       </div>
 
-    </section>
+      </section>
+    </>
   );
 }
 

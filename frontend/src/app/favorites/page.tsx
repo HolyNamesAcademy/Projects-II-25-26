@@ -1,5 +1,6 @@
 import PrimaryButton from "@/components/primaryButton";
 import ItemList from "@/components/itemList";
+import NavMenu from "@/components/navMenu";
 
 interface Item {
   name: string;
@@ -26,6 +27,7 @@ const UpdateFavorite = async (item: Item) => {
 export default function FavoriteList() {
   return (
     <div>
+      <NavMenu />
       <main className="flex flex-col gap-[32px] row-start-2 items-center">
         <h1 className="text-5xl align-middle text-center">
           Favorites
