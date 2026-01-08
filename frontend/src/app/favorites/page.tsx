@@ -1,5 +1,5 @@
 import PrimaryButton from "@/components/primaryButton";
-import ItemListToggle from "@/components/itemListToggle";
+import ItemList from "@/components/itemList";
 
 interface Item {
   name: string;
@@ -23,15 +23,15 @@ const UpdateFavorite = async (item: Item) => {
   console.log("Favorite clicked for:", item.name, "New status:", item.favorite);
 }
 
-export default function List() {
+export default function FavoriteList() {
   return (
     <div>
       <main className="flex flex-col gap-[32px] row-start-2 items-center">
         <h1 className="text-5xl align-middle text-center">
-          All Items
+          Favorites
         </h1>
 
-        <ItemListToggle items={items} UpdateFavorite={UpdateFavorite} />
+        <ItemList items={items.filter(item => item.favorite)} UpdateFavorite={UpdateFavorite} />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
       </footer>
