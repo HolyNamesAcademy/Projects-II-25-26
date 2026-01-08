@@ -34,6 +34,9 @@ public class User {
     @Email
     private String email;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Item> items = new HashSet<>();
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 

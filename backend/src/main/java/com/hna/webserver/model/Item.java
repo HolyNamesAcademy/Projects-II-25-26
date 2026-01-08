@@ -5,7 +5,7 @@ package com.hna.webserver.model;
     @Index(name = "idx_name", columnList = "name"),
     @Index(name = "idx_price", columnList = "price"),
     @Index(name = "idx_size", columnList = "size"),
-    @Index(name = "idx_type", columnList = "type")
+    @Index(name = "idx_type", columnList = "type"),
     @Index(name = "idx_color", columnList = "color")
 
 })
@@ -40,6 +40,11 @@ public class Item {
 
     @Column(nullable = false)
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
+    private User user;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
