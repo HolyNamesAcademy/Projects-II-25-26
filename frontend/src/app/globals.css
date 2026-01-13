@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --color-hna-color: #861f41;
+  --color-hna-color-dark: #652239;
+  /*--light-gray: #e8e8e8;*/
 }
 
 @theme inline {
@@ -10,6 +13,42 @@
   --color-foreground: var(--foreground);
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Platinum/Light Gray */
+  --color-platinum: #e8e8e8;
+  --color-platinum-900: #2e2e2e;
+  --color-platinum-800: #5d5d5d;
+  --color-platinum-700: #8b8b8b;
+  --color-platinum-600: #bababa;
+  --color-platinum-500: #e8e8e8;
+  --color-platinum-400: #ededed;
+  --color-platinum-300: #f1f1f1;
+  --color-platinum-200: #f6f6f6;
+  --color-platinum-100: #fafafa;
+  
+  /* HNA Red/Claret */
+  --color-claret: #861f41;
+  --color-claret-900: #1a060d;
+  --color-claret-800: #350c1a;
+  --color-claret-700: #4f1327;
+  --color-claret-600: #6a1934;
+  --color-claret-500: #861f41;
+  --color-claret-400: #bc2c5c;
+  --color-claret-300: #d75681;
+  --color-claret-200: #e58fab;
+  --color-claret-100: #f2c7d5;
+
+  /* Dark Gray/Davy's gray */
+  --color-davys-gray: #585b56;
+  --color-davys-gray-900: #121211;
+  --color-davys-gray-800: #232523;
+  --color-davys-gray-700: #353734;
+  --color-davys-gray-600: #474a45;
+  --color-davys-gray-500: #585b56;
+  --color-davys-gray-400: #7a7e77;
+  --color-davys-gray-300: #9b9f99;
+  --color-davys-gray-200: #bcbfbb;
+  --color-davys-gray-100: #dedfdd;
 }
 
 @media (prefers-color-scheme: dark) {

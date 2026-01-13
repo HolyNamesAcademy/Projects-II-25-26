@@ -1,4 +1,4 @@
-export default function PrimaryButton({ text, type, href, onClick }: { text: string, type:"button" |"submit" |"link", href?: string, onClick?: () => void }) {
+export default function SecondaryButton({ text, type, href }: { text: string, type:"button" |"submit" |"link", href?: string }) {
   const classes = "rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-platinum-500 text-black gap-2 hover:bg-platinum-600 font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto";
   if (type === "link") {
   return (
@@ -11,9 +11,8 @@ export default function PrimaryButton({ text, type, href, onClick }: { text: str
   )
 }
 return (
-  <button type={type} className={classes} onClick ={onClick}>
+  <button type={type} className={classes}>
     {text}
   </button>
 )
 }
-
