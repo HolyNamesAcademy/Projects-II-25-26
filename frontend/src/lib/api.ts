@@ -29,6 +29,16 @@ async function apiCall<T>(
   return response.json();
 }
 
+interface RegisterRequest {
+  name: string;
+  email: string;
+  password: string;
+}
+interface AuthResponse {
+  token: string;
+  name: string;
+  email: string;
+}
 // API functions for your Spring Boot endpoints
 export const api = {
   // Health check
@@ -58,6 +68,14 @@ export const api = {
     timestamp: string;
     status: string;
   }>('/users'),
+
+  auth: {
+    //Sign up
+    register: (data: RegisterRequest) => {
+    return apiCall<AuthResponse>('/auth/register',
+    {method: 'POST',body: JSON.stringify(data), });
+    }
+  }
 };
 
 // Error handling utility
