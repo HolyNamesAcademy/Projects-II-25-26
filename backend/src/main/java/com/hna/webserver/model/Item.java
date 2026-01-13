@@ -1,5 +1,10 @@
 package com.hna.webserver.model;
 
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 @Entity
 @Table(name = "items", indexes = {
     @Index(name = "idx_name", columnList = "name"),
@@ -51,9 +56,6 @@ public class Item {
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
-
-    @Column
-    private LocalDateTime lastLoginAt;
 
     @PrePersist
     protected void onCreate() {
@@ -146,5 +148,13 @@ public class Item {
     
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
