@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-    Optional<Item> findByID(Long id);
+    Optional<Item> findById(Long id);
 
-    boolean existsByID(Long id);
+    boolean existsById(Long id);
 }

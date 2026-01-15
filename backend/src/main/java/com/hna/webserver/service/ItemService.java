@@ -44,7 +44,7 @@ public class ItemService {
     }
 
     public Item getItemById(Long id) {
-        return itemRepository.findByID(id).orElseThrow(() -> new RuntimeException("Item not found"));
+        return itemRepository.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
     }
 
     public Item updateItem(Long id, ItemRequest req, User user) {
