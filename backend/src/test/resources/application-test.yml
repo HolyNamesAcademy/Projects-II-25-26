@@ -1,9 +1,11 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
     password:
+    hikari:
+      auto-commit: true
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -15,16 +17,30 @@ spring:
     open-in-view: false
   data:
     redis:
-      host: localhost
-      port: 6379
-      timeout: 2000ms
-      lettuce:
-        pool:
-          max-active: 8
-          max-idle: 8
-          min-idle: 0
+      repositories:
+        enabled: false
+  cache:
+    type: none
+  security:
+    user:
+      name: test
+      password: test
+      roles: USER
+
+# Explicitly disable Redis and other services for tests
+management:
+  endpoints:
+    enabled-by-default: false
+
+# JWT configuration for tests
+jwt:
+  secret: test-secret-key-for-testing-purposes-at-least-256-bits-long-enough-for-hmac-sha256
+  expiration: 86400000
 
 logging:
   level:
     org.springframework.data.redis: WARN
     org.springframework.mail: WARN
+    org.springframework.security: WARN
+    com.hna.webserver: DEBUG
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: WARN

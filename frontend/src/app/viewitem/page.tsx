@@ -101,7 +101,8 @@ function ItemInfo({ contact, size, cost }: {contact: string, size: string, cost:
       <div className="w-full flex justify-center pb-6">
         <div className="max-w-xs w-full">
           <PrimaryButton
-            text="🪙 Buy"
+            type = "link"
+            text= "Buy"
             href="/viewitem"
           />
         </div>

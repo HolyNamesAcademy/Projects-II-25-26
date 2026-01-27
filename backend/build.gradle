@@ -46,3 +46,9 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+spotbugs {
+	excludeFilter = file("config/spotbugs/exclude.xml")
+	effort = "max"
+	reportLevel = "medium"
+}

@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -54,10 +53,10 @@ public class UserService {
     }
 
     /**
-     * Updates user's last login timestamp.
+     * Updates user's last login timestamp by email.
      */
-    public void updateLastLogin(String name) {
-        userRepository.findByName(name).ifPresent(user -> {
+    public void updateLastLogin(String email) {
+        userRepository.findByEmail(email).ifPresent(user -> {
             user.setLastLoginAt(LocalDateTime.now());
             userRepository.save(user);
         });

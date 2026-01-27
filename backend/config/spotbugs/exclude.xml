@@ -14,9 +14,14 @@
            - Applies to: all model classes in com.hna.webserver.model package
     -->
 
-    <!-- Exclude EI_EXPOSE_REP2 for all constructor dependency injection in Spring components -->
+    <!-- Exclude EI_EXPOSE_REP2 and EI2 for all constructor dependency injection in Spring components -->
     <Match>
         <Bug pattern="EI_EXPOSE_REP2"/>
+        <Class name="~com\.hna\.webserver\.(controller|config|security)\..*"/>
+        <Method name="&lt;init&gt;"/>
+    </Match>
+    <Match>
+        <Bug pattern="EI2"/>
         <Class name="~com\.hna\.webserver\.(controller|config|security)\..*"/>
         <Method name="&lt;init&gt;"/>
     </Match>
