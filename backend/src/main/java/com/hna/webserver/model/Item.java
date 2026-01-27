@@ -25,7 +25,7 @@ public class Item {
     private String name;
 
     @Column(nullable = false)
-    @NotBlank
+    @NotNull
     private Integer price;
 
     @Column(nullable = false)
@@ -40,10 +40,10 @@ public class Item {
     @NotBlank
     private String color;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String image;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -145,7 +145,7 @@ public class Item {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
-    
+
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }

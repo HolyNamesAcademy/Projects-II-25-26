@@ -35,6 +35,7 @@ public class ItemController {
     public ResponseEntity<ItemResponse> createItem(@Valid @RequestBody ItemRequest req) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
+        System.out.println("Authenticated user email: " + email);
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
 
         Item created = itemService.createItem(req, user);

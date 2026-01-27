@@ -1,6 +1,7 @@
 package com.hna.webserver.controller;
 
 import com.hna.webserver.dto.AuthResponse;
+import com.hna.webserver.dto.ErrorResponse;
 import com.hna.webserver.dto.LoginRequest;
 import com.hna.webserver.dto.RegisterRequest;
 import com.hna.webserver.model.User;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -45,7 +47,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest registerRequest, HttpServletRequest request) {
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest registerRequest, HttpServletRequest request) {
         log.info("Register attempt for user: {} from origin: {}", registerRequest.getEmail(), request.getHeader("Origin"));
         log.debug("Request headers: User-Agent={}, Content-Type={}",
             request.getHeader("User-Agent"), request.getHeader("Content-Type"));
@@ -71,9 +73,20 @@ public class AuthController {
             log.info("Register successful for user: {}", registerRequest.getEmail());
             AuthResponse response = new AuthResponse(token, user.getName(), user.getEmail());
             return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            log.warn("Register failed for user: {} - {}", registerRequest.getEmail(), e.getMessage());
+            String errorMessage = e.getMessage();
+            if (errorMessage.contains("Email already exists")) {
+                errorMessage = "Email already used";
+            } else if (errorMessage.contains("Name already exists")) {
+                errorMessage = "Name already used";
+            }
+            ErrorResponse errorResponse = new ErrorResponse("REGISTRATION_FAILED", errorMessage);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         } catch (Exception e) {
             log.error("Register failed for user: {} - {}", registerRequest.getEmail(), e.getMessage(), e);
-            throw e;
+            ErrorResponse errorResponse = new ErrorResponse("REGISTRATION_FAILED", "Registration failed: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 
