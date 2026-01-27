@@ -39,6 +39,11 @@ interface AuthResponse {
   name: string;
   email: string;
 }
+interface LoginRequest {
+  email: string;
+  password: string;
+}
+
 // API functions for your Spring Boot endpoints
 export const api = {
   // Health check
@@ -70,10 +75,19 @@ export const api = {
   }>('/users'),
 
   auth: {
-    //Sign up
-    register: (data: RegisterRequest) => {
-    return apiCall<AuthResponse>('/auth/register',
-    {method: 'POST',body: JSON.stringify(data), });
+    register: async (request: RegisterRequest): Promise<AuthResponse> => {
+      const response = await apiCall<AuthResponse>('/auth/register', {
+        method: 'POST',
+        body: JSON.stringify(request),
+      });
+      return response;
+    },
+    login: async(request: LoginRequest): Promise<AuthResponse> => {
+      const response = await apiCall<AuthResponse>('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify(request),
+      });
+      return response;
     }
   }
 };
