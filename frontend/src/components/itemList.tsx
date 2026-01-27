@@ -34,7 +34,7 @@ export default function ItemList({ items, UpdateFavorite }: { items: Item[]; Upd
                 {item.name}
                 <div>{item.size}</div>
                 <div>${item.price}</div>
-                <div onClick={() => handleFavoriteClick(item)} style={{ cursor: 'pointer' }}>{item.favorite ? "❤️" : "♡"}</div>
+                <div onClick={() => handleFavoriteClick(item)} style={{ cursor: 'pointer', fontSize: '24px' }}>{item.favorite ? "❤️" : "♡"}</div>
               </a>
             </div>
           </li>

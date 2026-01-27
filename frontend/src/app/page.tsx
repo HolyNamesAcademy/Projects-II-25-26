@@ -1,11 +1,13 @@
 import Image from "next/image";
 import PrimaryButton from "@/components/primaryButton";
+import NavMenu from "@/components/navMenu";
 
 export default function Home() {
   return (
     <div>
+      <NavMenu />
       <main className="flex flex-col gap-[32px] row-start-2 items-center h-screen align-middle justify-center">
-          <h1 className="text-5xl align-middle">
+          <h1 className="text-5xl align-middle text-center">
             Welcome to HNA Swapeeee!
           </h1>
           <div className="grid grid-cols-2 gap-8">
