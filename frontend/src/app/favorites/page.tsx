@@ -1,5 +1,5 @@
 import PrimaryButton from "@/components/primaryButton";
-import ItemList from "@/components/itemList";
+import ItemListToggle from "@/components/itemListToggle";
 import NavMenu from "@/components/navMenu";
 
 interface Item {
@@ -33,7 +33,7 @@ export default function FavoriteList() {
           Favorites
         </h1>
 
-        <ItemList items={items.filter(item => item.favorite)} UpdateFavorite={UpdateFavorite} />
+        <ItemListToggle items={items.filter(item => item.favorite)} UpdateFavorite={UpdateFavorite} />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
       </footer>
