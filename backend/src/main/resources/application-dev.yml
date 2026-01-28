@@ -13,6 +13,11 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl:
+          auto: update
+        jdbc:
+          lob:
+            non_contextual_creation: true
     open-in-view: false
 
   data:
