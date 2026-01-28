@@ -46,34 +46,6 @@ interface LoginRequest {
 
 // API functions for your Spring Boot endpoints
 export const api = {
-  // Health check
-  health: () => apiCall<{
-    status: string;
-    service: string;
-    version: string;
-    timestamp: string;
-  }>('/health'),
-
-  // Hello endpoint
-  hello: () => apiCall<{
-    message: string;
-    timestamp: string;
-    status: string;
-  }>('/hello'),
-
-  // Users endpoint
-  users: () => apiCall<{
-    users: Array<{
-      id: number;
-      name: string;
-      email: string;
-      role: string;
-    }>;
-    total: number;
-    timestamp: string;
-    status: string;
-  }>('/users'),
-
   auth: {
     register: async (request: RegisterRequest): Promise<AuthResponse> => {
       const response = await apiCall<AuthResponse>('/auth/register', {
@@ -82,6 +54,7 @@ export const api = {
       });
       return response;
     },
+
     login: async(request: LoginRequest): Promise<AuthResponse> => {
       const response = await apiCall<AuthResponse>('/auth/login', {
         method: 'POST',

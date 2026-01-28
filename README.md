@@ -217,7 +217,6 @@ If any of these commands fail, go back to the relevant setup step above.
 
 4. **Verify everything is working:**
    - Open http://localhost:3000 - you should see the frontend
-   - Open http://localhost:3000/api-demo - you should see API integration working
    - Open http://localhost:8080/api/health - you should see `{"status":"UP"}`
 
 ## 🌐 Development URLs
@@ -225,7 +224,6 @@ If any of these commands fail, go back to the relevant setup step above.
 | Service | URL | Description |
 |---------|-----|-------------|
 | **Frontend** | http://localhost:3000 | Main application interface |
-| **API Demo** | http://localhost:3000/api-demo | API integration demonstration |
 | **Backend API** | http://localhost:8080/api | REST API endpoints |
 | **Mailpit UI** | http://localhost:8025 | Email testing interface (SMTP: 1025) |
 | **PostgreSQL** | localhost:5432 | Database (user: `app`, pass: `app`, db: `app`) |
@@ -317,7 +315,6 @@ If any of these commands fail, go back to the relevant setup step above.
 │   └── config/checkstyle/     # Code quality configuration
 ├── frontend/                  # Next.js frontend
 │   ├── src/app/              # App router pages
-│   │   ├── api-demo/         # API integration demo page
 │   │   └── page.tsx          # Home page
 │   ├── src/lib/              # API utilities
 │   │   └── api.ts            # Centralized API client
@@ -336,15 +333,6 @@ If any of these commands fail, go back to the relevant setup step above.
 ```
 
 ## API Integration
-
-### Example Endpoints
-The backend includes sample REST endpoints to get you started:
-- `GET /api/hello` - Hello world
-- `GET /api/health` - Health check
-- `GET /api/users` - Sample data
-
-### API Demo Page
-Visit `http://localhost:3000/api-demo` to see the API integration in action.
 
 ### Using the API
 ```typescript
@@ -372,7 +360,7 @@ const data = await api.hello();
 3. **Run frontend**: `./sail frontend` (in another terminal)
 4. **Make changes**: Edit code in your IDE
 5. **See changes**: Frontend updates automatically, backend restarts automatically
-6. **Test API**: Visit `http://localhost:3000/api-demo` to test integration
+6. **Test API**: Use `curl http://localhost:8080/api/health` or test endpoints directly
 
 ## CI/CD Pipeline
 
