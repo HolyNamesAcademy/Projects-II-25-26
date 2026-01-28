@@ -28,8 +28,8 @@ export default function Login() {
     <div className="grid gap-6 mb-6 md:grid-cols-2">
         <TextInput label="Your email" type="email" placeholder="name@holynames-sea.org" required value={email} onChange = {(e) => setEmail(e.target.value)}/>
         <TextInput label="Password" type="password" placeholder="•••••••••" required value={password} onChange = {(e) => setPassword(e.target.value)}/>
-        
-    </div> 
+
+    </div>
     {/* <div className="flex items-start mb-6">
         <div className="flex items-center h-5">
         <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required />
@@ -43,11 +43,12 @@ export default function Login() {
       <label htmlFor="remember" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
     </div>
     <PrimaryButton text="Login" type="button" onClick = {login} />
-    
+
 </form>
-        
+
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+        {/* Empty Footer */}
       </footer>
     </div>
   );

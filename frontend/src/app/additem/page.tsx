@@ -79,30 +79,30 @@ function CreateItem() {
 
             {/* Display contact, size, and cost*/}
             <div className="mt-4">
-              <TextInput 
-                label="Contact" 
+              <TextInput
+                label="Contact"
                 type = "text"
-                value={contact} 
-                onChange={(e) => setContact((e.target as HTMLInputElement).value)} 
+                value={contact}
+                onChange={(e) => setContact((e.target as HTMLInputElement).value)}
                 placeholder = "Holly Academy '26"
               />
-              
-              <TextInput 
-                label="Size" 
+
+              <TextInput
+                label="Size"
                 type = "text"
-                value={size} 
-                onChange={(e) => setSize((e.target as HTMLInputElement).value)} 
+                value={size}
+                onChange={(e) => setSize((e.target as HTMLInputElement).value)}
                 placeholder = "XS, S, M, L, XL..."
               />
-              
-              <TextInput 
-                label="Price" 
-                type="number" 
-                value={cost} 
-                onChange={(e) => setCost((e.target as HTMLInputElement).value)} 
+
+              <TextInput
+                label="Price"
+                type="number"
+                value={cost}
+                onChange={(e) => setCost((e.target as HTMLInputElement).value)}
                 placeholder = "$"
               />
-  
+
             </div>
 
           </div>
