@@ -5,7 +5,7 @@ import TextInput from "@/components/textInput";
 import Image from "next/image";
 
 function CreateItem() {
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [_imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
