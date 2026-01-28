@@ -14,8 +14,13 @@ export default function Login() {
     console.log("Email:", email);
     console.log("Password:", password);
     console.log("Remember Me:", rememberMe);
-    const response = await api.auth.login({ email, password });
-    console.log("Registered from server:", response);
+    try {
+      const response = await api.auth.login({ email, password });
+      console.log("Logged in from server:", response);
+    } catch (error) {
+      const message = handleApiError(error);
+      console.error("Login failed:", message);
+    }
   };
   return (
     <div>

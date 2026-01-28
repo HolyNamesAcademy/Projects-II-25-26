@@ -26,8 +26,13 @@ export default function Register() {
       );
       return;
     }
-    const response = await api.auth.register({ name, email, password });
-    console.log("Registered from server:", response);
+    try {
+      const response = await api.auth.register({ name, email, password });
+      console.log("Registered from server:", response);
+    } catch (error) {
+      const message = handleApiError(error);
+      console.error("Registration failed:", message);
+    }
   };
   return (
     <div>
