@@ -220,7 +220,6 @@ export default function NavMenu() {
                 <span className="flex-1 ms-3 whitespace-nowrap">Register</span>
               </a>
             </li>
-
           </ul>
         </div>
       </aside>
