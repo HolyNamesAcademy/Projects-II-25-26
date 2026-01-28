@@ -137,6 +137,15 @@ case "$cmd" in
   frontend:lint)
     run_frontend "lint"
     ;;
+  frontend:lint:fix)
+    run_frontend "lint:fix"
+    ;;
+  frontend:format)
+    run_frontend "format"
+    ;;
+  frontend:format:check)
+    run_frontend "format:check"
+    ;;
   backend|backend:dev)
     run_backend
     ;;
@@ -197,11 +206,14 @@ Spring Sail commands:
   ./sail backend:lint   Run backend checkstyle linting
 
   # Frontend commands
-  ./sail frontend       Run the frontend dev server
-  ./sail frontend:dev   Run the frontend dev server (alias)
-  ./sail frontend:build Build the frontend for production
-  ./sail frontend:start Start the frontend production server
-  ./sail frontend:lint  Run frontend linting
+  ./sail frontend            Run the frontend dev server
+  ./sail frontend:dev        Run the frontend dev server (alias)
+  ./sail frontend:build      Build the frontend for production
+  ./sail frontend:start      Start the frontend production server
+  ./sail frontend:lint       Run frontend linting
+  ./sail frontend:lint:fix   Auto-fix frontend linting issues
+  ./sail frontend:format     Format frontend code with Prettier
+  ./sail frontend:format:check  Check frontend code formatting
 
   # Combined commands
   ./sail both           Run both frontend and backend together
