@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 interface Item {
   name: string;
@@ -37,10 +38,12 @@ export default function ItemListToggle({
           <li key={i} className="mb-2">
             <div className="flex items-center justify-center">
               <a href="#" aria-label="Tops">
-                <img
+                <Image
                   className="w-60 h-60 object-cover"
                   src="/images/Tops.png"
                   alt="Tops"
+                  width={240}
+                  height={240}
                 />
                 {item.name}
                 <div>{item.size}</div>

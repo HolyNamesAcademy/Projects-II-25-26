@@ -2,6 +2,7 @@
 import PrimaryButton from "@/components/primaryButton";
 import { useState } from "react";
 import TextInput from "@/components/textInput";
+import Image from "next/image";
 
 function CreateItem() {
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -37,16 +38,18 @@ function CreateItem() {
           <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
             {/*image preview*/}
             {previewUrl ? (
-              <img
+              <Image
                 className="w-full dark:hidden rounded-lg object-cover"
                 src={previewUrl}
-                alt="preview"
-              />
-            ) : (
-              <img
-                className="w-full dark:hidden rounded-lg object-cover"
+                alt="Item preview"
                 width={200}
                 height={200}
+                unoptimized
+              />
+            ) : (
+              <div
+                className="w-full dark:hidden rounded-lg object-cover bg-gray-200 dark:bg-gray-700"
+                style={{ width: "100%", height: "200px" }}
               />
             )}
             <div className="mt-2">

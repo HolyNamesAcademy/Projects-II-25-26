@@ -13,37 +13,45 @@ export default function Home() {
         <div className="grid grid-cols-2 gap-8">
           <div className="flex items-center justify-center">
             <a href="#" aria-label="Tops">
-              <img
+              <Image
                 className="rounded-full w-36 h-36 object-cover"
                 src="/images/Tops.png"
                 alt="Tops"
+                width={144}
+                height={144}
               />
             </a>
           </div>
           <div className="flex items-center justify-center">
             <a href="#" aria-label="Dresses">
-              <img
+              <Image
                 className="rounded-full w-36 h-36 object-cover"
                 src="/images/Dresses.png"
                 alt="Dresses"
+                width={144}
+                height={144}
               />
             </a>
           </div>
           <div className="flex items-center justify-center">
             <a href="#" aria-label="Bottoms">
-              <img
+              <Image
                 className="rounded-full w-36 h-36 object-cover"
                 src="/images/Bottoms.png"
                 alt="Bottoms"
+                width={144}
+                height={144}
               />
             </a>
           </div>
           <div className="flex items-center justify-center">
             <a href="#" aria-label="Shoes">
-              <img
+              <Image
                 className="rounded-full w-36 h-36 object-cover"
                 src="/images/Shoes.png"
                 alt="Shoes"
+                width={144}
+                height={144}
               />
             </a>
           </div>
