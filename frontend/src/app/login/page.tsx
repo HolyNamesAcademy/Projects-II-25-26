@@ -2,17 +2,20 @@
 import {useState} from "react";
 import PrimaryButton from "@/components/primaryButton";
 import TextInput from "@/components/textInput";
+import { api, handleApiError } from '@/lib/api';
 
 export default function Login() {
   const [email,setEmail] = useState("");
   const[password, setPassword] = useState("");
   const[rememberMe, setRememberMe] = useState(false);
-  const login = () => {
+  const login = async () => {
     //login logic here
     console.log("Logging in..." );
     console.log("Email:", email);
     console.log("Password:", password);
     console.log("Remember Me:", rememberMe);
+    const response = await api.auth.login({email,password});
+    console.log("Registered from server:", response);
   };
   return (
     <div>
