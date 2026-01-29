@@ -1,5 +1,27 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Unna, Abril_Fatface, Mea_Culpa } from "next/font/google";
+
+const unna = Unna({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-unna",
+  display: "swap",
+})
+
+const abrilFatface = Abril_Fatface({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-abril-fatface",
+  display: "swap",
+})
+
+const meaCulpa = Mea_Culpa({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-mea-culpa",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,7 +34,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en h-full">
+    <html
+      lang="en h-full"
+      className={`${unna.variable} ${abrilFatface.variable} ${meaCulpa.variable} `}
+    >
       <body className="antialiased h-full">{children}</body>
     </html>
   );
