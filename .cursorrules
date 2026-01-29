@@ -28,12 +28,10 @@
 - Backend CORS config: `backend/src/main/java/com/hna/webserver/config/CorsConfig.java`
 - Frontend API utilities: `frontend/src/lib/api.ts`
 - Next.js config: `frontend/next.config.ts`
-- API demo page: `frontend/src/app/api-demo/page.tsx`
 
 ## Development URLs
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:8080/api
-- API Demo: http://localhost:3000/api-demo
 - Database: localhost:5432
 - Redis: localhost:6379
 - Mail UI: http://localhost:8025

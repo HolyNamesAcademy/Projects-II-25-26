@@ -76,8 +76,6 @@ const users = await api.users();
 const health = await api.health();
 ```
 
-### API Demo Page
-Visit `http://localhost:3000/api-demo` to see a live demonstration of the API integration.
 
 ## 🛠️ Development Workflow
 
@@ -93,7 +91,6 @@ Visit `http://localhost:3000/api-demo` to see a live demonstration of the API in
 ### 2. Development URLs
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8080/api
-- **API Demo**: http://localhost:3000/api-demo
 - **Database**: localhost:5432
 - **Redis**: localhost:6379
 - **Mail UI**: http://localhost:8025

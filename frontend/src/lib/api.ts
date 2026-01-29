@@ -1,7 +1,7 @@
 // API utility functions for communicating with Spring Boot backend
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
-const API_BASE_PATH = process.env.NEXT_PUBLIC_API_BASE || '/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const API_BASE_PATH = process.env.NEXT_PUBLIC_API_BASE || "/api";
 
 export const API_URL = `${API_BASE_URL}${API_BASE_PATH}`;
 
@@ -14,16 +14,18 @@ async function apiCall<T>(
 
   const defaultOptions: RequestInit = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...options.headers,
     },
-    credentials: 'include', // Important for CORS with credentials
+    credentials: "include", // Important for CORS with credentials
   };
 
   const response = await fetch(url, { ...defaultOptions, ...options });
 
   if (!response.ok) {
-    throw new Error(`API call failed: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `API call failed: ${response.status} ${response.statusText}`
+    );
   }
 
   return response.json();
@@ -39,43 +41,30 @@ interface AuthResponse {
   name: string;
   email: string;
 }
+interface LoginRequest {
+  email: string;
+  password: string;
+}
+
 // API functions for your Spring Boot endpoints
 export const api = {
-  // Health check
-  health: () => apiCall<{
-    status: string;
-    service: string;
-    version: string;
-    timestamp: string;
-  }>('/health'),
-
-  // Hello endpoint
-  hello: () => apiCall<{
-    message: string;
-    timestamp: string;
-    status: string;
-  }>('/hello'),
-
-  // Users endpoint
-  users: () => apiCall<{
-    users: Array<{
-      id: number;
-      name: string;
-      email: string;
-      role: string;
-    }>;
-    total: number;
-    timestamp: string;
-    status: string;
-  }>('/users'),
-
   auth: {
-    //Sign up
-    register: (data: RegisterRequest) => {
-    return apiCall<AuthResponse>('/auth/register',
-    {method: 'POST',body: JSON.stringify(data), });
-    }
-  }
+    register: async (request: RegisterRequest): Promise<AuthResponse> => {
+      const response = await apiCall<AuthResponse>("/auth/register", {
+        method: "POST",
+        body: JSON.stringify(request),
+      });
+      return response;
+    },
+
+    login: async (request: LoginRequest): Promise<AuthResponse> => {
+      const response = await apiCall<AuthResponse>("/auth/login", {
+        method: "POST",
+        body: JSON.stringify(request),
+      });
+      return response;
+    },
+  },
 };
 
 // Error handling utility
@@ -83,5 +72,5 @@ export function handleApiError(error: unknown): string {
   if (error instanceof Error) {
     return error.message;
   }
-  return 'An unexpected error occurred';
+  return "An unexpected error occurred";
 }
