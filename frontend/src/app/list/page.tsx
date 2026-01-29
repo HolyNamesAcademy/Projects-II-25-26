@@ -28,7 +28,7 @@ export default function List() {
   return (
     <div>
       <NavMenu />
-      <main className="flex flex-col gap-[32px] row-start-2 items-center">
+      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64">
         <h1 className="text-5xl align-middle text-center">
           All Items
         </h1>

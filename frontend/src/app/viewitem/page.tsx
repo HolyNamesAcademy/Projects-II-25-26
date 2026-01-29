@@ -15,7 +15,7 @@ function ItemInfo({ contact, size, cost }: {contact: string, size: string, cost:
   return (
     <>
       <NavMenu />
-      <section className="min-h-screen flex flex-col justify-between mx dark:hidden-4 py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
+      <section className="min-h-screen flex flex-col justify-between mx dark:hidden-4 py-8 bg-white md:py-16 dark:bg-gray-900 antialiased sm:ml-64">
       <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
         <div className="lg:grid dark:hidden lg:grid-cols-2 lg:gap-8 xl:gap-16">
           <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">

@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <NavMenu />
-      <main className="flex flex-col gap-[32px] row-start-2 items-center h-screen align-middle justify-center">
+      <main className="flex flex-col gap-[32px] row-start-2 items-center h-screen align-middle justify-center sm:ml-64">
           <h1 className="text-5xl align-middle text-center">
             Welcome to HNA Swapeeee!
           </h1>
