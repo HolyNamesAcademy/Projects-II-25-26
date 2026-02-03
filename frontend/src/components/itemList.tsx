@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 interface Item {
@@ -15,11 +15,17 @@ interface Item {
 export default function ItemList({
   items,
   UpdateFavorite,
+  RemoveItem,
 }: {
   items: Item[];
   UpdateFavorite: (item: Item) => Promise<void>;
+  RemoveItem?: (item: Item) => Promise<void>;
 }) {
   const [displayedItems, setDisplayedItems] = useState(items);
+
+  useEffect(() => {
+    setDisplayedItems(items);
+  }, [items]);
 
   const handleFavoriteClick = async (item: Item) => {
     // Optimistically remove the item from display
@@ -28,6 +34,16 @@ export default function ItemList({
     // Call the server action to persist the change
     item.favorite = !item.favorite;
     await UpdateFavorite(item);
+  };
+
+  const handleRemoveClick = async (item: Item) => {
+    // Optimistically remove the item from display
+    setDisplayedItems(displayedItems.filter((i) => i.name !== item.name));
+
+    // Call the server action to persist the change
+    if (RemoveItem) {
+      await RemoveItem(item);
+    }
   };
 
   return (
@@ -53,6 +69,14 @@ export default function ItemList({
                 >
                   {item.favorite ? "❤️" : "♡"}
                 </div>
+                {RemoveItem && (
+                  <button
+                    onClick={() => handleRemoveClick(item)}
+                    className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  >
+                    Remove
+                  </button>
+                )}
               </a>
             </div>
           </li>
