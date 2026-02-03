@@ -14,8 +14,8 @@ interface Item {
 
 export default function ItemList({
   items,
-  UpdateFavorite, 
-  RemoveItem, 
+  UpdateFavorite,
+  RemoveItem,
 }: {
   items: Item[];
   UpdateFavorite: (item: Item) => Promise<void>;
