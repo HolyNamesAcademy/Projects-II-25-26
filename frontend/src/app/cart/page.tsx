@@ -55,6 +55,7 @@ export default function Cart() {
         </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+      {/* empty footer */}
       </footer>
     </div>
   );
