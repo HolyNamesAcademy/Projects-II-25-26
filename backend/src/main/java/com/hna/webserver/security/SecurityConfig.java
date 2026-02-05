@@ -45,12 +45,13 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Use JWT for stateless authentication
             )
             .authorizeHttpRequests(auth -> auth
-                // Public endpoints - handle both with and without trailing slashes
+                // Public endpoints
                 .requestMatchers("/api/health").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
-                // Protected endpoints - handle trailing slashes and sub-paths
+                // Protected endpoints
                 .requestMatchers("/api/items", "/api/items/**").authenticated()
-                .anyRequest().authenticated()
+                // Allow all other requests (including misspelled API endpoints) to return proper 404s
+                .anyRequest().permitAll()
             )
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
