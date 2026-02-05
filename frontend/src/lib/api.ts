@@ -102,7 +102,7 @@ export const api = {
 
     logout: async (): Promise<void> => {
       removeAuthToken();
-    }
+    },
   },
 };
 
