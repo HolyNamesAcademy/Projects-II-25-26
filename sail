@@ -146,6 +146,11 @@ case "$cmd" in
   frontend:format:check)
     run_frontend "format:check"
     ;;
+  frontend:fonts)
+    echo "📥 Downloading Google Fonts for offline use..."
+    run_frontend "download-fonts"
+    echo "✅ Fonts downloaded! You can now work offline or on restricted networks."
+    ;;
   backend|backend:dev)
     run_backend
     ;;
@@ -214,6 +219,7 @@ Spring Sail commands:
   ./sail frontend:lint:fix   Auto-fix frontend linting issues
   ./sail frontend:format     Format frontend code with Prettier
   ./sail frontend:format:check  Check frontend code formatting
+  ./sail frontend:fonts      Download Google Fonts for offline use
 
   # Combined commands
   ./sail both           Run both frontend and backend together

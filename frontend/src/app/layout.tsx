@@ -1,27 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Unna, Playfair_Display, Satisfy } from "next/font/google";
-
-const unna = Unna({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-unna",
-  display: "swap",
-});
-
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["500"],
-  variable: "--font-playfair-display",
-  display: "swap",
-});
-
-const satisfy = Satisfy({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-satisfy",
-  display: "swap",
-});
+import { unna, playfairDisplay, satisfy } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Create Next App",
