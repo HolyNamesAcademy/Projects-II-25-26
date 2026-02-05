@@ -46,10 +46,10 @@ public class SecurityConfig {
             )
             .authorizeHttpRequests(auth -> auth
                 // Public endpoints - handle both with and without trailing slashes
-                .requestMatchers("/api/health", "/api/health/").permitAll()
+                .requestMatchers("/api/health").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
                 // Protected endpoints - handle trailing slashes and sub-paths
-                .requestMatchers("/api/items", "/api/items/", "/api/items/**").authenticated()
+                .requestMatchers("/api/items", "/api/items/**").authenticated()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
