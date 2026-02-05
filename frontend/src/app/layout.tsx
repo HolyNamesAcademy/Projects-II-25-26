@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Unna, Playfair_Display, Mea_Culpa } from "next/font/google";
+import { Unna, Playfair_Display, Satisfy } from "next/font/google";
 
 const unna = Unna({
   subsets: ["latin"],
@@ -16,10 +16,10 @@ const playfairDisplay = Playfair_Display({
   display: "swap",
 })
 
-const meaCulpa = Mea_Culpa({
+const satisfy = Satisfy({
   subsets: ["latin"],
   weight: ["400"],
-  variable: "--font-mea-culpa",
+  variable: "--font-satisfy",
   display: "swap",
 })
 
@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="en h-full"
-      className={`${unna.variable} ${playfairDisplay.variable} ${meaCulpa.variable} `}
+      className={`${unna.variable} ${playfairDisplay.variable} ${satisfy.variable} `}
     >
       <body className="antialiased h-full">{children}</body>
     </html>
