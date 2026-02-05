@@ -13,11 +13,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SecurityConfig {
+public class SecurityConfig implements WebMvcConfigurer {
 
     private final JwtTokenProvider tokenProvider;
     private final CustomUserDetailsService userDetailsService;
@@ -45,16 +48,28 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Use JWT for stateless authentication
             )
             .authorizeHttpRequests(auth -> auth
-                // Public endpoints
-                .requestMatchers("/api/health").permitAll()
-                .requestMatchers("/api/hello").permitAll()
-                .requestMatchers("/api/auth/**").permitAll()
-                // Protected endpoints
+                // Public endpoints - using AntPathRequestMatcher for better path matching
+                .requestMatchers(
+                    new AntPathRequestMatcher("/api/health"),
+                    new AntPathRequestMatcher("/api/health/")
+                ).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/auth/**")).permitAll()
+                // Protected endpoints - explicitly handle trailing slashes and sub-paths
+                .requestMatchers(
+                    new AntPathRequestMatcher("/api/items"),
+                    new AntPathRequestMatcher("/api/items/"),
+                    new AntPathRequestMatcher("/api/items/**")
+                ).authenticated()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        configurer.setUseTrailingSlashMatch(true);
     }
 
     @Bean
