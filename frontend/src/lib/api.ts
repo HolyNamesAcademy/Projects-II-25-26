@@ -4,8 +4,24 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 const API_BASE_PATH = process.env.NEXT_PUBLIC_API_BASE || "/api";
 
 export const API_URL = `${API_BASE_URL}${API_BASE_PATH}`;
+//Token management utilities
+//constant token key for local storage
+const TOKEN_KEY = "authToken";
 
-// Generic API call function
+//function to fetch Token from local storage
+function getAuthToken(): string | null {
+  return localStorage.getItem(TOKEN_KEY);
+}
+//function to store token in local storage
+function setAuthToken(token: string): void {
+  localStorage.setItem(TOKEN_KEY, token);
+}
+//function to remove token from local storage
+function removeAuthToken(): void {
+  localStorage.removeItem(TOKEN_KEY);
+}
+
+//Generic API call function
 async function apiCall<T>(
   endpoint: string,
   options: RequestInit = {}
@@ -19,6 +35,15 @@ async function apiCall<T>(
     },
     credentials: "include", // Important for CORS with credentials
   };
+
+  //add authorization header if token exists
+  const token = getAuthToken();
+  if (token) {
+    defaultOptions.headers = {
+      ...defaultOptions.headers,
+      Authorization: `Bearer ${token}`,
+    };
+  }
 
   const response = await fetch(url, { ...defaultOptions, ...options });
 
@@ -54,6 +79,11 @@ export const api = {
         method: "POST",
         body: JSON.stringify(request),
       });
+
+      if (response.token) {
+        setAuthToken(response.token);
+      }
+
       return response;
     },
 
@@ -62,7 +92,16 @@ export const api = {
         method: "POST",
         body: JSON.stringify(request),
       });
+
+      if (response.token) {
+        setAuthToken(response.token);
+      }
+
       return response;
+    },
+
+    logout: async (): Promise<void> => {
+      removeAuthToken();
     },
   },
 };

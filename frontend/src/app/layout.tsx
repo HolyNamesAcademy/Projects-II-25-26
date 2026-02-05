@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { unna, playfairDisplay, satisfy } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,7 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en h-full">
+    <html
+      lang="en h-full"
+      className={`${unna.variable} ${playfairDisplay.variable} ${satisfy.variable} `}
+    >
       <body className="antialiased h-full">{children}</body>
     </html>
   );
