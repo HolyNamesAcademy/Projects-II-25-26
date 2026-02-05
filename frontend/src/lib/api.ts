@@ -22,7 +22,6 @@ function removeAuthToken(): void {
 }
 
 //Generic API call function
-  
 async function apiCall<T>(
   endpoint: string,
   options: RequestInit = {}
@@ -36,8 +35,9 @@ async function apiCall<T>(
     },
     credentials: "include", // Important for CORS with credentials
   };
+
   //add authorization header if token exists
-  const token = localStorage.getItem("authToken");
+  const token = getAuthToken();
   if (token) {
     defaultOptions.headers = {
       ...defaultOptions.headers,
@@ -52,7 +52,6 @@ async function apiCall<T>(
       `API call failed: ${response.status} ${response.statusText}`
     );
   }
-  
 
   return response.json();
 }
@@ -84,6 +83,7 @@ export const api = {
       if (response.token) {
         setAuthToken(response.token);
       }
+
       return response;
     },
 
@@ -92,11 +92,17 @@ export const api = {
         method: "POST",
         body: JSON.stringify(request),
       });
+
       if (response.token) {
         setAuthToken(response.token);
       }
+
       return response;
     },
+
+    logout: async (): Promise<void> => {
+      removeAuthToken();
+    }
   },
 };
 
