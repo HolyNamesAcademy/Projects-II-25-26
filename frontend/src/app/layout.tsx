@@ -7,21 +7,21 @@ const unna = Unna({
   weight: ["400", "700"],
   variable: "--font-unna",
   display: "swap",
-})
+});
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
   weight: ["500"],
   variable: "--font-playfair-display",
   display: "swap",
-})
+});
 
 const satisfy = Satisfy({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-satisfy",
   display: "swap",
-})
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
