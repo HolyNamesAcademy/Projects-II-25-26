@@ -74,4 +74,12 @@ public class ItemController {
         itemService.deleteItem(id, user);
         return ResponseEntity.noContent().build();
     }
+
+    //mapping for search items
+    @GetMapping("/search")
+    public ResponseEntity<List<ItemResponse>> search(@RequestParam String query, String size, String type, String color, Integer minPrice, Integer maxPrice) {
+        List<Item> items = itemService.search(query, size, minPrice, maxPrice, color, type);
+        List<ItemResponse> resp = items.stream().map(ItemResponse::new).collect(Collectors.toList());
+        return ResponseEntity.ok(resp);
+    }
 }
