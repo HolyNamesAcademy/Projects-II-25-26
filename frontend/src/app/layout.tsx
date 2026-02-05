@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Unna, Abril_Fatface, Mea_Culpa } from "next/font/google";
+import { Unna, Playfair_Display, Mea_Culpa } from "next/font/google";
 
 const unna = Unna({
   subsets: ["latin"],
@@ -9,16 +9,16 @@ const unna = Unna({
   display: "swap",
 })
 
-const abrilFatface = Abril_Fatface({
+const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-abril-fatface",
+  weight: ["500"],
+  variable: "--font-playfair-display",
   display: "swap",
 })
 
 const meaCulpa = Mea_Culpa({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400"],
   variable: "--font-mea-culpa",
   display: "swap",
 })
@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="en h-full"
-      className={`${unna.variable} ${abrilFatface.variable} ${meaCulpa.variable} `}
+      className={`${unna.variable} ${playfairDisplay.variable} ${meaCulpa.variable} `}
     >
       <body className="antialiased h-full">{children}</body>
     </html>
