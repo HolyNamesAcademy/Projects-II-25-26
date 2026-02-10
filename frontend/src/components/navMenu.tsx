@@ -61,36 +61,11 @@ export default function NavMenu() {
             </span>
           </Link>
           <ul className="space-y-2 font-medium">
-            <li>
-              <a
-                href="#"
-                className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-800 dark:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"
-                  />
-                </svg>
-
-                <span className="ms-3">Home</span>
-              </a>
-            </li>
+            
 
             <li>
-              <a
-                href="#"
+              <Link
+                href="/sell"
                 className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
               >
                 <svg
@@ -112,12 +87,12 @@ export default function NavMenu() {
                 </svg>
 
                 <span className="flex-1 ms-3 whitespace-nowrap">Sell</span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="#"
+              <Link
+                href="/favorites"
                 className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
               >
                 <svg
@@ -139,12 +114,12 @@ export default function NavMenu() {
                 </svg>
 
                 <span className="flex-1 ms-3 whitespace-nowrap">Favorites</span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="#"
+              <Link
+                href="/cart"
                 className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
               >
                 <svg
@@ -166,12 +141,12 @@ export default function NavMenu() {
                 </svg>
 
                 <span className="flex-1 ms-3 whitespace-nowrap">Cart</span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="#"
+              <Link
+                href="/login"
                 className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
               >
                 <svg
@@ -192,12 +167,12 @@ export default function NavMenu() {
                   />
                 </svg>
                 <span className="flex-1 ms-3 whitespace-nowrap">Log In</span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="#"
+              <Link
+                href="/register"
                 className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
               >
                 <svg
@@ -218,7 +193,7 @@ export default function NavMenu() {
                   />
                 </svg>
                 <span className="flex-1 ms-3 whitespace-nowrap">Register</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
