@@ -4,6 +4,7 @@ import com.hna.webserver.dto.ItemRequest;
 import com.hna.webserver.model.Item;
 import com.hna.webserver.model.User;
 import com.hna.webserver.repository.ItemRepository;
+import com.hna.webserver.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,36 @@ public class ItemService {
     private static final Logger logger = LoggerFactory.getLogger(ItemService.class);
 
     private final ItemRepository itemRepository;
+    private final UserRepository userRepository;
 
-    public ItemService(ItemRepository itemRepository) {
+    public ItemService(ItemRepository itemRepository, UserRepository userRepository) {
         this.itemRepository = itemRepository;
+        this.userRepository = userRepository;
+    }
+
+    public void favoriteItem(Long itemId, User user) {
+        Item item = getItemById(itemId);
+        if (user.getFavorites() == null) {
+            user.setFavorites(new java.util.HashSet<>());
+        }
+        if (user.getFavorites().add(item)) {
+            userRepository.save(user);
+            logger.info("User {} favorited item {}", user.getId(), itemId);
+        }
+    }
+
+    public void unfavoriteItem(Long itemId, User user) {
+        Item item = getItemById(itemId);
+        if (user.getFavorites() != null && user.getFavorites().remove(item)) {
+            userRepository.save(user);
+            logger.info("User {} unfavorited item {}", user.getId(), itemId);
+        }
+    }
+
+    public java.util.List<Item> getFavoritesForUser(User user) {
+        User fresh = userRepository.findById(user.getId()).orElse(user);
+        if (fresh.getFavorites() == null) return java.util.Collections.emptyList();
+        return new java.util.ArrayList<>(fresh.getFavorites());
     }
 
     public Item createItem(ItemRequest req, User user) {

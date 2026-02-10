@@ -51,6 +51,9 @@ public class Item {
     @NotNull
     private User user;
 
+    @ManyToMany(mappedBy = "favorites", fetch = FetchType.LAZY)
+    private java.util.Set<User> favoritedBy = new java.util.HashSet<>();
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -156,5 +159,13 @@ public class Item {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public java.util.Set<User> getFavoritedBy() {
+        return favoritedBy;
+    }
+
+    public void setFavoritedBy(java.util.Set<User> favoritedBy) {
+        this.favoritedBy = favoritedBy;
     }
 }

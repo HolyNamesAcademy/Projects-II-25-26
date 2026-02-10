@@ -16,6 +16,8 @@ public class ItemResponse {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Long userId;
+    private Integer favoriteCount = 0;
+    private Boolean favorited = false;
 
     public ItemResponse() {
     }
@@ -32,6 +34,23 @@ public class ItemResponse {
         this.createdAt = item.getCreatedAt();
         this.updatedAt = item.getUpdatedAt();
         this.userId = item.getUser() != null ? item.getUser().getId() : null;
+        this.favoriteCount = item.getFavoritedBy() != null ? item.getFavoritedBy().size() : 0;
+    }
+
+    public Integer getFavoriteCount() {
+        return favoriteCount;
+    }
+
+    public void setFavoriteCount(Integer favoriteCount) {
+        this.favoriteCount = favoriteCount;
+    }
+
+    public Boolean getFavorited() {
+        return favorited;
+    }
+
+    public void setFavorited(Boolean favorited) {
+        this.favorited = favorited;
     }
 
     public Long getId() {
