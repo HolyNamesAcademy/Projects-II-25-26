@@ -61,11 +61,9 @@ export default function NavMenu() {
             </span>
           </Link>
           <ul className="space-y-2 font-medium">
-            
-
             <li>
               <Link
-                href="/sell"
+                href="/items"
                 className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
               >
                 <svg
@@ -87,12 +85,12 @@ export default function NavMenu() {
                 </svg>
 
                 <span className="flex-1 ms-3 whitespace-nowrap">Shop</span>
-              </a>
+              </Link>
             </li>
 
             <li>
-              <a
-                href="#"
+              <Link
+                href="/sell"
                 className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
               >
                 <svg
