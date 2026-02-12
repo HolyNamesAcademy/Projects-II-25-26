@@ -1,5 +1,6 @@
 import PrimaryButton from "@/components/primaryButton";
 import ItemList from "@/components/itemList";
+import NavMenu from "@/components/navMenu";
 
 interface Item {
   name: string;
@@ -67,7 +68,8 @@ const Delete = async (item: Item) => {
 export default function Cart() {
   return (
     <div>
-      <main className="flex flex-col gap-[32px] row-start-2 items-center pt-[32px]">
+      <NavMenu />
+      <main className="flex flex-col gap-[32px] row-start-2 items-center pt-[32px] sm:ml-64">
         <h1 className="text-5xl align-middle text-center">Cart</h1>
 
         {/*TODO: make "add to cart" button???*/}
