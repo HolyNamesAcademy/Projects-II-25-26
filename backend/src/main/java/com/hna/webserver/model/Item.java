@@ -51,7 +51,7 @@ public class Item {
     @NotNull
     private User user;
 
-    @ManyToMany(mappedBy = "favorites", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "favorites", fetch = FetchType.EAGER)
     private java.util.Set<User> favoritedBy = new java.util.HashSet<>();
 
     @Column(nullable = false, updatable = false)

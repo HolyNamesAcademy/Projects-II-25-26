@@ -28,27 +28,42 @@ public class ItemService {
 
     public void favoriteItem(Long itemId, User user) {
         Item item = getItemById(itemId);
-        if (user.getFavorites() == null) {
-            user.setFavorites(new java.util.HashSet<>());
+        // Fetch user with favorites eagerly loaded to avoid LazyInitializationException
+        User userWithFavorites = userRepository.findById(user.getId())
+                .orElse(user);
+        if (userWithFavorites.getFavorites() == null) {
+            userWithFavorites.setFavorites(new java.util.HashSet<>());
         }
-        if (user.getFavorites().add(item)) {
-            userRepository.save(user);
-            logger.info("User {} favorited item {}", user.getId(), itemId);
+        if (userWithFavorites.getFavorites().add(item)) {
+            userRepository.save(userWithFavorites);
+            logger.info("User {} favorited item {}", userWithFavorites.getId(), itemId);
         }
     }
 
     public void unfavoriteItem(Long itemId, User user) {
         Item item = getItemById(itemId);
-        if (user.getFavorites() != null && user.getFavorites().remove(item)) {
-            userRepository.save(user);
-            logger.info("User {} unfavorited item {}", user.getId(), itemId);
+        // Fetch user with favorites eagerly loaded to avoid LazyInitializationException
+        User userWithFavorites = userRepository.findById(user.getId())
+                .orElse(user);
+        if (userWithFavorites.getFavorites() != null && userWithFavorites.getFavorites().remove(item)) {
+            userRepository.save(userWithFavorites);
+            logger.info("User {} unfavorited item {}", userWithFavorites.getId(), itemId);
         }
     }
 
     public java.util.List<Item> getFavoritesForUser(User user) {
         User fresh = userRepository.findById(user.getId()).orElse(user);
         if (fresh.getFavorites() == null) return java.util.Collections.emptyList();
-        return new java.util.ArrayList<>(fresh.getFavorites());
+        
+        // Eagerly initialize the favoritedBy collection for each item while in transaction
+        java.util.List<Item> favorites = new java.util.ArrayList<>(fresh.getFavorites());
+        for (Item item : favorites) {
+            // Access the collection to ensure it's initialized within the transaction
+            if (item.getFavoritedBy() != null) {
+                item.getFavoritedBy().size();
+            }
+        }
+        return favorites;
     }
 
     public Item createItem(ItemRequest req, User user) {
