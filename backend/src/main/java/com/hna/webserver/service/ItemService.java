@@ -73,4 +73,19 @@ public class ItemService {
         itemRepository.delete(existing);
         logger.info("Deleted item id={}", id);
     }
+
+    //search items
+    //apply filters
+    public List<Item> search(String query, String size, Integer minPrice, Integer maxPrice, String color, String type) {
+        List<Item> filteredItems = itemRepository.findAll().stream()
+                .filter(item -> item.getName().toLowerCase().contains(query.toLowerCase()) ||
+                        item.getDescription().toLowerCase().contains(query.toLowerCase()))
+                .filter(item -> size == null || item.getSize().equalsIgnoreCase(size))
+                .filter(item -> minPrice == null || item.getPrice() >= minPrice)
+                .filter(item -> maxPrice == null || item.getPrice() <= maxPrice)
+                .filter(item -> color == null || item.getColor().equalsIgnoreCase(color))
+                .filter(item -> type == null || item.getType().equalsIgnoreCase(type))
+                .toList();
+        return filteredItems;
+    }
 }

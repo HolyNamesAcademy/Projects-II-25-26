@@ -454,7 +454,6 @@ This template is ready for deployment to any cloud provider that supports Spring
 
 # Test API endpoints directly
 curl http://localhost:8080/api/health
-curl http://localhost:8080/api/hello
 ```
 
 ### Getting Help

@@ -47,10 +47,11 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // Public endpoints
                 .requestMatchers("/api/health").permitAll()
-                .requestMatchers("/api/hello").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
                 // Protected endpoints
-                .anyRequest().authenticated()
+                .requestMatchers("/api/items", "/api/items/**").authenticated()
+                // Allow all other requests (including misspelled API endpoints) to return proper 404s
+                .anyRequest().permitAll()
             )
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
