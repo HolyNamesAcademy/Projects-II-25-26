@@ -1,5 +1,6 @@
 import ItemListToggle from "@/components/itemListToggle";
 import NavMenu from "@/components/navMenu";
+import CategoryFilter from "@/components/categoryFilter";
 
 interface Item {
   name: string;
@@ -63,7 +64,10 @@ export default function List() {
     <div>
       <NavMenu />
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64">
-        <h1 className="text-5xl align-middle text-center">All Items</h1>
+        <h1 className="text-5xl align-middle text-center">Shop by Category</h1>
+
+        {/*Add category filter component here*/}
+        <CategoryFilter />
 
         <ItemListToggle items={items} UpdateFavorite={UpdateFavorite} />
       </main>
