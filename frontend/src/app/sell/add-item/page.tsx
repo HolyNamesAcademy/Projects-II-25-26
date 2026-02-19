@@ -3,6 +3,7 @@ import PrimaryButton from "@/components/primaryButton";
 import { useState } from "react";
 import TextInput from "@/components/textInput";
 import Image from "next/image";
+import { api } from "@/lib/api";
 
 function CreateItem() {
   const [_imageFile, setImageFile] = useState<File | null>(null);
@@ -11,7 +12,7 @@ function CreateItem() {
   const [description, setDescription] = useState("");
   const [contact, setContact] = useState("");
   const [size, setSize] = useState("");
-  const [cost, setCost] = useState("");
+  const [price, setPrice] = useState("");
 
   {
     /*image uploader*/
@@ -30,6 +31,26 @@ function CreateItem() {
     setImageFile(null);
     setPreviewUrl(null);
   }
+
+  const handleSubmit = async () => {
+    console.log("Item Name:", itemName);
+    console.log("Description:", description);
+    console.log("Contact:", contact);
+    console.log("Size:", size);
+    console.log("Price:", price);
+
+    const item = await api.items.create({
+      name: itemName,
+      description,
+      price: parseInt(price),
+      size: size,
+      type: "Unknown",
+      color: "Unknown",
+      image: previewUrl || "",
+    })
+
+    console.log("Created item:", item);
+  };
 
   return (
     <section className="min-h-screen flex flex-col justify-between mx-4 py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
@@ -91,7 +112,7 @@ function CreateItem() {
 
             <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
 
-            {/* Display contact, size, and cost*/}
+            {/* Display contact, size, and price*/}
             <div className="mt-4">
               <TextInput
                 label="Contact"
@@ -114,8 +135,8 @@ function CreateItem() {
               <TextInput
                 label="Price"
                 type="number"
-                value={cost}
-                onChange={(e) => setCost((e.target as HTMLInputElement).value)}
+                value={price}
+                onChange={(e) => setPrice((e.target as HTMLInputElement).value)}
                 placeholder="$"
               />
             </div>
@@ -124,7 +145,7 @@ function CreateItem() {
       </div>
 
       <div className="max-w-screen-lg px-4 mx-auto 2xl:px-0 mt-12">
-        <PrimaryButton text="Post Item to Swapeeee" type="button" />
+        <PrimaryButton text="Post Item to Swapeeee" type="button" onClick={handleSubmit} />
       </div>
     </section>
   );

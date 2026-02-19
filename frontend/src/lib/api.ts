@@ -70,6 +70,26 @@ interface LoginRequest {
   email: string;
   password: string;
 }
+interface CreateItemRequest {
+  name: string;
+  price: number;
+  size: string;
+  type: string;
+  color: string;
+  image: string;
+  description: string;
+}
+
+interface CreateItemResponse {
+  id: number;
+  name: string;
+  price: number;
+  size: string;
+  type: string;
+  color: string;
+  image: string;
+  description: string;
+}
 
 // API functions for your Spring Boot endpoints
 export const api = {
@@ -104,6 +124,15 @@ export const api = {
       removeAuthToken();
     },
   },
+
+  items: {
+    create: async (request: CreateItemRequest): Promise<CreateItemResponse> => {
+      return apiCall<CreateItemResponse>("/items", {
+        method: "POST",
+        body: JSON.stringify(request),
+      });
+    }
+  }
 };
 
 // Error handling utility

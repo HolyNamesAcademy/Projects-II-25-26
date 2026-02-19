@@ -1,5 +1,6 @@
 import ItemListToggle from "@/components/itemListToggle";
 import NavMenu from "@/components/navMenu";
+import PrimaryButton from "@/components/primaryButton";
 
 interface Item {
   name: string;
@@ -64,6 +65,8 @@ export default function List() {
       <NavMenu />
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64">
         <h1 className="text-5xl align-middle text-center">Sell</h1>
+
+        <PrimaryButton text="Add New Item" type="link" href="/sell/add-item" />
 
         <ItemListToggle items={items} UpdateFavorite={UpdateFavorite} />
       </main>
