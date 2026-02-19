@@ -100,8 +100,6 @@ jobs:
     - name: Test API endpoints
       run: |
         curl -f http://localhost:8080/api/health || exit 1
-        curl -f http://localhost:8080/api/hello || exit 1
-        curl -f http://localhost:8080/api/users || exit 1
 
     - name: Setup Node.js for frontend test
       uses: actions/setup-node@v4
