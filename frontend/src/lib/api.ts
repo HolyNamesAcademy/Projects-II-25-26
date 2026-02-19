@@ -131,8 +131,8 @@ export const api = {
         method: "POST",
         body: JSON.stringify(request),
       });
-    }
-  }
+    },
+  },
 };
 
 // Error handling utility

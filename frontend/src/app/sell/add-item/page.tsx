@@ -43,11 +43,11 @@ function CreateItem() {
       name: itemName,
       description,
       price: parseInt(price),
-      size: size,
+      size,
       type: "Unknown",
       color: "Unknown",
       image: previewUrl || "",
-    })
+    });
 
     console.log("Created item:", item);
   };
@@ -145,7 +145,11 @@ function CreateItem() {
       </div>
 
       <div className="max-w-screen-lg px-4 mx-auto 2xl:px-0 mt-12">
-        <PrimaryButton text="Post Item to Swapeeee" type="button" onClick={handleSubmit} />
+        <PrimaryButton
+          text="Post Item to Swapeeee"
+          type="button"
+          onClick={handleSubmit}
+        />
       </div>
     </section>
   );
