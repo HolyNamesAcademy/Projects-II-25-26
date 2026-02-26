@@ -41,9 +41,6 @@ function ItemInfo({
                 alt="white knit sweater picture"
                 width={200}
                 height={200}
-                type="Shirt"
-                color="Red"
-                price={15}
               />
             </div>
 
