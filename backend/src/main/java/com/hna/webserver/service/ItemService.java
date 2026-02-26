@@ -60,7 +60,9 @@ public class ItemService {
         for (Item item : favorites) {
             // Access the collection to ensure it's initialized within the transaction
             if (item.getFavoritedBy() != null) {
-                item.getFavoritedBy().size();
+                // Explicitly calling size() to force Hibernate lazy loading - return value intentionally ignored
+                @SuppressWarnings("unused")
+                int size = item.getFavoritedBy().size();
             }
         }
         return favorites;

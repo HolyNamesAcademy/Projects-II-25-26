@@ -61,7 +61,9 @@ public class ItemController {
                 if (user != null && user.getFavorites() != null) {
                     resp.setFavorited(user.getFavorites().stream().anyMatch(i -> i.getId().equals(item.getId())));
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                log.warn("Error checking if item is favorited for user {}: {}", email, e.getMessage());
+            }
         }
         return ResponseEntity.ok(resp);
     }
