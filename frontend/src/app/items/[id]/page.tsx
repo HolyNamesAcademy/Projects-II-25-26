@@ -6,13 +6,21 @@ import PrimaryButton from "@/components/primaryButton";
 import NavMenu from "@/components/navMenu";
 
 function ItemInfo({
-  contact,
+  name,
+  price,
   size,
-  cost,
+  type,
+  color,
+  image,
+  description,
 }: {
-  contact: string;
+  name: string;
+  price: number;
   size: string;
-  cost: string;
+  type: string;
+  color: string;
+  image: string;
+  description: string;
 }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -33,6 +41,9 @@ function ItemInfo({
                 alt="white knit sweater picture"
                 width={200}
                 height={200}
+                type="Shirt"
+                color="Red"
+                price={15}
               />
             </div>
 
@@ -90,9 +101,10 @@ function ItemInfo({
 
               {/* Display contact, size, and cost*/}
               <div className="mt-4">
-                <p>Contact: {contact}</p>
+                <p>Type: {type}</p>
                 <p>Size: {size}</p>
-                <p>${cost}</p>
+                <p>Color: {color}</p>
+                <p>${price}</p>
               </div>
             </div>
           </div>

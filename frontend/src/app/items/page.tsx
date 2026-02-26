@@ -4,52 +4,58 @@ import CategoryFilter from "@/components/categoryFilter";
 
 interface Item {
   name: string;
-  type: string;
-  size: string;
-  image: string;
   price: number;
+  size: string;
+  type: string;
+  color: string;
+  image: string;
   favorite: boolean;
 }
 
 const items = [
   {
     name: "Item 1",
-    type: "Tops",
-    size: "Large",
-    image: "placeholder",
     price: 10,
+    size: "Large",
+    type: "Tops",
+    color: "Red",
+    image: "placeholder",
     favorite: true,
   },
   {
     name: "Item 2",
-    type: "Bottoms",
-    size: "Medium",
-    image: "placeholder",
     price: 20,
+    size: "Medium",
+    type: "Bottoms",
+    color: "Blue",
+    image: "placeholder",
     favorite: false,
   },
   {
     name: "Item 3",
-    type: "Tops",
-    size: "Small",
-    image: "placeholder",
     price: 15,
+    size: "Small",
+    type: "Tops",
+    color: "Green",
+    image: "placeholder",
     favorite: true,
   },
   {
     name: "Item 4",
-    type: "Dresses",
-    size: "Large",
-    image: "placeholder",
     price: 25,
+    size: "Large",
+    type: "Dresses",
+    color: "Yellow",
+    image: "placeholder",
     favorite: false,
   },
   {
     name: "Item 5",
-    type: "Shoes",
-    size: "Medium",
-    image: "placeholder",
     price: 18,
+    size: "Medium",
+    type: "Shoes",
+    color: "Black",
+    image: "placeholder",
     favorite: true,
   },
 ];
