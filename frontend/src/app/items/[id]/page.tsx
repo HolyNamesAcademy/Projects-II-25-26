@@ -99,7 +99,7 @@ function ItemInfo({
                 Like-new quality <br />
               </p>
 
-              {/* Display contact, size, and cost*/}
+              {/* Display contact, size, and price*/}
               <div className="mt-4">
                 <p>Type: {type}</p>
                 <p>Size: {size}</p>
