@@ -9,10 +9,11 @@ function CreateItem() {
   const [_imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [itemName, setItemName] = useState("");
-  const [description, setDescription] = useState("");
-  const [contact, setContact] = useState("");
-  const [size, setSize] = useState("");
   const [price, setPrice] = useState("");
+  const [size, setSize] = useState("");
+  const [type, setType] = useState("");
+  const [color, setColor] = useState("");
+  const [description, setDescription] = useState("");
 
   {
     /*image uploader*/
@@ -34,18 +35,20 @@ function CreateItem() {
 
   const handleSubmit = async () => {
     console.log("Item Name:", itemName);
-    console.log("Description:", description);
-    console.log("Contact:", contact);
-    console.log("Size:", size);
     console.log("Price:", price);
+    console.log("Size:", size);
+    console.log("Type:", type);
+    console.log("Color:", color);
+    console.log("Image File:", _imageFile);
+    console.log("Description:", description);
 
     const item = await api.items.create({
       name: itemName,
-      description,
       price: parseInt(price),
       size,
-      type: "Unknown",
-      color: "Unknown",
+      type,
+      color,
+      description,
       image: previewUrl || "",
     });
 
@@ -88,40 +91,24 @@ function CreateItem() {
           </div>
 
           <div className="mt-6 sm:mt-8 lg:mt-0">
-            <TextInput
-              label="Item Name"
-              type="text"
-              value={itemName}
-              onChange={(e) =>
-                setItemName((e.target as HTMLInputElement).value)
-              }
-              placeholder="i.e. White Knit Sweater"
-            />
-
-            <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
-
-            <TextInput
-              label="Description"
-              type="text"
-              value={description}
-              onChange={(e) =>
-                setDescription((e.target as HTMLInputElement).value)
-              }
-              placeholder="Brand, material, quality..."
-            />
-
-            <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
-
             {/* Display contact, size, and price*/}
             <div className="mt-4">
               <TextInput
-                label="Contact"
+                label="Item Name"
                 type="text"
-                value={contact}
+                value={itemName}
                 onChange={(e) =>
-                  setContact((e.target as HTMLInputElement).value)
+                  setItemName((e.target as HTMLInputElement).value)
                 }
-                placeholder="Holly Academy '26"
+                placeholder="i.e. White Knit Sweater"
+              />
+
+              <TextInput
+                label="Price"
+                type="number"
+                value={price}
+                onChange={(e) => setPrice((e.target as HTMLInputElement).value)}
+                placeholder="$"
               />
 
               <TextInput
@@ -133,11 +120,29 @@ function CreateItem() {
               />
 
               <TextInput
-                label="Price"
-                type="number"
-                value={price}
-                onChange={(e) => setPrice((e.target as HTMLInputElement).value)}
-                placeholder="$"
+                label="Type"
+                type="text"
+                value={type}
+                onChange={(e) => setType((e.target as HTMLInputElement).value)}
+                placeholder="Sweater, Jacket, Pants..."
+              />
+
+              <TextInput
+                label="Color"
+                type="text"
+                value={color}
+                onChange={(e) => setColor((e.target as HTMLInputElement).value)}
+                placeholder="White, Black, Red..."
+              />
+
+              <TextInput
+                label="Description"
+                type="text"
+                value={description}
+                onChange={(e) =>
+                  setDescription((e.target as HTMLInputElement).value)
+                }
+                placeholder="Brand, material, quality..."
               />
             </div>
           </div>
