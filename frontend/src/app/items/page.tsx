@@ -1,6 +1,7 @@
 import ItemListToggle from "@/components/itemListToggle";
 import NavMenu from "@/components/navMenu";
 import CategoryFilter from "@/components/categoryFilter";
+import CategoryFilterAndSearch from "@/components/categoryFilterAndSearch";
 
 interface Item {
   name: string;
@@ -67,7 +68,10 @@ export default function List() {
         <h1 className="text-5xl align-middle text-center">Shop by Category</h1>
 
         {/*Add category filter component here*/}
-        <CategoryFilter />
+        {/*<CategoryFilter />*/}
+
+        {/*Add category filter + search component here*/}
+        <CategoryFilterAndSearch />
 
         <ItemListToggle items={items} UpdateFavorite={UpdateFavorite} />
       </main>
