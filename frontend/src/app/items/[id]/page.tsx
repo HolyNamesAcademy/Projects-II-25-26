@@ -8,11 +8,11 @@ import NavMenu from "@/components/navMenu";
 function ItemInfo({
   contact,
   size,
-  cost,
+  price,
 }: {
   contact: string;
   size: string;
-  cost: string;
+  price: string;
 }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -88,11 +88,11 @@ function ItemInfo({
                 Like-new quality <br />
               </p>
 
-              {/* Display contact, size, and cost*/}
+              {/* Display contact, size, and price*/}
               <div className="mt-4">
                 <p>Contact: {contact}</p>
                 <p>Size: {size}</p>
-                <p>${cost}</p>
+                <p>${price}</p>
               </div>
             </div>
           </div>
