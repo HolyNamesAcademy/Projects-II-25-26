@@ -16,11 +16,17 @@ public class ItemResponse {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Long userId;
+    private Integer favoriteCount = 0;
+    private Boolean favorited = false;
 
     public ItemResponse() {
     }
 
     public ItemResponse(Item item) {
+        this(item, null);
+    }
+
+    public ItemResponse(Item item, Integer favoriteCount) {
         this.id = item.getId();
         this.name = item.getName();
         this.price = item.getPrice();
@@ -32,6 +38,34 @@ public class ItemResponse {
         this.createdAt = item.getCreatedAt();
         this.updatedAt = item.getUpdatedAt();
         this.userId = item.getUser() != null ? item.getUser().getId() : null;
+        
+        // If favoriteCount is provided, use it; otherwise try to get it from the item
+        if (favoriteCount != null) {
+            this.favoriteCount = favoriteCount;
+        } else {
+            // Safely try to access the collection; if lazy initialization fails, default to 0
+            try {
+                this.favoriteCount = item.getFavoritedBy() != null ? item.getFavoritedBy().size() : 0;
+            } catch (org.hibernate.LazyInitializationException e) {
+                this.favoriteCount = 0;
+            }
+        }
+    }
+
+    public Integer getFavoriteCount() {
+        return favoriteCount;
+    }
+
+    public void setFavoriteCount(Integer favoriteCount) {
+        this.favoriteCount = favoriteCount;
+    }
+
+    public Boolean getFavorited() {
+        return favorited;
+    }
+
+    public void setFavorited(Boolean favorited) {
+        this.favorited = favorited;
     }
 
     public Long getId() {
