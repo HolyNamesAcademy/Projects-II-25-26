@@ -6,7 +6,7 @@ import Image from "next/image";
 interface Item {
   name: string;
   price: number;
-  size: string
+  size: string;
   type: string;
   color: string;
   image: string;
