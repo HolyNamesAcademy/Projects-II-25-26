@@ -1,11 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { api } from "../lib/api";
 
 export default function NavMenu() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Placeholder for auth state
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await api.auth.me();
+        setIsLoggedIn(true);
+      } catch (error) {
+        setIsLoggedIn(false);
+      }
+    };
+    checkAuth();
+  }, []);
 
   return (
     <>
@@ -169,6 +183,8 @@ export default function NavMenu() {
               </Link>
             </li>
 
+            {!isLoggedIn && (
+            <>
             <li>
               <Link
                 href="/login"
@@ -220,6 +236,36 @@ export default function NavMenu() {
                 <span className="flex-1 ms-3 whitespace-nowrap">Register</span>
               </Link>
             </li>
+            </>
+            )}
+
+            {isLoggedIn && (
+              <li>
+                <Link
+                  href="/logout"
+                  className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
+                >
+                  <svg
+                    className="shrink-0 w-5 h-5 transition duration-75 group-hover:text-fg-brand"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"
+                    />
+                  </svg>
+                  <span className="flex-1 ms-3 whitespace-nowrap">Log Out</span>
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </aside>
