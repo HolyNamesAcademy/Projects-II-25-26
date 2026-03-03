@@ -7,6 +7,7 @@ import { api } from "../lib/api";
 
 export default function NavMenu() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Placeholder for auth state
 
   useEffect(() => {
@@ -16,6 +17,8 @@ export default function NavMenu() {
         setIsLoggedIn(true);
       } catch (error) {
         setIsLoggedIn(false);
+      } finally {
+        setAuthLoading(false);
       }
     };
     checkAuth();
@@ -183,7 +186,7 @@ export default function NavMenu() {
               </Link>
             </li>
 
-            {!isLoggedIn && (
+            {!authLoading && !isLoggedIn && (
             <>
             <li>
               <Link
@@ -239,7 +242,7 @@ export default function NavMenu() {
             </>
             )}
 
-            {isLoggedIn && (
+            {!authLoading && isLoggedIn && (
               <li>
                 <Link
                   href="/logout"

@@ -96,6 +96,9 @@ export const api = {
   auth: {
     me: async (): Promise<AuthResponse> => {
       try {
+        if (!getAuthToken()) {
+          throw new Error("No authentication token found");
+        }
         return apiCall<AuthResponse>("/auth/me");
       } catch (error) {
         removeAuthToken();
