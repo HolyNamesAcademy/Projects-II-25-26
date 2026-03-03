@@ -5,10 +5,11 @@ import Image from "next/image";
 
 interface Item {
   name: string;
-  type: string;
-  size: string;
-  image: string;
   price: number;
+  size: string;
+  type: string;
+  color: string;
+  image: string;
   favorite: boolean;
 }
 
