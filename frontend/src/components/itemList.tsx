@@ -9,8 +9,9 @@ interface Item {
   size: string;
   type: string;
   color: string;
-  image: string;
   favorite: boolean;
+  image: string;
+  description: string;
 }
 
 export default function ItemList({

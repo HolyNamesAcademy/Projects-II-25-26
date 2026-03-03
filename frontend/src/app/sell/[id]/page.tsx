@@ -11,6 +11,7 @@ function ItemInfo({
   size,
   type,
   color,
+  favorite,
   image,
   description,
 }: {
@@ -19,6 +20,7 @@ function ItemInfo({
   size: string;
   type: string;
   color: string;
+  favorite?: boolean;
   image: string;
   description: string;
 }) {

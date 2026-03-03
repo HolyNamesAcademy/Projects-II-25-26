@@ -4,53 +4,65 @@ import PrimaryButton from "@/components/primaryButton";
 
 interface Item {
   name: string;
-  type: string;
-  size: string;
-  image: string;
   price: number;
+  size: string;
+  type: string;
+  color: string;
   favorite: boolean;
+  image: string;
+  description: string;
 }
 
 const items = [
   {
     name: "Item 1",
-    type: "Tops",
-    size: "Large",
-    image: "placeholder",
     price: 10,
+    size: "Large",
+    type: "Tops",
+    color: "",
     favorite: true,
+    image: "placeholder",
+    description: "",
   },
   {
     name: "Item 2",
-    type: "Bottoms",
-    size: "Medium",
-    image: "placeholder",
     price: 20,
+    size: "Medium",
+    type: "Bottoms",
+    color: "",
     favorite: false,
+    image: "placeholder",
+    description: "",
   },
   {
     name: "Item 3",
-    type: "Tops",
-    size: "Small",
-    image: "placeholder",
     price: 15,
+    size: "Small",
+    type: "Tops",
+    color: "",
     favorite: true,
+    image: "placeholder",
+    description: "",
   },
   {
     name: "Item 4",
-    type: "Dresses",
-    size: "Large",
-    image: "placeholder",
     price: 25,
+    size: "Large",
+    type: "Dresses",
+    color: "",
     favorite: false,
+    image: "placeholder",
+    description: "",
   },
   {
     name: "Item 5",
-    type: "Shoes",
-    size: "Medium",
-    image: "placeholder",
     price: 18,
+    size: "Medium",
+    type: "Shoes",
+    color: "",
     favorite: true,
+    image: "placeholder",
+    description: "",
   },
 ];
 

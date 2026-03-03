@@ -76,6 +76,7 @@ interface CreateItemRequest {
   size: string;
   type: string;
   color: string;
+  favorite?: boolean;
   image: string;
   description: string;
 }
@@ -87,6 +88,7 @@ interface CreateItemResponse {
   size: string;
   type: string;
   color: string;
+  favorite?: boolean;
   image: string;
   description: string;
 }

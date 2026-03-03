@@ -8,8 +8,9 @@ interface Item {
   size: string;
   type: string;
   color: string;
-  image: string;
   favorite: boolean;
+  image: string;
+  description: string;
 }
 
 const items = [
@@ -19,8 +20,9 @@ const items = [
     size: "Large",
     type: "Tops",
     color: "Red",
-    image: "placeholder",
     favorite: true,
+    image: "placeholder",
+    description: "",
   },
   {
     name: "Item 2",
@@ -28,8 +30,9 @@ const items = [
     size: "Medium",
     type: "Bottoms",
     color: "Blue",
-    image: "placeholder",
     favorite: false,
+    image: "placeholder",
+    description: "",
   },
   {
     name: "Item 3",
@@ -37,8 +40,9 @@ const items = [
     size: "Small",
     type: "Tops",
     color: "Green",
-    image: "placeholder",
     favorite: true,
+    image: "placeholder",
+    description: "",
   },
   {
     name: "Item 4",
@@ -46,8 +50,9 @@ const items = [
     size: "Large",
     type: "Dresses",
     color: "Yellow",
-    image: "placeholder",
     favorite: false,
+    image: "placeholder",
+    description: "",
   },
   {
     name: "Item 5",
@@ -55,8 +60,9 @@ const items = [
     size: "Medium",
     type: "Shoes",
     color: "Black",
-    image: "placeholder",
     favorite: true,
+    image: "placeholder",
+    description: "",
   },
 ];
 

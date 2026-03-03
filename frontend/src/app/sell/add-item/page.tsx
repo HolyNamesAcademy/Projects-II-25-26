@@ -48,8 +48,9 @@ function CreateItem() {
       size,
       type,
       color,
-      description,
+      // favorite is optional and will default to false on the server
       image: previewUrl || "",
+      description,
     });
 
     console.log("Created item:", item);
