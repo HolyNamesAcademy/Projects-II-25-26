@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import PrimaryButton from "@/components/primaryButton";
+import SecondaryButton from "@/components/secondaryButton";
 
 interface Item {
   name: string;
@@ -15,9 +17,13 @@ interface Item {
 export default function ItemListToggle({
   items,
   UpdateFavorite,
+  showFavoritesButton = false,
+  showAddToCartButton = false,
 }: {
   items: Item[];
   UpdateFavorite: (item: Item) => Promise<void>;
+  showFavoritesButton?: boolean;
+  showAddToCartButton?: boolean;
 }) {
   const [displayedItems, setDisplayedItems] = useState(items);
 
@@ -53,6 +59,11 @@ export default function ItemListToggle({
                   style={{ cursor: "pointer", fontSize: "24px" }}
                 >
                   {item.favorite ? "❤️" : "♡"}
+                </div>
+                <div className="w-full flex justify-center pb-6">
+                       <div className="max-w-xs w-full">
+                          <SecondaryButton type="link" text="Add to Cart" href="/viewitem" />
+                      </div>
                 </div>
               </a>
             </div>
