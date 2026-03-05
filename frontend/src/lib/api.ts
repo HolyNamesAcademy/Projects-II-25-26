@@ -94,6 +94,18 @@ interface CreateItemResponse {
 // API functions for your Spring Boot endpoints
 export const api = {
   auth: {
+    me: async (): Promise<AuthResponse> => {
+      try {
+        if (!getAuthToken()) {
+          throw new Error("No authentication token found");
+        }
+        return apiCall<AuthResponse>("/auth/me");
+      } catch (error) {
+        removeAuthToken();
+        throw error;
+      }
+    },
+
     register: async (request: RegisterRequest): Promise<AuthResponse> => {
       const response = await apiCall<AuthResponse>("/auth/register", {
         method: "POST",
