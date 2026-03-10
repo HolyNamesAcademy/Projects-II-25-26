@@ -1,5 +1,8 @@
 package com.hna.webserver.dto;
 
+import com.hna.webserver.model.Color;
+import com.hna.webserver.model.Size;
+import com.hna.webserver.model.Type;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,14 +16,14 @@ public class ItemRequest {
     @Min(0)
     private Integer price;
 
-    @NotBlank
-    private String size;
+    @NotNull
+    private Size size;
 
-    @NotBlank
-    private String type;
+    @NotNull
+    private Type type;
 
-    @NotBlank
-    private String color;
+    @NotNull
+    private Color color;
 
     private String image;
 
@@ -45,27 +48,27 @@ public class ItemRequest {
         this.price = price;
     }
 
-    public String getSize() {
+    public Size getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
