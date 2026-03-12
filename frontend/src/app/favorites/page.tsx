@@ -34,10 +34,7 @@ export default function FavoriteList() {
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64">
         <h1 className="text-5xl align-middle text-center">Favorites</h1>
 
-        <ItemListToggle
-          items={items}
-          UpdateFavorite={UpdateFavorite}
-        />
+        <ItemListToggle items={items} UpdateFavorite={UpdateFavorite} />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         {/* Empty Footer */}
