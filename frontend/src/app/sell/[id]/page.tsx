@@ -6,6 +6,7 @@ import PrimaryButton from "@/components/primaryButton";
 import NavMenu from "@/components/navMenu";
 
 function ItemInfo({
+  id,
   name,
   price,
   size,
@@ -15,6 +16,7 @@ function ItemInfo({
   image,
   description,
 }: {
+  id: number;
   name: string;
   price: number;
   size: string;
