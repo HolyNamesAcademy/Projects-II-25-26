@@ -54,7 +54,7 @@ public class ItemService {
     public java.util.List<Item> getFavoritesForUser(User user) {
         User fresh = userRepository.findById(user.getId()).orElse(user);
         if (fresh.getFavorites() == null) return java.util.Collections.emptyList();
-        
+
         // Eagerly initialize the favoritedBy collection for each item while in transaction
         java.util.List<Item> favorites = new java.util.ArrayList<>(fresh.getFavorites());
         for (Item item : favorites) {
