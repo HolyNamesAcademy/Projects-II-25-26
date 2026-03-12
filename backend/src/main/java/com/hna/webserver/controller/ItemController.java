@@ -2,7 +2,10 @@ package com.hna.webserver.controller;
 
 import com.hna.webserver.dto.ItemRequest;
 import com.hna.webserver.dto.ItemResponse;
+import com.hna.webserver.model.Color;
 import com.hna.webserver.model.Item;
+import com.hna.webserver.model.Size;
+import com.hna.webserver.model.Type;
 import com.hna.webserver.model.User;
 import com.hna.webserver.repository.UserRepository;
 import com.hna.webserver.service.ItemService;
@@ -123,7 +126,13 @@ public class ItemController {
 
     //mapping for search items
     @GetMapping("/search")
-    public ResponseEntity<List<ItemResponse>> search(@RequestParam String query, String size, String type, String color, Integer minPrice, Integer maxPrice) {
+    public ResponseEntity<List<ItemResponse>> search(
+            @RequestParam(required = false) String query,
+            @RequestParam(required = false) Size size,
+            @RequestParam(required = false) Type type,
+            @RequestParam(required = false) Color color,
+            @RequestParam(required = false) Integer minPrice,
+            @RequestParam(required = false) Integer maxPrice) {
         List<Item> items = itemService.search(query, size, minPrice, maxPrice, color, type);
         List<ItemResponse> resp = items.stream().map(ItemResponse::new).collect(Collectors.toList());
         return ResponseEntity.ok(resp);

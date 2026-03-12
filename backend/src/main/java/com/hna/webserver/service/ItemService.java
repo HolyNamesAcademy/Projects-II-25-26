@@ -1,7 +1,10 @@
 package com.hna.webserver.service;
 
 import com.hna.webserver.dto.ItemRequest;
+import com.hna.webserver.model.Color;
 import com.hna.webserver.model.Item;
+import com.hna.webserver.model.Size;
+import com.hna.webserver.model.Type;
 import com.hna.webserver.model.User;
 import com.hna.webserver.repository.ItemRepository;
 import com.hna.webserver.repository.UserRepository;
@@ -121,15 +124,15 @@ public class ItemService {
 
     //search items
     //apply filters
-    public List<Item> search(String query, String size, Integer minPrice, Integer maxPrice, String color, String type) {
+    public List<Item> search(String query, Size size, Integer minPrice, Integer maxPrice, Color color, Type type) {
         List<Item> filteredItems = itemRepository.findAll().stream()
-                .filter(item -> item.getName().toLowerCase().contains(query.toLowerCase()) ||
+                .filter(item -> query == null || item.getName().toLowerCase().contains(query.toLowerCase()) ||
                         item.getDescription().toLowerCase().contains(query.toLowerCase()))
-                .filter(item -> size == null || item.getSize().equalsIgnoreCase(size))
+                .filter(item -> size == null || item.getSize().equals(size))
                 .filter(item -> minPrice == null || item.getPrice() >= minPrice)
                 .filter(item -> maxPrice == null || item.getPrice() <= maxPrice)
-                .filter(item -> color == null || item.getColor().equalsIgnoreCase(color))
-                .filter(item -> type == null || item.getType().equalsIgnoreCase(type))
+                .filter(item -> color == null || item.getColor().equals(color))
+                .filter(item -> type == null || item.getType().equals(type))
                 .toList();
         return filteredItems;
     }
