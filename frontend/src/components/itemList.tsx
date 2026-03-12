@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 interface Item {
-  id: number;
   name: string;
   price: number;
   size: string;
