@@ -3,6 +3,7 @@ import NavMenu from "@/components/navMenu";
 import PrimaryButton from "@/components/primaryButton";
 
 interface Item {
+  id: number;
   name: string;
   price: number;
   size: string;
@@ -15,6 +16,7 @@ interface Item {
 
 const items = [
   {
+    id: 1,
     name: "Item 1",
     price: 10,
     size: "Large",
@@ -25,6 +27,7 @@ const items = [
     description: "",
   },
   {
+    id: 2,
     name: "Item 2",
     price: 20,
     size: "Medium",
@@ -35,6 +38,7 @@ const items = [
     description: "",
   },
   {
+    id: 3,
     name: "Item 3",
     price: 15,
     size: "Small",
@@ -45,6 +49,7 @@ const items = [
     description: "",
   },
   {
+    id: 4,
     name: "Item 4",
     price: 25,
     size: "Large",
@@ -55,6 +60,7 @@ const items = [
     description: "",
   },
   {
+    id: 5,
     name: "Item 5",
     price: 18,
     size: "Medium",
