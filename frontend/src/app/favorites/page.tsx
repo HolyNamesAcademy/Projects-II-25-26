@@ -1,76 +1,33 @@
+"use client";
+
 import ItemListToggle from "@/components/itemListToggle";
 import NavMenu from "@/components/navMenu";
-
-interface Item {
-  name: string;
-  price: number;
-  size: string;
-  type: string;
-  color: string;
-  favorite: boolean;
-  image: string;
-  description: string;
-}
-
-const items = [
-  {
-    name: "Item 1",
-    price: 10,
-    size: "Large",
-    type: "Tops",
-    color: "",
-    favorite: true,
-    image: "placeholder",
-    description: "",
-  },
-  {
-    name: "Item 2",
-    price: 20,
-    size: "Medium",
-    type: "Bottoms",
-    color: "",
-    favorite: false,
-    image: "placeholder",
-    description: "",
-  },
-  {
-    name: "Item 3",
-    price: 15,
-    size: "Small",
-    type: "Tops",
-    color: "",
-    favorite: true,
-    image: "placeholder",
-    description: "",
-  },
-  {
-    name: "Item 4",
-    price: 25,
-    size: "Large",
-    type: "Dresses",
-    color: "",
-    favorite: false,
-    image: "placeholder",
-    description: "",
-  },
-  {
-    name: "Item 5",
-    price: 18,
-    size: "Medium",
-    type: "Shoes",
-    color: "",
-    favorite: true,
-    image: "placeholder",
-    description: "",
-  },
-];
-
-const UpdateFavorite = async (item: Item) => {
-  "use server";
-  console.log("Favorite clicked for:", item.name, "New status:", item.favorite);
-};
+import { useEffect, useState } from "react";
+import { api, type Item } from "@/lib/api";
 
 export default function FavoriteList() {
+  const [items, setItems] = useState<Item[]>([]);
+
+  async function UpdateFavorite(item: Item) {
+    if (item.favorite) {
+      await api.items.favorites.add(item.id);
+    } else {
+      await api.items.favorites.remove(item.id);
+    }
+    setItems((prevItems) =>
+      prevItems.map((i) =>
+        i.id === item.id ? { ...i, favorite: item.favorite } : i
+      )
+    );
+  }
+  useEffect(() => {
+    async function fetchFavorites() {
+      const favoriteItems = await api.items.favorites.fetch();
+      setItems(favoriteItems);
+    }
+    fetchFavorites();
+  }, []);
+
   return (
     <div>
       <NavMenu />

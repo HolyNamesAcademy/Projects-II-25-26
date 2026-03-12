@@ -81,7 +81,7 @@ interface CreateItemRequest {
   description: string;
 }
 
-interface CreateItemResponse {
+export interface Item {
   id: number;
   name: string;
   price: number;
@@ -140,11 +140,26 @@ export const api = {
   },
 
   items: {
-    create: async (request: CreateItemRequest): Promise<CreateItemResponse> => {
-      return apiCall<CreateItemResponse>("/items", {
+    create: async (request: Item): Promise<Item> => {
+      return apiCall<Item>("/items", {
         method: "POST",
         body: JSON.stringify(request),
       });
+    },
+    favorites: {
+      fetch: async (): Promise<Item[]> => {
+        return apiCall<Item[]>("/items/favorites");
+      },
+      add: async (itemId: number): Promise<void> => {
+        return apiCall<void>(`/items/${itemId}/favorite`, {
+          method: "POST",
+        });
+      },
+      remove: async (itemId: number): Promise<void> => {
+        return apiCall<void>(`/items/${itemId}/favorite`, {
+          method: "DELETE",
+        });
+      },
     },
   },
 };
