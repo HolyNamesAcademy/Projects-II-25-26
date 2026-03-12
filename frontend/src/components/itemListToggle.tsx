@@ -2,17 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-
-interface Item {
-  name: string;
-  price: number;
-  size: string;
-  type: string;
-  color: string;
-  favorite: boolean;
-  image: string;
-  description: string;
-}
+import { type Item } from "@/lib/api";
 
 export default function ItemListToggle({
   items,

@@ -35,7 +35,7 @@ export default function FavoriteList() {
         <h1 className="text-5xl align-middle text-center">Favorites</h1>
 
         <ItemListToggle
-          items={items.filter((item) => item.favorite)}
+          items={items}
           UpdateFavorite={UpdateFavorite}
         />
       </main>
