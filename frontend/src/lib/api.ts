@@ -140,7 +140,7 @@ export const api = {
   },
 
   items: {
-    create: async (request: Item): Promise<Item> => {
+    create: async (request: CreateItemRequest): Promise<Item> => {
       return apiCall<Item>("/items", {
         method: "POST",
         body: JSON.stringify(request),
