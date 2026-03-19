@@ -81,8 +81,8 @@ export default function Cart() {
   return (
     <div>
       <NavMenu />
-      <main className="flex flex-col gap-[32px] row-start-2 items-center pt-[32px] sm:ml-64">
-        <h1 className="text-5xl align-middle text-center">Cart</h1>
+      <main className="flex flex-col gap-[32px] row-start-2 items-center pt-[32px] sm:ml-64 dark:bg-gray-900">
+        <h1 className="text-5xl align-middle text-center dark:text-white">Cart</h1>
 
         {/*TODO: make "add to cart" button???*/}
         <ItemList
@@ -97,9 +97,9 @@ export default function Cart() {
             .map((item, i) => (
               <div
                 key={i}
-                className="flex justify-between items-center p-4 border rounded"
+                className="flex justify-between items-center p-4 border rounded dark:border-gray-600 dark:text-white"
               >
-                <span>{item.name}</span>
+                <span className="dark:text-white">{item.name}</span>
                 <button
                   onClick={() => Delete(item)}
                   className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
