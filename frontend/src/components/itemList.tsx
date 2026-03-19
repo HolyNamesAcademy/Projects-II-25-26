@@ -49,11 +49,11 @@ export default function ItemList({
   };
 
   return (
-    <div>
+    <div className="dark:bg-gray-900">
       <ul className="grid grid-cols-1 gap-8 list-none p-0 m-0">
         {displayedItems.map((item, i) => (
           <li key={i} className="mb-2">
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center dark:text-white">
               <a href="#" aria-label="Tops">
                 <Image
                   className="w-36 h-36 object-cover"

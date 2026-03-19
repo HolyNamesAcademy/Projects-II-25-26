@@ -64,7 +64,7 @@ function CreateItem() {
             {/*image preview*/}
             {previewUrl ? (
               <Image
-                className="w-full dark:hidden rounded-lg object-cover"
+                className="w-full rounded-lg object-cover"
                 src={previewUrl}
                 alt="Item preview"
                 width={200}
@@ -73,7 +73,7 @@ function CreateItem() {
               />
             ) : (
               <div
-                className="w-full dark:hidden rounded-lg object-cover bg-gray-200 dark:bg-gray-700"
+                className="w-full rounded-lg object-cover bg-gray-200 dark:bg-gray-700"
                 style={{ width: "100%", height: "200px" }}
               />
             )}

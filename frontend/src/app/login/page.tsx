@@ -24,8 +24,8 @@ export default function Login() {
   };
   return (
     <div>
-      <main className="flex flex-col gap-[32px] row-start-2 items-center">
-        <h1 className="text-5xl">Login</h1>
+      <main className="flex flex-col h-dvh gap-[32px] row-start-2 items-center dark:bg-gray-900">
+        <h1 className="text-5xl dark:text-white">Login</h1>
 
         <form>
           <div className="grid gap-6 mb-6 md:grid-cols-2">
@@ -72,9 +72,6 @@ export default function Login() {
           <PrimaryButton text="Login" type="button" onClick={login} />
         </form>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        {/* Empty Footer */}
-      </footer>
     </div>
   );
 }

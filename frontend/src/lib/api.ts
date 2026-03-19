@@ -146,6 +146,23 @@ export const api = {
         body: JSON.stringify(request),
       });
     },
+
+    favorites: {
+      fetch: async (): Promise<CreateItemResponse[]> => {
+        return apiCall<CreateItemResponse[]>("/items/favorites");
+      },
+      update: async (itemId: number, favorite: boolean): Promise<void> => {
+        await apiCall(`/items/${itemId}/favorite`, {
+          method: "PUT",
+          body: JSON.stringify({ favorite }),
+        });
+      },
+      remove: async (itemId: number): Promise<void> => {
+        await apiCall(`/items/${itemId}/favorite`, {
+          method: "DELETE",
+        });
+      },
+    },
   },
 };
 

@@ -75,8 +75,10 @@ export default function List() {
   return (
     <div>
       <NavMenu />
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64">
-        <h1 className="text-5xl align-middle text-center">Sell</h1>
+      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64 dark:bg-gray-900">
+        <h1 className="text-5xl align-middle text-center dark:text-white">
+          Sell
+        </h1>
 
         <PrimaryButton text="Add New Item" type="link" href="/sell/add-item" />
 

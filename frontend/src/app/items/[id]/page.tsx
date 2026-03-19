@@ -31,12 +31,12 @@ function ItemInfo({
   return (
     <>
       <NavMenu />
-      <section className="min-h-screen flex flex-col justify-between mx dark:hidden-4 py-8 bg-white md:py-16 dark:bg-gray-900 antialiased sm:ml-64">
+      <section className="min-h-screen flex flex-col justify-between mx-auto py-8 bg-white md:py-16 dark:bg-gray-900 antialiased sm:ml-64">
         <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
-          <div className="lg:grid dark:hidden lg:grid-cols-2 lg:gap-8 xl:gap-16">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
             <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
               <Image
-                className="w-full dark:hidden rounded-lg object-cover"
+                className="w-full rounded-lg object-cover"
                 src="/images/white-sweater.jpg"
                 alt="white knit sweater picture"
                 width={200}
@@ -87,17 +87,17 @@ function ItemInfo({
               <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
 
               {/* underlined header */}
-              <h1>
+              <h1 className="dark:text-white">
                 <u>Description:</u>
               </h1>
-              <p>
+              <p className="dark:text-white">
                 John + Jenn <br />
                 100% cotton <br />
                 Like-new quality <br />
               </p>
 
               {/* Display contact, size, and price*/}
-              <div className="mt-4">
+              <div className="mt-4 dark:text-white">
                 <p>Type: {type}</p>
                 <p>Size: {size}</p>
                 <p>Color: {color}</p>

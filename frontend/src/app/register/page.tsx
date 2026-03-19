@@ -36,8 +36,8 @@ export default function Register() {
   };
   return (
     <div>
-      <main className="flex flex-col gap-[32px] row-start-2 items-center">
-        <h1 className="text-5xl">Sign Up</h1>
+      <main className="flex flex-col h-dvh gap-[32px] row-start-2 items-center dark:bg-gray-900">
+        <h1 className="text-5xl dark:text-white">Sign Up</h1>
 
         <form>
           <div className="grid gap-6 mb-6 md:grid-cols-1">
