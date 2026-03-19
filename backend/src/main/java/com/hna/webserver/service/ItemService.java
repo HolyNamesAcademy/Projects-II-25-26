@@ -1,9 +1,13 @@
 package com.hna.webserver.service;
 
 import com.hna.webserver.dto.ItemRequest;
+import com.hna.webserver.model.Color;
 import com.hna.webserver.model.Item;
+import com.hna.webserver.model.Size;
+import com.hna.webserver.model.Type;
 import com.hna.webserver.model.User;
 import com.hna.webserver.repository.ItemRepository;
+import com.hna.webserver.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,9 +22,53 @@ public class ItemService {
     private static final Logger logger = LoggerFactory.getLogger(ItemService.class);
 
     private final ItemRepository itemRepository;
+    private final UserRepository userRepository;
 
-    public ItemService(ItemRepository itemRepository) {
+    public ItemService(ItemRepository itemRepository, UserRepository userRepository) {
         this.itemRepository = itemRepository;
+        this.userRepository = userRepository;
+    }
+
+    public void favoriteItem(Long itemId, User user) {
+        Item item = getItemById(itemId);
+        // Fetch user with favorites eagerly loaded to avoid LazyInitializationException
+        User userWithFavorites = userRepository.findById(user.getId())
+                .orElse(user);
+        if (userWithFavorites.getFavorites() == null) {
+            userWithFavorites.setFavorites(new java.util.HashSet<>());
+        }
+        if (userWithFavorites.getFavorites().add(item)) {
+            userRepository.save(userWithFavorites);
+            logger.info("User {} favorited item {}", userWithFavorites.getId(), itemId);
+        }
+    }
+
+    public void unfavoriteItem(Long itemId, User user) {
+        Item item = getItemById(itemId);
+        // Fetch user with favorites eagerly loaded to avoid LazyInitializationException
+        User userWithFavorites = userRepository.findById(user.getId())
+                .orElse(user);
+        if (userWithFavorites.getFavorites() != null && userWithFavorites.getFavorites().remove(item)) {
+            userRepository.save(userWithFavorites);
+            logger.info("User {} unfavorited item {}", userWithFavorites.getId(), itemId);
+        }
+    }
+
+    public java.util.List<Item> getFavoritesForUser(User user) {
+        User fresh = userRepository.findById(user.getId()).orElse(user);
+        if (fresh.getFavorites() == null) return java.util.Collections.emptyList();
+
+        // Eagerly initialize the favoritedBy collection for each item while in transaction
+        java.util.List<Item> favorites = new java.util.ArrayList<>(fresh.getFavorites());
+        for (Item item : favorites) {
+            // Access the collection to ensure it's initialized within the transaction
+            if (item.getFavoritedBy() != null) {
+                // Explicitly calling size() to force Hibernate lazy loading - return value intentionally ignored
+                @SuppressWarnings("unused")
+                int size = item.getFavoritedBy().size();
+            }
+        }
+        return favorites;
     }
 
     public Item createItem(ItemRequest req, User user) {
@@ -76,15 +124,15 @@ public class ItemService {
 
     //search items
     //apply filters
-    public List<Item> search(String query, String size, Integer minPrice, Integer maxPrice, String color, String type) {
+    public List<Item> search(String query, Size size, Integer minPrice, Integer maxPrice, Color color, Type type) {
         List<Item> filteredItems = itemRepository.findAll().stream()
-                .filter(item -> item.getName().toLowerCase().contains(query.toLowerCase()) ||
+                .filter(item -> query == null || item.getName().toLowerCase().contains(query.toLowerCase()) ||
                         item.getDescription().toLowerCase().contains(query.toLowerCase()))
-                .filter(item -> size == null || item.getSize().equalsIgnoreCase(size))
+                .filter(item -> size == null || item.getSize().equals(size))
                 .filter(item -> minPrice == null || item.getPrice() >= minPrice)
                 .filter(item -> maxPrice == null || item.getPrice() <= maxPrice)
-                .filter(item -> color == null || item.getColor().equalsIgnoreCase(color))
-                .filter(item -> type == null || item.getType().equalsIgnoreCase(type))
+                .filter(item -> color == null || item.getColor().equals(color))
+                .filter(item -> type == null || item.getType().equals(type))
                 .toList();
         return filteredItems;
     }

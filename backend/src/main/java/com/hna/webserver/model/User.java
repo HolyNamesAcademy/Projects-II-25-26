@@ -37,6 +37,13 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Item> items = new HashSet<>();
 
+        @ManyToMany
+        @JoinTable(
+            name = "user_favorites",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+        )
+        private Set<Item> favorites = new HashSet<>();
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -113,5 +120,14 @@ public class User {
 
     public void setLastLoginAt(LocalDateTime lastLoginAt) {
         this.lastLoginAt = lastLoginAt;
-   }
+    }
+
+    public Set<Item> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(Set<Item> favorites) {
+        this.favorites = favorites;
+    }
+
 }

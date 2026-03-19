@@ -29,16 +29,16 @@ public class Item {
     private Integer price;
 
     @Column(nullable = false)
-    @NotBlank
-    private String size;
+    @NotNull
+    private Size size;
 
     @Column(nullable = false)
-    @NotBlank
-    private String type;
+    @NotNull
+    private Type type;
 
     @Column(nullable = false)
-    @NotBlank
-    private String color;
+    @NotNull
+    private Color color;
 
     @Column(nullable = true)
     private String image;
@@ -50,6 +50,9 @@ public class Item {
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull
     private User user;
+
+    @ManyToMany(mappedBy = "favorites", fetch = FetchType.EAGER)
+    private java.util.Set<User> favoritedBy = new java.util.HashSet<>();
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -102,27 +105,27 @@ public class Item {
         this.price = price;
     }
 
-    public String getSize() {
+    public Size getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
@@ -156,5 +159,13 @@ public class Item {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public java.util.Set<User> getFavoritedBy() {
+        return favoritedBy;
+    }
+
+    public void setFavoritedBy(java.util.Set<User> favoritedBy) {
+        this.favoritedBy = favoritedBy;
     }
 }

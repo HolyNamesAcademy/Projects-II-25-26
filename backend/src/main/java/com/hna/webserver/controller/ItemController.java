@@ -2,7 +2,10 @@ package com.hna.webserver.controller;
 
 import com.hna.webserver.dto.ItemRequest;
 import com.hna.webserver.dto.ItemResponse;
+import com.hna.webserver.model.Color;
 import com.hna.webserver.model.Item;
+import com.hna.webserver.model.Size;
+import com.hna.webserver.model.Type;
 import com.hna.webserver.model.User;
 import com.hna.webserver.repository.UserRepository;
 import com.hna.webserver.service.ItemService;
@@ -52,7 +55,20 @@ public class ItemController {
     @GetMapping("/{id}")
     public ResponseEntity<ItemResponse> getItem(@PathVariable Long id) {
         Item item = itemService.getItemById(id);
-        return ResponseEntity.ok(new ItemResponse(item));
+        ItemResponse resp = new ItemResponse(item);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String email = authentication.getName();
+            try {
+                User user = userRepository.findByEmail(email).orElse(null);
+                if (user != null && user.getFavorites() != null) {
+                    resp.setFavorited(user.getFavorites().stream().anyMatch(i -> i.getId().equals(item.getId())));
+                }
+            } catch (Exception e) {
+                log.warn("Error checking if item is favorited for user {}: {}", email, e.getMessage());
+            }
+        }
+        return ResponseEntity.ok(resp);
     }
 
     @PutMapping("/{id}")
@@ -75,9 +91,48 @@ public class ItemController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/{id}/favorite")
+    public ResponseEntity<Void> favoriteItem(@PathVariable Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        itemService.favoriteItem(id, user);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}/favorite")
+    public ResponseEntity<Void> unfavoriteItem(@PathVariable Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        itemService.unfavoriteItem(id, user);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/favorites")
+    public ResponseEntity<List<ItemResponse>> listFavorites() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Item> items = itemService.getFavoritesForUser(user);
+        List<ItemResponse> resp = items.stream().map(item -> {
+            ItemResponse r = new ItemResponse(item);
+            r.setFavorited(true);
+            return r;
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(resp);
+    }
+
     //mapping for search items
     @GetMapping("/search")
-    public ResponseEntity<List<ItemResponse>> search(@RequestParam String query, String size, String type, String color, Integer minPrice, Integer maxPrice) {
+    public ResponseEntity<List<ItemResponse>> search(
+            @RequestParam(required = false) String query,
+            @RequestParam(required = false) Size size,
+            @RequestParam(required = false) Type type,
+            @RequestParam(required = false) Color color,
+            @RequestParam(required = false) Integer minPrice,
+            @RequestParam(required = false) Integer maxPrice) {
         List<Item> items = itemService.search(query, size, minPrice, maxPrice, color, type);
         List<ItemResponse> resp = items.stream().map(ItemResponse::new).collect(Collectors.toList());
         return ResponseEntity.ok(resp);

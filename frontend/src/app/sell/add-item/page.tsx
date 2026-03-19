@@ -3,15 +3,17 @@ import PrimaryButton from "@/components/primaryButton";
 import { useState } from "react";
 import TextInput from "@/components/textInput";
 import Image from "next/image";
+import { api } from "@/lib/api";
 
 function CreateItem() {
   const [_imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [itemName, setItemName] = useState("");
-  const [description, setDescription] = useState("");
-  const [contact, setContact] = useState("");
+  const [price, setPrice] = useState("");
   const [size, setSize] = useState("");
-  const [cost, setCost] = useState("");
+  const [type, setType] = useState("");
+  const [color, setColor] = useState("");
+  const [description, setDescription] = useState("");
 
   {
     /*image uploader*/
@@ -30,6 +32,29 @@ function CreateItem() {
     setImageFile(null);
     setPreviewUrl(null);
   }
+
+  const handleSubmit = async () => {
+    console.log("Item Name:", itemName);
+    console.log("Price:", price);
+    console.log("Size:", size);
+    console.log("Type:", type);
+    console.log("Color:", color);
+    console.log("Image File:", _imageFile);
+    console.log("Description:", description);
+
+    const item = await api.items.create({
+      name: itemName,
+      price: parseInt(price),
+      size,
+      type,
+      color,
+      // favorite is optional and will default to false on the server
+      image: previewUrl || "",
+      description,
+    });
+
+    console.log("Created item:", item);
+  };
 
   return (
     <section className="min-h-screen flex flex-col justify-between mx-4 py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
@@ -67,40 +92,24 @@ function CreateItem() {
           </div>
 
           <div className="mt-6 sm:mt-8 lg:mt-0">
-            <TextInput
-              label="Item Name"
-              type="text"
-              value={itemName}
-              onChange={(e) =>
-                setItemName((e.target as HTMLInputElement).value)
-              }
-              placeholder="i.e. White Knit Sweater"
-            />
-
-            <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
-
-            <TextInput
-              label="Description"
-              type="text"
-              value={description}
-              onChange={(e) =>
-                setDescription((e.target as HTMLInputElement).value)
-              }
-              placeholder="Brand, material, quality..."
-            />
-
-            <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
-
-            {/* Display contact, size, and cost*/}
+            {/* Display contact, size, and price*/}
             <div className="mt-4">
               <TextInput
-                label="Contact"
+                label="Item Name"
                 type="text"
-                value={contact}
+                value={itemName}
                 onChange={(e) =>
-                  setContact((e.target as HTMLInputElement).value)
+                  setItemName((e.target as HTMLInputElement).value)
                 }
-                placeholder="Holly Academy '26"
+                placeholder="i.e. White Knit Sweater"
+              />
+
+              <TextInput
+                label="Price"
+                type="number"
+                value={price}
+                onChange={(e) => setPrice((e.target as HTMLInputElement).value)}
+                placeholder="$"
               />
 
               <TextInput
@@ -112,11 +121,29 @@ function CreateItem() {
               />
 
               <TextInput
-                label="Price"
-                type="number"
-                value={cost}
-                onChange={(e) => setCost((e.target as HTMLInputElement).value)}
-                placeholder="$"
+                label="Type"
+                type="text"
+                value={type}
+                onChange={(e) => setType((e.target as HTMLInputElement).value)}
+                placeholder="Sweater, Jacket, Pants..."
+              />
+
+              <TextInput
+                label="Color"
+                type="text"
+                value={color}
+                onChange={(e) => setColor((e.target as HTMLInputElement).value)}
+                placeholder="White, Black, Red..."
+              />
+
+              <TextInput
+                label="Description"
+                type="text"
+                value={description}
+                onChange={(e) =>
+                  setDescription((e.target as HTMLInputElement).value)
+                }
+                placeholder="Brand, material, quality..."
               />
             </div>
           </div>
@@ -124,7 +151,11 @@ function CreateItem() {
       </div>
 
       <div className="max-w-screen-lg px-4 mx-auto 2xl:px-0 mt-12">
-        <PrimaryButton text="Post Item to Swapeeee" type="button" />
+        <PrimaryButton
+          text="Post Item to Swapeeee"
+          type="button"
+          onClick={handleSubmit}
+        />
       </div>
     </section>
   );

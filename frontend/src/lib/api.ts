@@ -70,10 +70,44 @@ interface LoginRequest {
   email: string;
   password: string;
 }
+interface CreateItemRequest {
+  name: string;
+  price: number;
+  size: string;
+  type: string;
+  color: string;
+  favorite?: boolean;
+  image: string;
+  description: string;
+}
+
+interface CreateItemResponse {
+  id: number;
+  name: string;
+  price: number;
+  size: string;
+  type: string;
+  color: string;
+  favorite?: boolean;
+  image: string;
+  description: string;
+}
 
 // API functions for your Spring Boot endpoints
 export const api = {
   auth: {
+    me: async (): Promise<AuthResponse> => {
+      try {
+        if (!getAuthToken()) {
+          throw new Error("No authentication token found");
+        }
+        return apiCall<AuthResponse>("/auth/me");
+      } catch (error) {
+        removeAuthToken();
+        throw error;
+      }
+    },
+
     register: async (request: RegisterRequest): Promise<AuthResponse> => {
       const response = await apiCall<AuthResponse>("/auth/register", {
         method: "POST",
@@ -102,6 +136,15 @@ export const api = {
 
     logout: async (): Promise<void> => {
       removeAuthToken();
+    },
+  },
+
+  items: {
+    create: async (request: CreateItemRequest): Promise<CreateItemResponse> => {
+      return apiCall<CreateItemResponse>("/items", {
+        method: "POST",
+        body: JSON.stringify(request),
+      });
     },
   },
 };

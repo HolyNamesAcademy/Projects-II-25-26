@@ -7,11 +7,13 @@ import SecondaryButton from "@/components/secondaryButton";
 
 interface Item {
   name: string;
-  type: string;
-  size: string;
-  image: string;
   price: number;
+  size: string;
+  type: string;
+  color: string;
   favorite: boolean;
+  image: string;
+  description: string;
 }
 
 export default function ItemListToggle({
