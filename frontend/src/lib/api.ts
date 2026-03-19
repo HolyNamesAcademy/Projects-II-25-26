@@ -147,7 +147,7 @@ export const api = {
       });
     },
 
-    favorites : {
+    favorites: {
       fetch: async (): Promise<CreateItemResponse[]> => {
         return apiCall<CreateItemResponse[]>("/items/favorites");
       },
@@ -161,9 +161,8 @@ export const api = {
         await apiCall(`/items/${itemId}/favorite`, {
           method: "DELETE",
         });
-      }
-    }
-
+      },
+    },
   },
 };
 

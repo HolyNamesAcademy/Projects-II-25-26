@@ -82,7 +82,9 @@ export default function Cart() {
     <div>
       <NavMenu />
       <main className="flex flex-col gap-[32px] row-start-2 items-center pt-[32px] sm:ml-64 dark:bg-gray-900">
-        <h1 className="text-5xl align-middle text-center dark:text-white">Cart</h1>
+        <h1 className="text-5xl align-middle text-center dark:text-white">
+          Cart
+        </h1>
 
         {/*TODO: make "add to cart" button???*/}
         <ItemList

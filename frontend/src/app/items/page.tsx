@@ -77,7 +77,9 @@ export default function List() {
     <div>
       <NavMenu />
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64 dark:bg-gray-900">
-        <h1 className="text-5xl align-middle text-center dark:text-white">Shop by Category</h1>
+        <h1 className="text-5xl align-middle text-center dark:text-white">
+          Shop by Category
+        </h1>
 
         {/*Add category filter component here*/}
         {/*<CategoryFilter />*/}
