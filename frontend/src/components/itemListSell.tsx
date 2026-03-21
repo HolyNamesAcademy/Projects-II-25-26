@@ -3,62 +3,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import ItemImage from "@/components/itemImage";
-import PrimaryButton from "@/components/primaryButton";
+import SecondaryButton from "@/components/secondaryButton";
+import { type Item } from "@/lib/api";
 
-interface Item {
-  id: number;
-  name: string;
-  price: number;
-  size: string;
-  type: string;
-  color: string;
-  favorite: boolean;
-  image: string;
-  description: string;
-}
-
-export default function ItemListSell({
-  items,
-  UpdateFavorite,
-  RemoveItem,
-  showFavoritesButton = false,
-  showAddToCartButton = false,
-}: {
-  items: Item[];
-  UpdateFavorite: (item: Item) => Promise<void>;
-  RemoveItem?: (item: Item) => Promise<void>;
-  showFavoritesButton?: boolean;
-  showAddToCartButton?: boolean;
-}) {
-  const [displayedItems, setDisplayedItems] = useState(items);
-
-  useEffect(() => {
-    setDisplayedItems(items);
-  }, [items]);
-
-  const handleFavoriteClick = async (item: Item) => {
-    // Optimistically remove the item from display
-    setDisplayedItems(displayedItems.filter((i) => i.name !== item.name));
-
-    // Call the server action to persist the change
-    item.favorite = !item.favorite;
-    await UpdateFavorite(item);
-  };
-
-  const handleRemoveClick = async (item: Item) => {
-    // Optimistically remove the item from display
-    setDisplayedItems(displayedItems.filter((i) => i.name !== item.name));
-
-    // Call the server action to persist the change
-    if (RemoveItem) {
-      await RemoveItem(item);
-    }
-  };
-
+export default function ItemListSell({ items }: { items: Item[] }) {
   return (
     <div className="dark:bg-gray-900">
-      <ul className="grid grid-cols-1 gap-8 list-none p-0 m-0">
-        {displayedItems.map((item, i) => (
+      <ul className="grid grid-cols-1 md:grid-cols-5 gap-8 list-none p-0 m-0">
+        {items.map((item, i) => (
           <li key={item.id ?? i} className="mb-2">
             <div className="flex flex-col items-center justify-center dark:text-white">
               <Link
@@ -78,37 +30,15 @@ export default function ItemListSell({
                 <div>{item.size}</div>
                 <div>${item.price}</div>
               </Link>
-              <div
-                role="button"
-                tabIndex={0}
-                onClick={() => handleFavoriteClick(item)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ")
-                    handleFavoriteClick(item);
-                }}
-                style={{ cursor: "pointer", fontSize: "24px" }}
-              >
-                {item.favorite ? "❤️" : "♡"}
-              </div>
               <div className="w-full flex justify-center pb-6">
                 <div className="max-w-xs w-full">
-                  <PrimaryButton
+                  <SecondaryButton
                     type="link"
-                    text="Buy Now"
-                    href={`/items/${item.id}`}
+                    text="Update Item"
+                    href={`/sell/${item.id}`}
                   />
                 </div>
               </div>
-
-              {RemoveItem && (
-                <button
-                  type="button"
-                  onClick={() => handleRemoveClick(item)}
-                  className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                >
-                  Remove
-                </button>
-              )}
             </div>
           </li>
         ))}

@@ -2,40 +2,31 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { type Item } from "@/lib/api";
+import { api, type Item } from "@/lib/api";
 import ItemImage from "@/components/itemImage";
 import SecondaryButton from "@/components/secondaryButton";
 
 export default function ItemListBuy({
   items,
-  UpdateFavorite,
-  showFavoritesButton = false,
-  showAddToCartButton = false,
+  updateItems,
 }: {
   items: Item[];
-  UpdateFavorite: (item: Item) => Promise<void>;
-  showFavoritesButton?: boolean;
-  showAddToCartButton?: boolean;
+  updateItems: () => Promise<void>;
 }) {
-  const [displayedItems, setDisplayedItems] = useState(items);
-
-  useEffect(() => {
-    setDisplayedItems(items);
-  }, [items]);
-
   const handleFavoriteClick = async (item: Item, index: number) => {
     const nextFavorite = !item.favorite;
-    const updatedItems = displayedItems.map((it, idx) =>
-      idx === index ? { ...it, favorite: nextFavorite } : it
-    );
-    setDisplayedItems(updatedItems);
-    await UpdateFavorite({ ...item, favorite: nextFavorite });
+    if (nextFavorite) {
+      await api.items.favorites.add(item.id);
+    } else {
+      await api.items.favorites.remove(item.id);
+    }
+    await updateItems();
   };
 
   return (
     <div>
       <ul className="grid grid-cols-1 md:grid-cols-3 gap-8 list-none p-0 m-0">
-        {displayedItems.map((item, i) => (
+        {items.map((item, i) => (
           <li key={item.id} className="mb-2">
             <div className="flex flex-col items-center justify-center dark:text-white">
               <Link

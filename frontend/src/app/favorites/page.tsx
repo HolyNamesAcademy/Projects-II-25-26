@@ -2,35 +2,29 @@
 
 import ItemListBuy from "@/components/itemListBuy";
 import NavMenu from "@/components/navMenu";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { api, type Item, handleApiError } from "@/lib/api";
 
 export default function FavoriteList() {
   const [items, setItems] = useState<Item[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState(false);
 
-  async function UpdateFavorite(item: Item) {
-    if (item.favorite) {
-      await api.items.favorites.add(item.id);
-      setItems((prev) =>
-        prev.map((i) => (i.id === item.id ? { ...i, favorite: true } : i))
-      );
-    } else {
-      await api.items.favorites.remove(item.id);
-      setItems((prev) => prev.filter((i) => i.id !== item.id));
+  const loadItems = async () => {
+    setLoadError(null);
+    try {
+      const favoriteItems = await api.items.favorites.fetch();
+      setItems(favoriteItems);
+    } catch (e) {
+      setLoadError(handleApiError(e));
+    } finally {
+      setLoaded(true);
     }
-  }
+  };
+
   useEffect(() => {
-    async function fetchFavorites() {
-      setLoadError(null);
-      try {
-        const favoriteItems = await api.items.favorites.fetch();
-        setItems(favoriteItems);
-      } catch (e) {
-        setLoadError(handleApiError(e));
-      }
-    }
-    fetchFavorites();
+    loadItems();
   }, []);
 
   return (
@@ -47,11 +41,17 @@ export default function FavoriteList() {
           </p>
         )}
 
-        <ItemListBuy items={items} UpdateFavorite={UpdateFavorite} />
+        {loaded && !loadError && items.length === 0 ? (
+          <div
+            className="flex flex-col items-center gap-4 px-4 text-center text-gray-600 dark:text-gray-400 max-w-md"
+            role="status"
+          >
+            <p>You have not saved any favorites yet.</p>
+          </div>
+        ) : (
+          <ItemListBuy items={items} updateItems={loadItems} />
+        )}
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        {/* Empty Footer */}
-      </footer>
     </div>
   );
 }

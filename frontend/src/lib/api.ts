@@ -53,6 +53,10 @@ async function apiCall<T>(
     );
   }
 
+  if (response.status === 204) {
+    return [] as T;
+  }
+
   return response.json();
 }
 

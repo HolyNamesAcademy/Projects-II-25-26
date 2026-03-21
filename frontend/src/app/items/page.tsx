@@ -10,63 +10,33 @@ export default function List() {
   const [items, setItems] = useState<Item[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const mergeFavoriteState = useCallback(async (list: Item[]) => {
-    try {
-      const favs = await api.items.favorites.fetch();
-      const favIds = new Set(favs.map((f) => f.id));
-      return list.map((i) => ({ ...i, favorite: favIds.has(i.id) }));
-    } catch {
-      return list;
-    }
-  }, []);
-
-  const loadItems = useCallback(async () => {
+  const loadItems = async () => {
+    console.log("loadItems");
     setLoadError(null);
     try {
       const list = await api.items.list();
-      setItems(await mergeFavoriteState(list));
+      setItems(list);
     } catch (e) {
       setLoadError(handleApiError(e));
     }
-  }, [mergeFavoriteState]);
+  };
 
   useEffect(() => {
     loadItems();
-  }, [loadItems]);
+  }, []);
 
-  const handleSearch = useCallback(
-    async (query: string) => {
-      setLoadError(null);
-      try {
-        const q = query.trim();
-        const list = q
-          ? await api.items.search({ query: q })
-          : await api.items.list();
-        setItems(await mergeFavoriteState(list));
-      } catch (e) {
-        setLoadError(handleApiError(e));
-      }
-    },
-    [mergeFavoriteState]
-  );
-
-  async function updateFavorite(item: Item) {
+  const handleSearch = async (query: string) => {
+    setLoadError(null);
     try {
-      if (item.favorite) {
-        await api.items.favorites.add(item.id);
-      } else {
-        await api.items.favorites.remove(item.id);
-      }
-      setItems((prev) =>
-        prev.map((i) =>
-          i.id === item.id ? { ...i, favorite: item.favorite } : i
-        )
-      );
+      const q = query.trim();
+      const list = q
+        ? await api.items.search({ query: q })
+        : await api.items.list();
+      setItems(list);
     } catch (e) {
       setLoadError(handleApiError(e));
-      await loadItems();
     }
-  }
+  };
 
   return (
     <div>
@@ -84,11 +54,8 @@ export default function List() {
           </p>
         )}
 
-        <ItemListBuy items={items} UpdateFavorite={updateFavorite} />
+        <ItemListBuy items={items} updateItems={loadItems} />
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        {/* Empty Footer */}
-      </footer>
     </div>
   );
 }
