@@ -1,6 +1,6 @@
 "use client";
 
-import ItemListToggle from "@/components/itemListToggle";
+import ItemListBuy from "@/components/itemListBuy";
 import NavMenu from "@/components/navMenu";
 import { useEffect, useState } from "react";
 import { api, type Item, handleApiError } from "@/lib/api";
@@ -47,7 +47,7 @@ export default function FavoriteList() {
           </p>
         )}
 
-        <ItemListToggle items={items} UpdateFavorite={UpdateFavorite} />
+        <ItemListBuy items={items} UpdateFavorite={UpdateFavorite} />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         {/* Empty Footer */}

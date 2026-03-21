@@ -17,7 +17,7 @@ interface Item {
   description: string;
 }
 
-export default function ItemList({
+export default function ItemListSell({
   items,
   UpdateFavorite,
   RemoveItem,

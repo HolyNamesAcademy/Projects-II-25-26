@@ -6,7 +6,7 @@ import { type Item } from "@/lib/api";
 import ItemImage from "@/components/itemImage";
 import SecondaryButton from "@/components/secondaryButton";
 
-export default function ItemListToggle({
+export default function ItemListBuy({
   items,
   UpdateFavorite,
   showFavoritesButton = false,
