@@ -10,33 +10,15 @@ export default function List() {
   const [items, setItems] = useState<Item[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const mergeFavoriteState = useCallback(async (list: Item[]) => {
-    try {
-      const favs = await api.items.favorites.fetch();
-      const favIds = new Set(favs.map((f) => f.id));
-      return list.map((i) => ({ ...i, favorite: favIds.has(i.id) }));
-    } catch {
-      return list;
-    }
-  }, []);
-
-  const loadMyItems = useCallback(async () => {
+  const loadMyItems = async () => {
     setLoadError(null);
     try {
-      const [all, me] = await Promise.all([
-        api.items.list(),
-        api.auth.me().catch(() => null),
-      ]);
-      if (me?.id != null) {
-        const mine = all.filter((i) => i.userId === me.id);
-        setItems(await mergeFavoriteState(mine));
-      } else {
-        setItems([]);
-      }
+      const list = await api.items.list();
+      setItems(list);
     } catch (e) {
       setLoadError(handleApiError(e));
     }
-  }, [mergeFavoriteState]);
+  };
 
   useEffect(() => {
     loadMyItems();

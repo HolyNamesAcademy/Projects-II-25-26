@@ -87,8 +87,8 @@ public class ItemService {
         return saved;
     }
 
-    public List<Item> getAllItems() {
-        return itemRepository.findAll();
+    public List<Item> getItemsForUser(User user) {
+        return itemRepository.findByUser_Id(user.getId());
     }
 
     public Item getItemById(Long id) {

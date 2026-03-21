@@ -2,26 +2,36 @@
 
 import ItemListBuy from "@/components/itemListBuy";
 import NavMenu from "@/components/navMenu";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState , useCallback} from "react";
 import { api, type Item, handleApiError } from "@/lib/api";
 
 export default function FavoriteList() {
   const [items, setItems] = useState<Item[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const mergeFavoriteState = useCallback(async (list: Item[]) => {
+    try {
+      const favs = await api.items.favorites.fetch();
+      const favIds = new Set(favs.map((f) => f.id));
+      return list.map((i) => ({ ...i, favorite: favIds.has(i.id) }));
+    } catch {
+      return list;
+    }
+  }, []);
 
-  const loadItems = async () => {
+
+  const loadItems = useCallback(async () => {
     setLoadError(null);
     try {
       const favoriteItems = await api.items.favorites.fetch();
-      setItems(favoriteItems);
+      setItems(await mergeFavoriteState(favoriteItems));
     } catch (e) {
       setLoadError(handleApiError(e));
     } finally {
       setLoaded(true);
     }
-  };
+  }, [mergeFavoriteState]);
+
 
   useEffect(() => {
     loadItems();

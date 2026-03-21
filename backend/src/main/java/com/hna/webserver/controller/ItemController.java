@@ -47,7 +47,11 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<List<ItemResponse>> listItems() {
-        List<Item> items = itemService.getAllItems();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Item> items = itemService.getItemsForUser(user);
         List<ItemResponse> resp = items.stream().map(ItemResponse::new).collect(Collectors.toList());
         return ResponseEntity.ok(resp);
     }

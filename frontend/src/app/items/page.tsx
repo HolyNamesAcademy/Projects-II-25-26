@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { use, useCallback, useEffect, useState } from "react";
 import ItemListBuy from "@/components/itemListBuy";
 import NavMenu from "@/components/navMenu";
 import CategoryFilterAndSearch from "@/components/categoryFilterAndSearch";
@@ -10,16 +10,26 @@ export default function List() {
   const [items, setItems] = useState<Item[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const loadItems = async () => {
-    console.log("loadItems");
+  const mergeFavoriteState = useCallback(async (list: Item[]) => {
+    try {
+      const favs = await api.items.favorites.fetch();
+      const favIds = new Set(favs.map((f) => f.id));
+      return list.map((i) => ({ ...i, favorite: favIds.has(i.id) }));
+    } catch {
+      return list;
+    }
+  }, []);
+
+
+  const loadItems = useCallback(async () => {
     setLoadError(null);
     try {
-      const list = await api.items.list();
-      setItems(list);
+      const list = await api.items.search({});
+      setItems(await mergeFavoriteState(list));
     } catch (e) {
       setLoadError(handleApiError(e));
     }
-  };
+  }, [mergeFavoriteState]);
 
   useEffect(() => {
     loadItems();
@@ -31,7 +41,7 @@ export default function List() {
       const q = query.trim();
       const list = q
         ? await api.items.search({ query: q })
-        : await api.items.list();
+        : await api.items.search({});
       setItems(list);
     } catch (e) {
       setLoadError(handleApiError(e));
