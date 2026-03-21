@@ -1,76 +1,38 @@
+"use client";
+
 import ItemListToggle from "@/components/itemListToggle";
 import NavMenu from "@/components/navMenu";
-
-interface Item {
-  name: string;
-  price: number;
-  size: string;
-  type: string;
-  color: string;
-  favorite: boolean;
-  image: string;
-  description: string;
-}
-
-const items = [
-  {
-    name: "Item 1",
-    price: 10,
-    size: "Large",
-    type: "Tops",
-    color: "",
-    favorite: true,
-    image: "placeholder",
-    description: "",
-  },
-  {
-    name: "Item 2",
-    price: 20,
-    size: "Medium",
-    type: "Bottoms",
-    color: "",
-    favorite: false,
-    image: "placeholder",
-    description: "",
-  },
-  {
-    name: "Item 3",
-    price: 15,
-    size: "Small",
-    type: "Tops",
-    color: "",
-    favorite: true,
-    image: "placeholder",
-    description: "",
-  },
-  {
-    name: "Item 4",
-    price: 25,
-    size: "Large",
-    type: "Dresses",
-    color: "",
-    favorite: false,
-    image: "placeholder",
-    description: "",
-  },
-  {
-    name: "Item 5",
-    price: 18,
-    size: "Medium",
-    type: "Shoes",
-    color: "",
-    favorite: true,
-    image: "placeholder",
-    description: "",
-  },
-];
-
-const UpdateFavorite = async (item: Item) => {
-  "use server";
-  console.log("Favorite clicked for:", item.name, "New status:", item.favorite);
-};
+import { useEffect, useState } from "react";
+import { api, type Item, handleApiError } from "@/lib/api";
 
 export default function FavoriteList() {
+  const [items, setItems] = useState<Item[]>([]);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  async function UpdateFavorite(item: Item) {
+    if (item.favorite) {
+      await api.items.favorites.add(item.id);
+      setItems((prev) =>
+        prev.map((i) => (i.id === item.id ? { ...i, favorite: true } : i))
+      );
+    } else {
+      await api.items.favorites.remove(item.id);
+      setItems((prev) => prev.filter((i) => i.id !== item.id));
+    }
+  }
+  useEffect(() => {
+    async function fetchFavorites() {
+      setLoadError(null);
+      try {
+        const favoriteItems = await api.items.favorites.fetch();
+        setItems(favoriteItems);
+      } catch (e) {
+        setLoadError(handleApiError(e));
+      }
+    }
+    fetchFavorites();
+  }, []);
+
   return (
     <div>
       <NavMenu />
@@ -79,10 +41,13 @@ export default function FavoriteList() {
           Favorites
         </h1>
 
-        <ItemListToggle
-          items={items.filter((item) => item.favorite)}
-          UpdateFavorite={UpdateFavorite}
-        />
+        {loadError && (
+          <p className="text-red-500 text-center px-4" role="alert">
+            {loadError}
+          </p>
+        )}
+
+        <ItemListToggle items={items} UpdateFavorite={UpdateFavorite} />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         {/* Empty Footer */}
