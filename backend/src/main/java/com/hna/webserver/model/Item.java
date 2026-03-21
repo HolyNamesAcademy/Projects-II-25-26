@@ -28,14 +28,17 @@ public class Item {
     @NotNull
     private Integer price;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @NotNull
     private Size size;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @NotNull
     private Type type;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @NotNull
     private Color color;

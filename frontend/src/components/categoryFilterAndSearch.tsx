@@ -1,9 +1,12 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import PrimaryButton from "@/components/primaryButton";
 
-export default function CategoryFilter() {
+export default function CategoryFilter({
+  onSearch,
+}: {
+  onSearch?: (query: string) => void;
+} = {}) {
   const [search, setSearch] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSearchPressed, setIsSearchPressed] = useState(false);
@@ -152,6 +155,7 @@ export default function CategoryFilter() {
         />
         <button
           type="button"
+          onClick={() => onSearch?.(search)}
           onMouseDown={() => setIsSearchPressed(true)}
           onMouseUp={() => setIsSearchPressed(false)}
           onMouseLeave={() => setIsSearchPressed(false)}

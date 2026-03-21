@@ -68,7 +68,7 @@ public class AuthController {
             userService.updateLastLogin(registerRequest.getEmail());
 
             log.info("Register successful for user: {}", registerRequest.getEmail());
-            AuthResponse response = new AuthResponse(token, user.getName(), user.getEmail());
+            AuthResponse response = new AuthResponse(token, user.getName(), user.getEmail(), user.getId());
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             log.warn("Register failed for user: {} - {}", registerRequest.getEmail(), e.getMessage());
@@ -109,7 +109,7 @@ public class AuthController {
             userService.updateLastLogin(loginRequest.getEmail());
 
             log.info("Login successful for user: {}", loginRequest.getEmail());
-            AuthResponse response = new AuthResponse(token, user.getName(), user.getEmail());
+            AuthResponse response = new AuthResponse(token, user.getName(), user.getEmail(), user.getId());
             return ResponseEntity.ok(response);
         } catch (BadCredentialsException e) {
             log.warn("Login failed for user: {} - Bad credentials", loginRequest.getEmail());
@@ -128,7 +128,7 @@ public class AuthController {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        AuthResponse response = new AuthResponse(null, user.getName(), user.getEmail());
+        AuthResponse response = new AuthResponse(null, user.getName(), user.getEmail(), user.getId());
         return ResponseEntity.ok(response);
     }
 }

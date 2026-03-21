@@ -1,32 +1,97 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import PrimaryButton from "@/components/primaryButton";
 import NavMenu from "@/components/navMenu";
+import { api, type Item, handleApiError } from "@/lib/api";
 
-function ItemInfo({
-  name,
-  price,
-  size,
-  type,
-  color,
-  image,
-  description,
-}: {
-  name: string;
-  price: number;
-  size: string;
-  type: string;
-  color: string;
-  image: string;
-  description: string;
-}) {
-  const [isFavorite, setIsFavorite] = useState(false);
+function detailImageSrc(image: string): string {
+  if (!image?.trim()) return "/images/white-sweater.jpg";
+  if (image.startsWith("/")) return image;
+  if (/^https?:\/\//i.test(image)) return image;
+  return "/images/white-sweater.jpg";
+}
 
-  const handleFavoriteClick = () => {
-    setIsFavorite(!isFavorite);
+export default function ItemInfo() {
+  const params = useParams();
+  const idParam = params?.id;
+  const id =
+    typeof idParam === "string"
+      ? Number.parseInt(idParam, 10)
+      : Array.isArray(idParam)
+        ? Number.parseInt(idParam[0], 10)
+        : NaN;
+
+  const [item, setItem] = useState<Item | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [pendingFavorite, setPendingFavorite] = useState(false);
+
+  const load = useCallback(async () => {
+    if (!Number.isFinite(id)) {
+      setError("Invalid item");
+      return;
+    }
+    setError(null);
+    try {
+      const data = await api.items.getById(id);
+      setItem(data);
+    } catch (e) {
+      setError(handleApiError(e));
+      setItem(null);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  const handleFavoriteClick = async () => {
+    if (!item || pendingFavorite) return;
+    const next = !item.favorite;
+    setPendingFavorite(true);
+    setItem({ ...item, favorite: next });
+    try {
+      if (next) {
+        await api.items.favorites.add(item.id);
+      } else {
+        await api.items.favorites.remove(item.id);
+      }
+    } catch (e) {
+      setError(handleApiError(e));
+      setItem((prev) => (prev ? { ...prev, favorite: item.favorite } : prev));
+    } finally {
+      setPendingFavorite(false);
+    }
   };
+
+  if (error && !item) {
+    return (
+      <>
+        <NavMenu />
+        <section className="min-h-screen sm:ml-64 dark:bg-gray-900 px-4 py-16">
+          <p className="text-red-500 text-center" role="alert">
+            {error}
+          </p>
+        </section>
+      </>
+    );
+  }
+
+  if (!item) {
+    return (
+      <>
+        <NavMenu />
+        <section className="min-h-screen sm:ml-64 dark:bg-gray-900 px-4 py-16">
+          <p className="text-center dark:text-white">Loading…</p>
+        </section>
+      </>
+    );
+  }
+
+  const src = detailImageSrc(item.image);
+  const remote = src.startsWith("http");
 
   return (
     <>
@@ -37,45 +102,58 @@ function ItemInfo({
             <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
               <Image
                 className="w-full rounded-lg object-cover"
-                src="/images/white-sweater.jpg"
-                alt="white knit sweater picture"
-                width={200}
-                height={200}
+                src={src}
+                alt={item.name}
+                width={400}
+                height={400}
+                unoptimized={remote}
               />
             </div>
 
             <div className="mt-6 sm:mt-8 lg:mt-0">
               <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-                White Knit Sweater
+                {item.name}
               </h1>
 
               <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
                 <div
+                  role="button"
+                  tabIndex={0}
                   onClick={handleFavoriteClick}
-                  style={{ cursor: "pointer", fontSize: "24px" }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ")
+                      handleFavoriteClick();
+                  }}
+                  style={{
+                    cursor: pendingFavorite ? "wait" : "pointer",
+                    fontSize: "24px",
+                  }}
+                  aria-busy={pendingFavorite}
                 >
-                  {isFavorite ? "❤️" : "♡"}
+                  {item.favorite ? "❤️" : "♡"}
                 </div>
               </div>
 
+              {error && (
+                <p className="mt-2 text-sm text-red-500" role="alert">
+                  {error}
+                </p>
+              )}
+
               <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
 
-              {/* underlined header */}
-              <h1 className="dark:text-white">
-                <u>Description:</u>
-              </h1>
-              <p className="dark:text-white">
-                John + Jenn <br />
-                100% cotton <br />
-                Like-new quality <br />
+              <h2 className="dark:text-white">
+                <u>Description</u>
+              </h2>
+              <p className="dark:text-white whitespace-pre-wrap">
+                {item.description || "No description provided."}
               </p>
 
-              {/* Display contact, size, and price*/}
               <div className="mt-4 dark:text-white">
-                <p>Type: {type}</p>
-                <p>Size: {size}</p>
-                <p>Color: {color}</p>
-                <p>${price}</p>
+                <p>Type: {item.type}</p>
+                <p>Size: {item.size}</p>
+                <p>Color: {item.color}</p>
+                <p>${item.price}</p>
               </div>
             </div>
           </div>
@@ -83,12 +161,16 @@ function ItemInfo({
 
         <div className="w-full flex justify-center pb-6">
           <div className="max-w-xs w-full">
-            <PrimaryButton type="button" text="Contact Seller" onClick={() => {window.alert("Contact Seller clicked");}} />
+            <PrimaryButton
+              type="button"
+              text="Contact Seller"
+              onClick={() => {
+                window.alert("Contact Seller clicked");
+              }}
+            />
           </div>
         </div>
       </section>
     </>
   );
 }
-
-export default ItemInfo;

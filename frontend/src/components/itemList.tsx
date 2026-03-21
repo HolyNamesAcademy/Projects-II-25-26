@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import PrimaryButton from "@/components/primaryButton";
 
 interface Item {
+  id: number;
   name: string;
   price: number;
   size: string;
@@ -21,7 +23,6 @@ export default function ItemList({
   RemoveItem,
   showFavoritesButton = false,
   showAddToCartButton = false,
-
 }: {
   items: Item[];
   UpdateFavorite: (item: Item) => Promise<void>;
@@ -58,44 +59,55 @@ export default function ItemList({
     <div className="dark:bg-gray-900">
       <ul className="grid grid-cols-1 gap-8 list-none p-0 m-0">
         {displayedItems.map((item, i) => (
-          <li key={i} className="mb-2">
-            <div className="flex items-center justify-center dark:text-white">
-              <a href="#" aria-label="Tops">
+          <li key={item.id ?? i} className="mb-2">
+            <div className="flex flex-col items-center justify-center dark:text-white">
+              <Link
+                href={`/items/${item.id}`}
+                className="text-center"
+                aria-label={item.name}
+              >
                 <Image
                   className="w-36 h-36 object-cover"
                   src="/images/Tops.png"
-                  alt="Tops"
+                  alt={item.name}
                   width={144}
                   height={144}
                 />
-                {item.name}
+                <div className="mt-1">{item.name}</div>
                 <div>{item.size}</div>
                 <div>${item.price}</div>
-                <div
-                  onClick={() => handleFavoriteClick(item)}
-                  style={{ cursor: "pointer", fontSize: "24px" }}
-                >
-                  {item.favorite ? "❤️" : "♡"}
+              </Link>
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={() => handleFavoriteClick(item)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ")
+                    handleFavoriteClick(item);
+                }}
+                style={{ cursor: "pointer", fontSize: "24px" }}
+              >
+                {item.favorite ? "❤️" : "♡"}
+              </div>
+              <div className="w-full flex justify-center pb-6">
+                <div className="max-w-xs w-full">
+                  <PrimaryButton
+                    type="link"
+                    text="Buy Now"
+                    href={`/items/${item.id}`}
+                  />
                 </div>
-                <div className="w-full flex justify-center pb-6">
-                  <div className="max-w-xs w-full">
-                    <PrimaryButton
-                      type="link"
-                      text="Buy Now"
-                      href="/viewitem"
-                    />
-                  </div>
-                </div>
+              </div>
 
-                {RemoveItem && (
-                  <button
-                    onClick={() => handleRemoveClick(item)}
-                    className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  >
-                    Remove
-                  </button>
-                )}
-              </a>
+              {RemoveItem && (
+                <button
+                  type="button"
+                  onClick={() => handleRemoveClick(item)}
+                  className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                >
+                  Remove
+                </button>
+              )}
             </div>
           </li>
         ))}
