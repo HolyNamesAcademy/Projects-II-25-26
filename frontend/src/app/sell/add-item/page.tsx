@@ -2,7 +2,7 @@
 import PrimaryButton from "@/components/primaryButton";
 import { useState } from "react";
 import TextInput from "@/components/textInput";
-import Image from "next/image";
+import ItemImage from "@/components/itemImage";
 import {
   api,
   ITEM_SIZES,
@@ -76,13 +76,13 @@ function CreateItem() {
           <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
             {/*image preview*/}
             {previewUrl ? (
-              <Image
+              <ItemImage
                 className="w-full rounded-lg object-cover"
-                src={previewUrl}
+                image={previewUrl}
                 alt="Item preview"
                 width={200}
                 height={200}
-                unoptimized
+                variant="detail"
               />
             ) : (
               <div

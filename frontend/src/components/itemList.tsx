@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import ItemImage from "@/components/itemImage";
 import PrimaryButton from "@/components/primaryButton";
 
 interface Item {
@@ -66,12 +66,13 @@ export default function ItemList({
                 className="text-center"
                 aria-label={item.name}
               >
-                <Image
+                <ItemImage
                   className="w-36 h-36 object-cover"
-                  src="/images/Tops.png"
+                  image={item.image}
                   alt={item.name}
                   width={144}
                   height={144}
+                  variant="card"
                 />
                 <div className="mt-1">{item.name}</div>
                 <div>{item.size}</div>

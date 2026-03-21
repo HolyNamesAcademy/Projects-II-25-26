@@ -1,18 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
 import { useParams } from "next/navigation";
+import ItemImage from "@/components/itemImage";
 import PrimaryButton from "@/components/primaryButton";
 import NavMenu from "@/components/navMenu";
 import { api, type Item, handleApiError } from "@/lib/api";
-
-function detailImageSrc(image: string): string {
-  if (!image?.trim()) return "/images/white-sweater.jpg";
-  if (image.startsWith("/")) return image;
-  if (/^https?:\/\//i.test(image)) return image;
-  return "/images/white-sweater.jpg";
-}
 
 export default function SellerItemDetail() {
   const params = useParams();
@@ -90,9 +83,6 @@ export default function SellerItemDetail() {
     );
   }
 
-  const src = detailImageSrc(item.image);
-  const remote = src.startsWith("http");
-
   return (
     <>
       <NavMenu />
@@ -100,13 +90,13 @@ export default function SellerItemDetail() {
         <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
           <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
             <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
-              <Image
+              <ItemImage
                 className="w-full rounded-lg object-cover"
-                src={src}
+                image={item.image}
                 alt={item.name}
                 width={400}
                 height={400}
-                unoptimized={remote}
+                variant="detail"
               />
             </div>
 

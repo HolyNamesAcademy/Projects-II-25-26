@@ -1,17 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { type Item } from "@/lib/api";
+import ItemImage from "@/components/itemImage";
 import SecondaryButton from "@/components/secondaryButton";
-
-function listImageSrc(image: string): string {
-  if (!image?.trim()) return "/images/Tops.png";
-  if (image.startsWith("/")) return image;
-  if (/^https?:\/\//i.test(image)) return image;
-  return "/images/Tops.png";
-}
 
 export default function ItemListToggle({
   items,
@@ -50,13 +43,13 @@ export default function ItemListToggle({
                 className="text-center"
                 aria-label={item.name}
               >
-                <Image
+                <ItemImage
                   className="w-60 h-60 object-cover"
-                  src={listImageSrc(item.image)}
+                  image={item.image}
                   alt={item.name}
                   width={240}
                   height={240}
-                  unoptimized={listImageSrc(item.image).startsWith("http")}
+                  variant="card"
                 />
                 <div className="mt-2 font-medium">{item.name}</div>
                 <div>{item.size}</div>
