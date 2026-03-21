@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import PrimaryButton from "@/components/primaryButton";
 
 interface Item {
   name: string;
@@ -18,10 +19,15 @@ export default function ItemList({
   items,
   UpdateFavorite,
   RemoveItem,
+  showFavoritesButton = false,
+  showAddToCartButton = false,
+
 }: {
   items: Item[];
   UpdateFavorite: (item: Item) => Promise<void>;
   RemoveItem?: (item: Item) => Promise<void>;
+  showFavoritesButton?: boolean;
+  showAddToCartButton?: boolean;
 }) {
   const [displayedItems, setDisplayedItems] = useState(items);
 
@@ -49,11 +55,11 @@ export default function ItemList({
   };
 
   return (
-    <div>
+    <div className="dark:bg-gray-900">
       <ul className="grid grid-cols-1 gap-8 list-none p-0 m-0">
         {displayedItems.map((item, i) => (
           <li key={i} className="mb-2">
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center dark:text-white">
               <a href="#" aria-label="Tops">
                 <Image
                   className="w-36 h-36 object-cover"
@@ -71,6 +77,16 @@ export default function ItemList({
                 >
                   {item.favorite ? "❤️" : "♡"}
                 </div>
+                <div className="w-full flex justify-center pb-6">
+                  <div className="max-w-xs w-full">
+                    <PrimaryButton
+                      type="link"
+                      text="Buy Now"
+                      href="/viewitem"
+                    />
+                  </div>
+                </div>
+
                 {RemoveItem && (
                   <button
                     onClick={() => handleRemoveClick(item)}

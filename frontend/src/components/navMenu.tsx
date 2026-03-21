@@ -28,7 +28,7 @@ export default function NavMenu() {
     <>
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-30 bg-white bg-opacity-50 sm:hidden"
+          className="fixed inset-0 z-30 bg-white bg-opacity-50 sm:hidden dark:bg-gray-900 dark:bg-opacity-50"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -61,10 +61,10 @@ export default function NavMenu() {
         id="logo-sidebar"
         className={`fixed top-0 left-0 z-40 w-64 h-full transition-transform bg-white ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } sm:translate-x-0`}
+        } sm:translate-x-0 dark:bg-gray-900`}
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-neutral-primary-soft border-e border-default">
+        <div className="h-full px-3 py-4 overflow-y-auto bg-neutral-primary-soft border-e border-default dark:bg-gray-900 dark:border-gray-700">
           <Link href="/" className="flex items-center ps-2.5 mb-5">
             <Image
               src="/images/HNALogo.png"
@@ -73,7 +73,7 @@ export default function NavMenu() {
               height={50}
               alt="HNA Cougars Logo"
             />
-            <span className="self-center text-lg text-heading font-semibold whitespace-nowrap">
+            <span className="self-center text-lg text-heading font-semibold whitespace-nowrap dark:text-white">
               HNA Swapeeee
             </span>
           </Link>

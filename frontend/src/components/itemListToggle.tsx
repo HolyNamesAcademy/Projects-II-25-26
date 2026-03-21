@@ -3,13 +3,18 @@
 import { useState } from "react";
 import Image from "next/image";
 import { type Item } from "@/lib/api";
+import SecondaryButton from "@/components/secondaryButton";
 
 export default function ItemListToggle({
   items,
   UpdateFavorite,
+  showFavoritesButton = false,
+  showAddToCartButton = false,
 }: {
   items: Item[];
   UpdateFavorite: (item: Item) => Promise<void>;
+  showFavoritesButton?: boolean;
+  showAddToCartButton?: boolean;
 }) {
   const [displayedItems, setDisplayedItems] = useState(items);
 
@@ -28,7 +33,7 @@ export default function ItemListToggle({
       <ul className="grid grid-cols-1 md:grid-cols-3 gap-8 list-none p-0 m-0">
         {displayedItems.map((item, i) => (
           <li key={i} className="mb-2">
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center dark:text-white">
               <a href="#" aria-label="Tops">
                 <Image
                   className="w-60 h-60 object-cover"
@@ -45,6 +50,11 @@ export default function ItemListToggle({
                   style={{ cursor: "pointer", fontSize: "24px" }}
                 >
                   {item.favorite ? "❤️" : "♡"}
+                </div>
+                <div className="w-full flex justify-center pb-6">
+                  <div className="max-w-xs w-full">
+                    <SecondaryButton type="button" text="Contact Seller" onClick={() => {window.alert("Contact Seller clicked");}} />
+                  </div>
                 </div>
               </a>
             </div>

@@ -5,8 +5,8 @@ export default function Home() {
   return (
     <div>
       <NavMenu />
-      <main className="flex flex-col gap-[32px] row-start-2 items-center h-screen align-middle justify-center sm:ml-64">
-        <h1 className="text-5xl align-middle text-center">
+      <main className="flex flex-col gap-[32px] row-start-2 items-center h-screen align-middle justify-center sm:ml-64 dark:bg-gray-900">
+        <h1 className="text-5xl align-middle text-center dark:text-white">
           Welcome to HNA <span className="font-swapeeee">Swapeeee!</span>
         </h1>
         <div className="grid grid-cols-2 gap-8">
