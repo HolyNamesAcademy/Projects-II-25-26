@@ -84,7 +84,6 @@ export default function Cart() {
       <main className="flex flex-col gap-[32px] row-start-2 items-center pt-[32px] sm:ml-64">
         <h1 className="text-5xl align-middle text-center">Cart</h1>
 
-        {/*TODO: make "add to cart" button???*/}
         <ItemList
           items={items}
           UpdateFavorite={UpdateFavorite}
@@ -110,9 +109,6 @@ export default function Cart() {
             ))}
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        {/* empty footer */}
-      </footer>
     </div>
   );
 }

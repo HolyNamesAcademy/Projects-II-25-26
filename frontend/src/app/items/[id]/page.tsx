@@ -83,7 +83,7 @@ function ItemInfo({
 
         <div className="w-full flex justify-center pb-6">
           <div className="max-w-xs w-full">
-            <PrimaryButton type="link" text="Add to Cart" href="/viewitem" />
+            <PrimaryButton type="button" text="Contact Seller" onClick={() => {window.alert("Contact Seller clicked");}} />
           </div>
         </div>
       </section>

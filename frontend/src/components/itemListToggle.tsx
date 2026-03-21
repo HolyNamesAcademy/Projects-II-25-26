@@ -63,9 +63,9 @@ export default function ItemListToggle({
                   {item.favorite ? "❤️" : "♡"}
                 </div>
                 <div className="w-full flex justify-center pb-6">
-                       <div className="max-w-xs w-full">
-                          <SecondaryButton type="link" text="Add to Cart" href="/viewitem" />
-                      </div>
+                  <div className="max-w-xs w-full">
+                    <SecondaryButton type="button" text="Contact Seller" onClick={() => {window.alert("Contact Seller clicked");}} />
+                  </div>
                 </div>
               </a>
             </div>
