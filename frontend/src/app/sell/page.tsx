@@ -10,7 +10,7 @@ export default function List() {
   const [items, setItems] = useState<Item[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const loadMyItems = async () => {
+  const loadMyItems = useCallback(async () => {
     setLoadError(null);
     try {
       const list = await api.items.list();
@@ -18,7 +18,7 @@ export default function List() {
     } catch (e) {
       setLoadError(handleApiError(e));
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadMyItems();
