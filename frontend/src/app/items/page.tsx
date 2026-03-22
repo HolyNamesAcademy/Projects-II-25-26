@@ -6,7 +6,7 @@ import NavMenu from "@/components/navMenu";
 import CategoryFilterAndSearch from "@/components/categoryFilterAndSearch";
 import { api, type Item, handleApiError } from "@/lib/api";
 
-export default function List() {
+export default function Items() {
   const [items, setItems] = useState<Item[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
 

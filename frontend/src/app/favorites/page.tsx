@@ -5,7 +5,7 @@ import NavMenu from "@/components/navMenu";
 import { useEffect, useState , useCallback} from "react";
 import { api, type Item, handleApiError } from "@/lib/api";
 
-export default function FavoriteList() {
+export default function Favorites() {
   const [items, setItems] = useState<Item[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);

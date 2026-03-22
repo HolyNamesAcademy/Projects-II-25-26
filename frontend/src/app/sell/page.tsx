@@ -6,7 +6,7 @@ import NavMenu from "@/components/navMenu";
 import PrimaryButton from "@/components/primaryButton";
 import { api, type Item, handleApiError } from "@/lib/api";
 
-export default function List() {
+export default function Sell() {
   const [items, setItems] = useState<Item[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
 
