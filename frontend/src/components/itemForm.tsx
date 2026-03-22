@@ -72,7 +72,8 @@ export default function ItemForm({
     setPreviewUrl(file ? URL.createObjectURL(file) : null);
   }
 
-  const displayImage = previewUrl ?? (mode === "edit" ? initialItem?.image : null);
+  const displayImage =
+    previewUrl ?? (mode === "edit" ? initialItem?.image : null);
 
   const handleSubmit = async () => {
     setSubmitError(null);

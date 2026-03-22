@@ -1,14 +1,33 @@
 "use client";
 
-import { use, useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ItemListBuy from "@/components/itemListBuy";
 import NavMenu from "@/components/navMenu";
 import CategoryFilterAndSearch from "@/components/categoryFilterAndSearch";
-import { api, type Item, handleApiError } from "@/lib/api";
+import {
+  api,
+  type Item,
+  type ItemSearchParams,
+  handleApiError,
+  itemSearchParamsToUrlSearchParams,
+  parseItemSearchParamsFromQueryString,
+} from "@/lib/api";
 
-export default function Items() {
+function ItemsMain() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const [items, setItems] = useState<Item[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const searchParamsRef = useRef<ItemSearchParams>({});
+
+  const urlKey = searchParams.toString();
+  const paramsFromUrl = useMemo(
+    () => parseItemSearchParamsFromQueryString(urlKey),
+    [urlKey]
+  );
 
   const mergeFavoriteState = useCallback(async (list: Item[]) => {
     try {
@@ -20,33 +39,37 @@ export default function Items() {
     }
   }, []);
 
+  const fetchWithParams = useCallback(
+    async (params: ItemSearchParams) => {
+      setLoadError(null);
+      searchParamsRef.current = params;
+      try {
+        const list = await api.items.search(params);
+        setItems(await mergeFavoriteState(list));
+      } catch (e) {
+        setLoadError(handleApiError(e));
+      }
+    },
+    [mergeFavoriteState]
+  );
 
-  const loadItems = useCallback(async () => {
-    setLoadError(null);
-    try {
-      const list = await api.items.search({});
-      setItems(await mergeFavoriteState(list));
-    } catch (e) {
-      setLoadError(handleApiError(e));
-    }
-  }, [mergeFavoriteState]);
+  const reloadWithCurrentFilters = useCallback(async () => {
+    await fetchWithParams(searchParamsRef.current);
+  }, [fetchWithParams]);
+
+  const commitFiltersToUrl = useCallback(
+    (params: ItemSearchParams) => {
+      const sp = itemSearchParamsToUrlSearchParams(params);
+      const qs = sp.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    },
+    [pathname, router]
+  );
 
   useEffect(() => {
-    loadItems();
-  }, []);
-
-  const handleSearch = async (query: string) => {
-    setLoadError(null);
-    try {
-      const q = query.trim();
-      const list = q
-        ? await api.items.search({ query: q })
-        : await api.items.search({});
-      setItems(list);
-    } catch (e) {
-      setLoadError(handleApiError(e));
-    }
-  };
+    const parsed = parseItemSearchParamsFromQueryString(urlKey);
+    fetchWithParams(parsed);
+  }, [urlKey, fetchWithParams]);
 
   return (
     <div>
@@ -56,7 +79,11 @@ export default function Items() {
           Shop by Category
         </h1>
 
-        <CategoryFilterAndSearch onSearch={handleSearch} />
+        <CategoryFilterAndSearch
+          urlKey={urlKey}
+          paramsFromUrl={paramsFromUrl}
+          onCommitToUrl={commitFiltersToUrl}
+        />
 
         {loadError && (
           <p className="text-red-500 text-center px-4" role="alert">
@@ -64,8 +91,25 @@ export default function Items() {
           </p>
         )}
 
-        <ItemListBuy items={items} updateItems={loadItems} />
+        <ItemListBuy items={items} updateItems={reloadWithCurrentFilters} />
       </main>
     </div>
+  );
+}
+
+export default function Items() {
+  return (
+    <Suspense
+      fallback={
+        <div>
+          <NavMenu />
+          <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64 dark:bg-gray-900 pt-8">
+            <p className="text-body dark:text-gray-300">Loading…</p>
+          </main>
+        </div>
+      }
+    >
+      <ItemsMain />
+    </Suspense>
   );
 }

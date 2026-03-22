@@ -46,6 +46,7 @@ async function apiCall<T>(
   }
 
   const response = await fetch(url, { ...defaultOptions, ...options });
+  console.log("response", response);
 
   if (!response.ok) {
     throw new Error(
@@ -173,7 +174,14 @@ export interface ItemSearchParams {
   maxPrice?: number;
 }
 
-function buildSearchQuery(params: ItemSearchParams): string {
+const ITEM_TYPE_VALUE_SET = new Set<string>(ITEM_TYPES);
+const ITEM_SIZE_VALUE_SET = new Set<string>(ITEM_SIZES);
+const ITEM_COLOR_VALUE_SET = new Set<string>(ITEM_COLORS);
+
+/** Build query string params for `/items/search` and for the browser URL (same keys). */
+export function itemSearchParamsToUrlSearchParams(
+  params: ItemSearchParams
+): URLSearchParams {
   const sp = new URLSearchParams();
   if (params.query) sp.set("query", params.query);
   if (params.size) sp.set("size", params.size);
@@ -181,7 +189,38 @@ function buildSearchQuery(params: ItemSearchParams): string {
   if (params.color) sp.set("color", params.color);
   if (params.minPrice != null) sp.set("minPrice", String(params.minPrice));
   if (params.maxPrice != null) sp.set("maxPrice", String(params.maxPrice));
-  const q = sp.toString();
+  return sp;
+}
+
+/** Parse filter params from `location.search` without `?` or from `useSearchParams().toString()`. */
+export function parseItemSearchParamsFromQueryString(
+  queryString: string
+): ItemSearchParams {
+  const sp = new URLSearchParams(queryString);
+  const out: ItemSearchParams = {};
+  const q = sp.get("query")?.trim();
+  if (q) out.query = q;
+  const type = sp.get("type");
+  if (type && ITEM_TYPE_VALUE_SET.has(type)) out.type = type;
+  const size = sp.get("size");
+  if (size && ITEM_SIZE_VALUE_SET.has(size)) out.size = size;
+  const color = sp.get("color");
+  if (color && ITEM_COLOR_VALUE_SET.has(color)) out.color = color;
+  const minRaw = sp.get("minPrice");
+  if (minRaw != null && minRaw !== "") {
+    const min = Number.parseInt(minRaw, 10);
+    if (!Number.isNaN(min)) out.minPrice = min;
+  }
+  const maxRaw = sp.get("maxPrice");
+  if (maxRaw != null && maxRaw !== "") {
+    const max = Number.parseInt(maxRaw, 10);
+    if (!Number.isNaN(max)) out.maxPrice = max;
+  }
+  return out;
+}
+
+function buildSearchQuery(params: ItemSearchParams): string {
+  const q = itemSearchParamsToUrlSearchParams(params).toString();
   return q ? `?${q}` : "";
 }
 

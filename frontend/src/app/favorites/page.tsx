@@ -2,7 +2,7 @@
 
 import ItemListBuy from "@/components/itemListBuy";
 import NavMenu from "@/components/navMenu";
-import { useEffect, useState , useCallback} from "react";
+import { useEffect, useState, useCallback } from "react";
 import { api, type Item, handleApiError } from "@/lib/api";
 
 export default function Favorites() {
@@ -19,7 +19,6 @@ export default function Favorites() {
     }
   }, []);
 
-
   const loadItems = useCallback(async () => {
     setLoadError(null);
     try {
@@ -31,7 +30,6 @@ export default function Favorites() {
       setLoaded(true);
     }
   }, [mergeFavoriteState]);
-
 
   useEffect(() => {
     loadItems();
