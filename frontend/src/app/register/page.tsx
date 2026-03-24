@@ -3,6 +3,7 @@ import { useState } from "react";
 import PrimaryButton from "@/components/primaryButton";
 import TextInput from "@/components/textInput";
 import { api, handleApiError } from "@/lib/api";
+import Link from "next/link";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -101,7 +102,11 @@ export default function Register() {
               .
             </label>
           </div>
+          
+          <div className="flex items-center justify-between gap-4">
           <PrimaryButton text="Register" type="button" onClick={register} />
+          <Link href="/login">Already have an account? Login</Link>
+          </div>
         </form>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
