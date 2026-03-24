@@ -55,19 +55,6 @@ const nextConfig: NextConfig = {
       config.devtool = "eval-source-map";
     }
 
-    // Handle font loading errors gracefully for restricted networks
-    config.module.rules.push({
-      test: /\.(woff|woff2|eot|ttf|otf)$/,
-      use: {
-        loader: "file-loader",
-        options: {
-          publicPath: "/_next/static/fonts/",
-          outputPath: "static/fonts/",
-          fallback: "style-loader",
-        },
-      },
-    });
-
     return config;
   },
 

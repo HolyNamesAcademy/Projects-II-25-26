@@ -60,15 +60,41 @@ async function fetchFontCSS(cssUrl) {
   });
 }
 
-function extractFontUrls(css) {
-  const urlRegex = /url\((https:\/\/[^)]+\.(?:woff2|woff|ttf))\)/g;
-  const urls = [];
-  let match;
-  while ((match = urlRegex.exec(css)) !== null) {
-    urls.push(match[1]);
+/**
+ * Google Fonts serves multiple @font-face blocks per weight (cyrillic, vietnamese,
+ * latin-ext, latin). next/font loads one file per weight — we must use the block
+ * that includes basic Latin (U+0000-00FF) or text renders in the fallback font.
+ */
+function extractBasicLatinUrlsByWeight(css) {
+  const blockRegex = /@font-face\s*\{([^}]+)\}/g;
+  /** @type {Map<string, string>} */
+  const byWeight = new Map();
+  let blockMatch;
+  while ((blockMatch = blockRegex.exec(css)) !== null) {
+    const block = blockMatch[1];
+    const rangeMatch = block.match(/unicode-range:\s*([^;]+);/);
+    const unicodeRange = rangeMatch ? rangeMatch[1].trim() : "";
+    const isBasicLatin =
+      !unicodeRange ||
+      unicodeRange.includes("U+0000-00FF") ||
+      unicodeRange.includes("U+0-FF");
+    if (!isBasicLatin) {
+      continue;
+    }
+    const weightMatch = block.match(/font-weight:\s*(\d+)/);
+    const weight = weightMatch ? weightMatch[1] : "400";
+    const urlMatch = block.match(/url\((https:\/\/[^)]+\.(?:woff2|woff))\)/);
+    if (!urlMatch) {
+      continue;
+    }
+    if (!byWeight.has(weight)) {
+      byWeight.set(weight, urlMatch[1]);
+    }
   }
-  return urls;
+  return byWeight;
 }
+
+const forceRedownload = process.argv.includes("--force");
 
 async function downloadFont(url, fontName) {
   return new Promise((resolve, reject) => {
@@ -78,7 +104,11 @@ async function downloadFont(url, fontName) {
     const filePath = path.join(fontsDir, `${fontName}.${ext}`);
 
     // Skip if file already exists and has content
-    if (fs.existsSync(filePath) && fs.statSync(filePath).size > 0) {
+    if (
+      !forceRedownload &&
+      fs.existsSync(filePath) &&
+      fs.statSync(filePath).size > 0
+    ) {
       console.log(
         `✅ ${fontName}.${ext} already exists (${fs.statSync(filePath).size} bytes)`
       );
@@ -152,20 +182,17 @@ async function downloadAllFonts() {
     for (const config of fontConfigs) {
       console.log(`\n🔍 Getting font URLs for ${config.family}...`);
       const css = await fetchFontCSS(config.cssUrl);
-      const urls = extractFontUrls(css);
+      const byWeight = extractBasicLatinUrlsByWeight(css);
 
-      if (urls.length === 0) {
-        console.log(`⚠️  No font URLs found for ${config.family}`);
-        continue;
-      }
-
-      console.log(`Found ${urls.length} font file(s) for ${config.family}`);
-
-      for (let i = 0; i < urls.length; i++) {
-        const url = urls[i];
-        const weight = config.weights[i] || "400";
+      for (const weight of config.weights) {
+        const url = byWeight.get(weight);
+        if (!url) {
+          console.log(
+            `⚠️  No basic-Latin woff2 for ${config.family} weight ${weight}`
+          );
+          continue;
+        }
         const fontName = `${config.family.toLowerCase().replace(/\s+/g, "-")}-${weight}`;
-
         await downloadFont(url, fontName);
       }
     }
