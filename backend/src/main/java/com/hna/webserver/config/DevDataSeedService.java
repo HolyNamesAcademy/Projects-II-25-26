@@ -38,30 +38,54 @@ public class DevDataSeedService {
 
     private static final int TARGET_ITEM_COUNT = 100;
 
-    /**
-     * Curated Unsplash fashion/clothing URLs (fixed IDs — stable, deterministic).
-     */
-    private static final String[] UNSPLASH_IMAGES = {
-            "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80",
-            "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&q=80",
-            "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80",
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80",
-            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80",
-            "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80",
-            "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&q=80",
-            "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80",
-            "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600&q=80",
-            "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80",
-            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80",
-            "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&q=80",
-            "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=600&q=80",
-            "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&q=80",
-            "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600&q=80",
-            "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&q=80",
-            "https://images.unsplash.com/photo-1515347619252-60a973bf4d40?w=600&q=80",
-            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&q=80",
-            "https://images.unsplash.com/photo-1582552938357-32b906dfc8bc?w=600&q=80",
-            "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600&q=80",
+    private static final String Q = "?w=600&q=80";
+
+    /** Tops, shirts, sweaters (Unsplash IDs verified HTTP 200). */
+    private static final String[] UNSPLASH_TOPS = {
+            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab" + Q,
+            "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136" + Q,
+            "https://images.unsplash.com/photo-1434389677669-e08b4cac3105" + Q,
+            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d" + Q,
+            "https://images.unsplash.com/photo-1576566588028-4147f3842f27" + Q,
+            "https://images.unsplash.com/photo-1523381210434-271e8be1f52b" + Q,
+            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab" + Q,
+            "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136" + Q,
+    };
+
+    /** Jeans, pants, shorts (Unsplash IDs verified HTTP 200). */
+    private static final String[] UNSPLASH_BOTTOMS = {
+            "https://images.unsplash.com/photo-1542272604-787c3835535d" + Q,
+            "https://images.unsplash.com/photo-1506629082955-511b1aa562c8" + Q,
+            "https://images.unsplash.com/photo-1562157873-818bc0726f68" + Q,
+            "https://images.unsplash.com/photo-1542272604-787c3835535d" + Q,
+            "https://images.unsplash.com/photo-1506629082955-511b1aa562c8" + Q,
+            "https://images.unsplash.com/photo-1562157873-818bc0726f68" + Q,
+            "https://images.unsplash.com/photo-1542272604-787c3835535d" + Q,
+            "https://images.unsplash.com/photo-1506629082955-511b1aa562c8" + Q,
+    };
+
+    /** Dresses (Unsplash IDs verified HTTP 200). */
+    private static final String[] UNSPLASH_DRESSES = {
+            "https://images.unsplash.com/photo-1595777457583-95e059d581b8" + Q,
+            "https://images.unsplash.com/photo-1496747611176-843222e1e57c" + Q,
+            "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446" + Q,
+            "https://images.unsplash.com/photo-1469334031218-e382a71b716b" + Q,
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f" + Q,
+            "https://images.unsplash.com/photo-1595777457583-95e059d581b8" + Q,
+            "https://images.unsplash.com/photo-1496747611176-843222e1e57c" + Q,
+            "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446" + Q,
+    };
+
+    /** Footwear. */
+    private static final String[] UNSPLASH_SHOES = {
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff" + Q,
+            "https://images.unsplash.com/photo-1549298916-b41d501d3772" + Q,
+            "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb" + Q,
+            "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a" + Q,
+            "https://images.unsplash.com/photo-1460353581641-37baddab0fa2" + Q,
+            "https://images.unsplash.com/photo-1608231387042-66d1773070a5" + Q,
+            "https://images.unsplash.com/photo-1560769629-975ec94e6a86" + Q,
+            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77" + Q,
     };
 
     private final UserRepository userRepository;
@@ -93,23 +117,27 @@ public class DevDataSeedService {
 
         log.info("Created seed users: {}, {}, {}", SEED_MARKER_EMAIL, SEED_SELLER2_EMAIL, SEED_BUYER_EMAIL);
 
-        int index = 0;
-        outer:
-        for (Type type : Type.values()) {
-            for (Size size : Size.values()) {
-                for (Color color : Color.values()) {
-                    if (index >= TARGET_ITEM_COUNT) {
-                        break outer;
-                    }
-                    User owner = index % 2 == 0 ? seller1 : seller2;
-                    ItemRequest req = buildItemRequest(index, type, size, color);
-                    itemService.createItem(req, owner);
-                    index++;
-                }
-            }
+        /*
+         * Round-robin by type first so a fixed count (~100) still includes every Type.
+         * (Nested type→size→color would use all 66 TOPS combos before BOTTOMS, and never reach
+         * DRESSES or SHOES within 100 items.)
+         */
+        Type[] types = Type.values();
+        Size[] sizes = Size.values();
+        Color[] colors = Color.values();
+        int typeCount = types.length;
+        int sizeCount = sizes.length;
+
+        for (int index = 0; index < TARGET_ITEM_COUNT; index++) {
+            Type type = types[index % typeCount];
+            Size size = sizes[(index / typeCount) % sizeCount];
+            Color color = colors[(index / (typeCount * sizeCount)) % colors.length];
+            User owner = index % 2 == 0 ? seller1 : seller2;
+            ItemRequest req = buildItemRequest(index, type, size, color);
+            itemService.createItem(req, owner);
         }
 
-        log.info("Seeded {} deterministic catalog items", index);
+        log.info("Seeded {} deterministic catalog items", TARGET_ITEM_COUNT);
 
         favoriteSampleForBuyer(buyer);
     }
@@ -132,8 +160,18 @@ public class DevDataSeedService {
         req.setSize(size);
         req.setType(type);
         req.setColor(color);
-        req.setImage(UNSPLASH_IMAGES[index % UNSPLASH_IMAGES.length]);
+        req.setImage(imageUrlForType(type, index));
         return req;
+    }
+
+    private static String imageUrlForType(Type type, int index) {
+        String[] pool = switch (type) {
+            case TOPS -> UNSPLASH_TOPS;
+            case BOTTOMS -> UNSPLASH_BOTTOMS;
+            case DRESSES -> UNSPLASH_DRESSES;
+            case SHOES -> UNSPLASH_SHOES;
+        };
+        return pool[index % pool.length];
     }
 
     private static String titleCase(String enumName) {
