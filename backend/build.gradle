@@ -47,6 +47,16 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+/** One-shot: loads dev profile, runs DevDataSeedCliRunner, exits (no web server). */
+tasks.register('seed', org.springframework.boot.gradle.tasks.run.BootRun) {
+	description = 'Populate dev DB with seed users and items (requires Postgres; dev profile)'
+	group = 'application'
+	classpath = bootRun.classpath
+	mainClass = bootRun.mainClass
+	systemProperty 'app.seed.cli', 'true'
+	environment 'SPRING_PROFILES_ACTIVE', 'dev'
+}
+
 spotbugs {
 	excludeFilter = file("config/spotbugs/exclude.xml")
 	effort = "max"

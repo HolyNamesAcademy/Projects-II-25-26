@@ -1,3 +1,5 @@
+# Dev seed data: run `./sail backend:seed` (does not run on normal backend startup).
+
 spring:
   datasource:
     url: jdbc:postgresql://db:5432/app

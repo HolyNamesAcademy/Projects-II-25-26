@@ -35,4 +35,10 @@
         <Bug pattern="EI_EXPOSE_REP2"/>
         <Class name="~com\.hna\.webserver\.model\..*"/>
     </Match>
+
+    <!-- Intentional JVM exit after one-shot Gradle seed task -->
+    <Match>
+        <Bug pattern="DM_EXIT"/>
+        <Class name="com.hna.webserver.config.DevDataSeedCliRunner"/>
+    </Match>
 </FindBugsFilter>

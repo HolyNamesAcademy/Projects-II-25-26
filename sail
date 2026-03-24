@@ -154,6 +154,12 @@ case "$cmd" in
   backend|backend:dev)
     run_backend
     ;;
+  backend:seed)
+    check_containers
+    echo "🌱 Running one-shot dev data seed (Gradle seed task)..."
+    run_in_backend "./gradlew seed -x test"
+    echo "✅ Seed task finished."
+    ;;
   backend:lint)
     check_containers
     echo "Running checkstyle checks..."
@@ -205,6 +211,7 @@ Spring Sail commands:
   # Backend commands
   ./sail run            Run the backend (hot reload via devtools)
   ./sail backend        Run the backend (alias for run)
+  ./sail backend:seed   One-shot dev DB seed (users + items; run when DB is up)
   ./sail debug          Run the backend with debug port 5005 enabled
   ./sail test           Run backend tests in the container
   ./sail clean          Clean build artifacts
