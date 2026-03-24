@@ -11,7 +11,7 @@ export default function Home() {
         </h1>
         <div className="grid grid-cols-2 gap-8">
           <div className="flex items-center justify-center">
-            <a href="#" aria-label="Tops">
+            <a href="/items?type=TOPS" aria-label="Tops">
               <img
                 className="rounded-full w-36 h-36 object-cover"
                 src="/images/Tops.png"
@@ -20,7 +20,7 @@ export default function Home() {
             </a>
           </div>
           <div className="flex items-center justify-center">
-            <a href="#" aria-label="Dresses">
+            <a href="/items?type=DRESSES" aria-label="Dresses">
               <img
                 className="rounded-full w-36 h-36 object-cover"
                 src="/images/Dresses.png"
@@ -29,7 +29,7 @@ export default function Home() {
             </a>
           </div>
           <div className="flex items-center justify-center">
-            <a href="#" aria-label="Bottoms">
+            <a href="/items?type=BOTTOMS" aria-label="Bottoms">
               <img
                 className="rounded-full w-36 h-36 object-cover"
                 src="/images/Bottoms.png"
@@ -38,7 +38,7 @@ export default function Home() {
             </a>
           </div>
           <div className="flex items-center justify-center">
-            <a href="#" aria-label="Shoes">
+            <a href="/items?type=SHOES" aria-label="Shoes">
               <img
                 className="rounded-full w-36 h-36 object-cover"
                 src="/images/Shoes.png"
