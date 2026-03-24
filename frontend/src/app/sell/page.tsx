@@ -24,24 +24,6 @@ export default function Sell() {
     loadMyItems();
   }, [loadMyItems]);
 
-  async function updateFavorite(item: Item) {
-    try {
-      if (item.favorite) {
-        await api.items.favorites.add(item.id);
-      } else {
-        await api.items.favorites.remove(item.id);
-      }
-      setItems((prev) =>
-        prev.map((i) =>
-          i.id === item.id ? { ...i, favorite: item.favorite } : i
-        )
-      );
-    } catch (e) {
-      setLoadError(handleApiError(e));
-      await loadMyItems();
-    }
-  }
-
   return (
     <div>
       <NavMenu />
@@ -58,7 +40,7 @@ export default function Sell() {
           </p>
         )}
 
-        <ItemListSell items={items} UpdateFavorite={updateFavorite} />
+        <ItemListSell items={items} />
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         {/* Empty Footer */}
