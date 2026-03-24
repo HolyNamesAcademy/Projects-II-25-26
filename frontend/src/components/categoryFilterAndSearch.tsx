@@ -5,9 +5,9 @@ import {
   ITEM_COLORS,
   ITEM_SIZES,
   ITEM_TYPES,
-  ItemColor,
-  ItemSize,
-  ItemType,
+  type ItemColor,
+  type ItemSize,
+  type ItemType,
   type ItemSearchParams,
 } from "@/lib/api";
 
