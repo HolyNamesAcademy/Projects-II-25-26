@@ -10,7 +10,8 @@
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
-    "download-fonts": "node scripts/download-fonts.js"
+    "download-fonts": "node scripts/download-fonts.js",
+    "download-seed-images": "bash scripts/download-seed-images.sh"
   },
   "dependencies": {
     "react": "19.1.0",

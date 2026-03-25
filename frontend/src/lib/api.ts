@@ -49,6 +49,11 @@ async function apiCall<T>(
   console.log("response", response);
 
   if (!response.ok) {
+    if (response.status === 403) {
+      removeAuthToken();
+      window.location.href = "/login";
+    }
+
     throw new Error(
       `API call failed: ${response.status} ${response.statusText}`
     );
