@@ -151,6 +151,11 @@ case "$cmd" in
     run_frontend "download-fonts"
     echo "✅ Fonts downloaded! You can now work offline or on restricted networks."
     ;;
+  frontend:download-seed-images)
+    echo "📥 Downloading seed images for offline use..."
+    run_frontend "download-seed-images"
+    echo "✅ Seed images downloaded! You can now work offline or on restricted networks."
+    ;;
   backend|backend:dev)
     run_backend
     ;;

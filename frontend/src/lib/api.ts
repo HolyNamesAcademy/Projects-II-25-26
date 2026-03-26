@@ -53,6 +53,7 @@ async function apiCall<T>(
       removeAuthToken();
       window.location.href = "/login";
     }
+
     throw new Error(
       `API call failed: ${response.status} ${response.statusText}`
     );

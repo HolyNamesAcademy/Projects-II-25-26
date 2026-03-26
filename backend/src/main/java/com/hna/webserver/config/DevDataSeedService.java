@@ -19,7 +19,9 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Idempotent dev dataset: fixed users and ~100 catalog items with Unsplash images.
+ * Idempotent dev dataset: fixed users and ~100 catalog items.
+ * Images are served from the Next.js app as {@code /images/unsplash/*.jpg} (offline-friendly).
+ * Refresh assets: {@code npm run download-seed-images} in {@code frontend/}.
  * Invoked from {@link DevDataSeedCliRunner} via {@code ./gradlew seed} / {@code ./sail backend:seed}.
  */
 @Service
@@ -38,54 +40,52 @@ public class DevDataSeedService {
 
     private static final int TARGET_ITEM_COUNT = 100;
 
-    private static final String Q = "?w=600&q=80";
-
-    /** Tops, shirts, sweaters (Unsplash IDs verified HTTP 200). */
+    /** Tops, shirts, sweaters (local cached files). */
     private static final String[] UNSPLASH_TOPS = {
-            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab" + Q,
-            "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136" + Q,
-            "https://images.unsplash.com/photo-1434389677669-e08b4cac3105" + Q,
-            "https://images.unsplash.com/photo-1490481651871-ab68de25d43d" + Q,
-            "https://images.unsplash.com/photo-1576566588028-4147f3842f27" + Q,
-            "https://images.unsplash.com/photo-1523381210434-271e8be1f52b" + Q,
-            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab" + Q,
-            "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136" + Q,
+            "/images/unsplash/tops-01.jpg",
+            "/images/unsplash/tops-02.jpg",
+            "/images/unsplash/tops-03.jpg",
+            "/images/unsplash/tops-04.jpg",
+            "/images/unsplash/tops-05.jpg",
+            "/images/unsplash/tops-06.jpg",
+            "/images/unsplash/tops-01.jpg",
+            "/images/unsplash/tops-02.jpg",
     };
 
-    /** Jeans, pants, shorts (Unsplash IDs verified HTTP 200). */
+    /** Jeans, pants, shorts (local cached files). */
     private static final String[] UNSPLASH_BOTTOMS = {
-            "https://images.unsplash.com/photo-1542272604-787c3835535d" + Q,
-            "https://images.unsplash.com/photo-1506629082955-511b1aa562c8" + Q,
-            "https://images.unsplash.com/photo-1562157873-818bc0726f68" + Q,
-            "https://images.unsplash.com/photo-1542272604-787c3835535d" + Q,
-            "https://images.unsplash.com/photo-1506629082955-511b1aa562c8" + Q,
-            "https://images.unsplash.com/photo-1562157873-818bc0726f68" + Q,
-            "https://images.unsplash.com/photo-1542272604-787c3835535d" + Q,
-            "https://images.unsplash.com/photo-1506629082955-511b1aa562c8" + Q,
+            "/images/unsplash/bottoms-01.jpg",
+            "/images/unsplash/bottoms-02.jpg",
+            "/images/unsplash/bottoms-03.jpg",
+            "/images/unsplash/bottoms-01.jpg",
+            "/images/unsplash/bottoms-02.jpg",
+            "/images/unsplash/bottoms-03.jpg",
+            "/images/unsplash/bottoms-01.jpg",
+            "/images/unsplash/bottoms-02.jpg",
     };
 
-    /** Dresses (Unsplash IDs verified HTTP 200). */
+    /** Dresses (local cached files). */
     private static final String[] UNSPLASH_DRESSES = {
-            "https://images.unsplash.com/photo-1595777457583-95e059d581b8" + Q,
-            "https://images.unsplash.com/photo-1496747611176-843222e1e57c" + Q,
-            "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446" + Q,
-            "https://images.unsplash.com/photo-1469334031218-e382a71b716b" + Q,
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f" + Q,
-            "https://images.unsplash.com/photo-1595777457583-95e059d581b8" + Q,
-            "https://images.unsplash.com/photo-1496747611176-843222e1e57c" + Q,
-            "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446" + Q,
+            "/images/unsplash/dresses-01.jpg",
+            "/images/unsplash/dresses-02.jpg",
+            "/images/unsplash/dresses-03.jpg",
+            "/images/unsplash/dresses-04.jpg",
+            "/images/unsplash/dresses-05.jpg",
+            "/images/unsplash/dresses-01.jpg",
+            "/images/unsplash/dresses-02.jpg",
+            "/images/unsplash/dresses-03.jpg",
     };
 
     /** Footwear. */
     private static final String[] UNSPLASH_SHOES = {
-            "https://images.unsplash.com/photo-1542291026-7eec264c27ff" + Q,
-            "https://images.unsplash.com/photo-1549298916-b41d501d3772" + Q,
-            "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb" + Q,
-            "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a" + Q,
-            "https://images.unsplash.com/photo-1460353581641-37baddab0fa2" + Q,
-            "https://images.unsplash.com/photo-1608231387042-66d1773070a5" + Q,
-            "https://images.unsplash.com/photo-1560769629-975ec94e6a86" + Q,
-            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77" + Q,
+            "/images/unsplash/shoes-01.jpg",
+            "/images/unsplash/shoes-02.jpg",
+            "/images/unsplash/shoes-03.jpg",
+            "/images/unsplash/shoes-04.jpg",
+            "/images/unsplash/shoes-05.jpg",
+            "/images/unsplash/shoes-06.jpg",
+            "/images/unsplash/shoes-07.jpg",
+            "/images/unsplash/shoes-08.jpg",
     };
 
     private final UserRepository userRepository;

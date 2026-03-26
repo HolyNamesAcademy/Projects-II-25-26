@@ -71,10 +71,9 @@ export default function Login() {
             </label>
           </div>
           <div className="flex items-center justify-between gap-4">
-          <PrimaryButton text="Login" type="button" onClick={login} />
-          <Link href="/register">Create an account</Link>
+            <PrimaryButton text="Login" type="button" onClick={login} />
+            <Link href="/register">Create an account</Link>
           </div>
-          
         </form>
       </main>
     </div>

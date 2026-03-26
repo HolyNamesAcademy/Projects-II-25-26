@@ -102,16 +102,12 @@ export default function Register() {
               .
             </label>
           </div>
-          
           <div className="flex items-center justify-between gap-4">
-          <PrimaryButton text="Register" type="button" onClick={register} />
-          <Link href="/login">Already have an account? Login</Link>
+            <PrimaryButton text="Register" type="button" onClick={register} />
+            <Link href="/login">Already have an account? Login</Link>
           </div>
         </form>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        {/* Empty Footer */}
-      </footer>
     </div>
   );
 }
