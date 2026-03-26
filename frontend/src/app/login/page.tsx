@@ -25,7 +25,7 @@ export default function Login() {
   };
   return (
     <div>
-      <main className="flex flex-col h-dvh gap-[32px] row-start-2 items-center dark:bg-gray-900">
+      <main className="flex flex-col h-dvh gap-[32px] row-start-2 items-center dark:bg-neutral-700">
         <h1 className="text-5xl dark:text-white">Login</h1>
 
         <form>

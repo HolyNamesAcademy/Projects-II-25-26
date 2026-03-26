@@ -8,7 +8,7 @@ import { type Item } from "@/lib/api";
 
 export default function ItemListSell({ items }: { items: Item[] }) {
   return (
-    <div className="dark:bg-gray-900">
+    <div className="dark:bg-neutral-700">
       <ul className="grid grid-cols-1 md:grid-cols-5 gap-8 list-none p-0 m-0">
         {items.map((item, i) => (
           <li key={item.id ?? i} className="mb-2">
