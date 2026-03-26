@@ -1,5 +1,6 @@
 import PrimaryButton from "@/components/primaryButton";
 import NavMenu from "@/components/navMenu";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -11,40 +12,40 @@ export default function Home() {
         </h1>
         <div className="grid grid-cols-2 gap-8">
           <div className="flex items-center justify-center">
-            <a href="/items?type=TOPS" aria-label="Tops">
+            <Link href="/items?type=TOPS" aria-label="Tops">
               <img
                 className="rounded-full w-36 h-36 object-cover"
                 src="/images/Tops.png"
                 alt="Tops"
               />
-            </a>
+            </Link>
           </div>
           <div className="flex items-center justify-center">
-            <a href="/items?type=DRESSES" aria-label="Dresses">
+            <Link href="/items?type=DRESSES" aria-label="Dresses">
               <img
                 className="rounded-full w-36 h-36 object-cover"
                 src="/images/Dresses.png"
                 alt="Dresses"
               />
-            </a>
+            </Link>
           </div>
           <div className="flex items-center justify-center">
-            <a href="/items?type=BOTTOMS" aria-label="Bottoms">
+            <Link href="/items?type=BOTTOMS" aria-label="Bottoms">
               <img
                 className="rounded-full w-36 h-36 object-cover"
                 src="/images/Bottoms.png"
                 alt="Bottoms"
               />
-            </a>
+            </Link>
           </div>
           <div className="flex items-center justify-center">
-            <a href="/items?type=SHOES" aria-label="Shoes">
+            <Link href="/items?type=SHOES" aria-label="Shoes">
               <img
                 className="rounded-full w-36 h-36 object-cover"
                 src="/images/Shoes.png"
                 alt="Shoes"
               />
-            </a>
+            </Link>
           </div>
         </div>
         <div className="flex items-center justify-center">
