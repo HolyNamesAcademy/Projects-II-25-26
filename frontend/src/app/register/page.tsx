@@ -37,7 +37,7 @@ export default function Register() {
   };
   return (
     <div>
-      <main className="flex flex-col h-dvh gap-[32px] row-start-2 items-center dark:bg-gray-900">
+      <main className="flex flex-col h-dvh gap-[32px] row-start-2 items-center dark:bg-neutral-700">
         <h1 className="text-5xl dark:text-white">Sign Up</h1>
 
         <form>
@@ -82,7 +82,7 @@ export default function Register() {
                 id="agree"
                 type="checkbox"
                 value=""
-                className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-neutral-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                 required
                 checked={agree}
                 onChange={(e) => setAgree(e.target.checked)}

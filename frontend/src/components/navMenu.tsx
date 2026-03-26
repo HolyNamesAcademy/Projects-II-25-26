@@ -28,7 +28,7 @@ export default function NavMenu() {
     <>
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-30 bg-white bg-opacity-50 sm:hidden dark:bg-gray-900 dark:bg-opacity-50"
+          className="fixed inset-0 z-30 bg-white bg-opacity-50 sm:hidden dark:bg-neutral-800 dark:bg-opacity-50"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -61,10 +61,10 @@ export default function NavMenu() {
         id="logo-sidebar"
         className={`fixed top-0 left-0 z-40 w-64 h-full transition-transform bg-white ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } sm:translate-x-0 dark:bg-gray-900`}
+        } sm:translate-x-0 dark:bg-neutral-800`}
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-neutral-primary-soft border-e border-default dark:bg-gray-900 dark:border-gray-700">
+        <div className="h-full px-3 py-4 overflow-y-auto bg-neutral-primary-soft border-e border-default dark:bg-neutral-800 dark:border-gray-700">
           <Link href="/" className="flex items-center ps-2.5 mb-5">
             <Image
               src="/images/HNALogo.png"
@@ -84,7 +84,7 @@ export default function NavMenu() {
                 className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
               >
                 <svg
-                  className="w-6 h-6 text-gray-800 dark:text-white"
+                  className="w-6 h-6 text-neutral-800 dark:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -111,7 +111,7 @@ export default function NavMenu() {
                 className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
               >
                 <svg
-                  className="w-6 h-6 text-gray-800 dark:text-white"
+                  className="w-6 h-6 text-neutral-800 dark:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -138,7 +138,7 @@ export default function NavMenu() {
                 className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
               >
                 <svg
-                  className="w-6 h-6 text-gray-800 dark:text-white"
+                  className="w-6 h-6 text-neutral-800 dark:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -195,7 +195,7 @@ export default function NavMenu() {
                     className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
                   >
                     <svg
-                      className="w-6 h-6 text-gray-800 dark:text-white"
+                      className="w-6 h-6 text-neutral-800 dark:text-white"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"

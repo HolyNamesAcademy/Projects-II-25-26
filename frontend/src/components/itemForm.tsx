@@ -119,7 +119,7 @@ export default function ItemForm({
   };
 
   return (
-    <section className="min-h-screen flex flex-col justify-between mx-4 py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
+    <section className="min-h-screen flex flex-col justify-between mx-4 py-8 bg-white md:py-16 dark:bg-neutral-700 antialiased">
       <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
           <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
@@ -134,7 +134,7 @@ export default function ItemForm({
               />
             ) : (
               <div
-                className="w-full rounded-lg object-cover bg-gray-200 dark:bg-gray-700"
+                className="w-full rounded-lg object-cover bg-gray-200 dark:bg-neutral-700"
                 style={{ width: "100%", height: "200px" }}
               />
             )}
@@ -175,7 +175,7 @@ export default function ItemForm({
               <label className="block mt-4 text-sm font-medium dark:text-white">
                 Size
                 <select
-                  className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white px-3 py-2"
+                  className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-neutral-700 dark:text-white px-3 py-2"
                   value={size}
                   onChange={(e) =>
                     setSize(e.target.value as (typeof ITEM_SIZES)[number])
@@ -192,7 +192,7 @@ export default function ItemForm({
               <label className="block mt-4 text-sm font-medium dark:text-white">
                 Type
                 <select
-                  className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white px-3 py-2"
+                  className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-neutral-700 dark:text-white px-3 py-2"
                   value={type}
                   onChange={(e) =>
                     setType(e.target.value as (typeof ITEM_TYPES)[number])
@@ -209,7 +209,7 @@ export default function ItemForm({
               <label className="block mt-4 text-sm font-medium dark:text-white">
                 Color
                 <select
-                  className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white px-3 py-2"
+                  className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-neutral-700 dark:text-white px-3 py-2"
                   value={color}
                   onChange={(e) =>
                     setColor(e.target.value as (typeof ITEM_COLORS)[number])

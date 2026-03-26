@@ -12,7 +12,7 @@ import {
 } from "@/lib/api";
 
 const selectFilterClass =
-  "rounded-lg border-2 border-gray-300 bg-neutral-secondary-medium px-3 py-2 text-heading focus:outline-none focus:ring-0 dark:bg-gray-800 dark:text-white dark:border-gray-600";
+  "rounded-lg border-2 border-gray-300 bg-neutral-secondary-medium px-3 py-2 text-heading focus:outline-none focus:ring-0 dark:bg-neutral-700 dark:text-white dark:border-gray-600";
 
 function formatEnumOptionLabel(value: string) {
   return value.charAt(0) + value.slice(1).toLowerCase();
@@ -113,7 +113,7 @@ export default function CategoryFilterAndSearch({
         <input
           type="text"
           id="search-items"
-          className="relative pl-3 pr-50 py-2.5 bg-neutral-secondary-medium border-2 border-gray-300 text-heading text-sm focus:outline-none focus:ring-0 focus:border-gray-300 block w-full rounded-l-lg placeholder:text-body dark:bg-gray-800 dark:text-white dark:border-gray-600"
+          className="relative pl-3 pr-50 py-2.5 bg-neutral-secondary-medium border-2 border-gray-300 text-heading text-sm focus:outline-none focus:ring-0 focus:border-gray-300 block w-full rounded-l-lg placeholder:text-body dark:bg-neutral-700 dark:text-white dark:border-gray-600"
           placeholder="Search by name or description"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -224,7 +224,7 @@ export default function CategoryFilterAndSearch({
             placeholder="0"
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
-            className="rounded-lg border-2 border-gray-300 bg-neutral-secondary-medium px-3 py-2 text-heading focus:outline-none focus:ring-0 dark:bg-gray-800 dark:text-white dark:border-gray-600"
+            className="rounded-lg border-2 border-gray-300 bg-neutral-secondary-medium px-3 py-2 text-heading focus:outline-none focus:ring-0 dark:bg-neutral-700 dark:text-white dark:border-gray-600"
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -239,7 +239,7 @@ export default function CategoryFilterAndSearch({
             placeholder="Any"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
-            className="rounded-lg border-2 border-gray-300 bg-neutral-secondary-medium px-3 py-2 text-heading focus:outline-none focus:ring-0 dark:bg-gray-800 dark:text-white dark:border-gray-600"
+            className="rounded-lg border-2 border-gray-300 bg-neutral-secondary-medium px-3 py-2 text-heading focus:outline-none focus:ring-0 dark:bg-neutral-700 dark:text-white dark:border-gray-600"
           />
         </div>
       </div>
@@ -247,7 +247,7 @@ export default function CategoryFilterAndSearch({
       <div className="mt-3 flex flex-wrap gap-2 justify-center sm:justify-start">
         <button
           type="submit"
-          className="rounded-lg border-2 border-gray-300 bg-neutral-secondary-medium px-4 py-2 text-sm font-medium hover:bg-neutral-tertiary-medium dark:bg-gray-800 dark:text-white dark:border-gray-600"
+          className="rounded-lg border-2 border-gray-300 bg-neutral-secondary-medium px-4 py-2 text-sm font-medium hover:bg-neutral-tertiary-medium dark:bg-neutral-700 dark:text-white dark:border-gray-600"
         >
           Apply filters
         </button>

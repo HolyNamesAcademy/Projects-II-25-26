@@ -58,7 +58,7 @@ export default function SellerItemEdit() {
     return (
       <>
         <NavMenu />
-        <section className="min-h-screen sm:ml-64 dark:bg-gray-900 px-4 py-16">
+        <section className="min-h-screen sm:ml-64 dark:bg-neutral-700 px-4 py-16">
           <p className="text-red-500 text-center" role="alert">
             Invalid item
           </p>
@@ -71,7 +71,7 @@ export default function SellerItemEdit() {
     return (
       <>
         <NavMenu />
-        <section className="min-h-screen sm:ml-64 dark:bg-gray-900 px-4 py-16 flex flex-col items-center gap-4">
+        <section className="min-h-screen sm:ml-64 dark:bg-neutral-700 px-4 py-16 flex flex-col items-center gap-4">
           <p className="text-center dark:text-white" role="alert">
             You can only edit your own listings.
           </p>
@@ -89,7 +89,7 @@ export default function SellerItemEdit() {
     return (
       <>
         <NavMenu />
-        <section className="min-h-screen sm:ml-64 dark:bg-gray-900 px-4 py-16">
+        <section className="min-h-screen sm:ml-64 dark:bg-neutral-700 px-4 py-16">
           <p className="text-red-500 text-center" role="alert">
             {error}
           </p>
@@ -102,7 +102,7 @@ export default function SellerItemEdit() {
     return (
       <>
         <NavMenu />
-        <section className="min-h-screen sm:ml-64 dark:bg-gray-900 px-4 py-16">
+        <section className="min-h-screen sm:ml-64 dark:bg-neutral-700 px-4 py-16">
           <p className="text-center dark:text-white">Loading…</p>
         </section>
       </>
@@ -112,7 +112,7 @@ export default function SellerItemEdit() {
   return (
     <>
       <NavMenu />
-      <main className="sm:ml-64 dark:bg-gray-900">
+      <main className="sm:ml-64 dark:bg-neutral-700">
         <h1 className="text-3xl sm:text-4xl text-center pt-8 dark:text-white">
           Edit listing
         </h1>

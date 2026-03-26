@@ -81,7 +81,7 @@ function ItemsMain() {
   return (
     <div>
       <NavMenu />
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64 dark:bg-gray-900">
+      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64 dark:bg-neutral-700">
         <h1 className="text-5xl align-middle text-center dark:text-white">
           Shop by Category
         </h1>
@@ -110,7 +110,7 @@ export default function Items() {
       fallback={
         <div>
           <NavMenu />
-          <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64 dark:bg-gray-900 pt-8">
+          <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64 dark:bg-neutral-700 pt-8">
             <p className="text-body dark:text-gray-300">Loading…</p>
           </main>
         </div>

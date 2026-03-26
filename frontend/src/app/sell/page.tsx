@@ -27,7 +27,7 @@ export default function Sell() {
   return (
     <div>
       <NavMenu />
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64 dark:bg-gray-900">
+      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:ml-64 dark:bg-neutral-700">
         <h1 className="text-5xl align-middle text-center dark:text-white">
           Sell
         </h1>
