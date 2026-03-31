@@ -6,6 +6,11 @@ import { api, handleApiError } from "@/lib/api";
 import Link from "next/link";
 
 export default function Register() {
+  const searchParams = new URLSearchParams(window.location.search);
+  const encodedRedirect = searchParams.get("redirect") || "/";
+  const redirectLink = decodeURIComponent(encodedRedirect);
+  const loginLink = encodedRedirect === "/" ? "/login" : `/login?redirect=${encodedRedirect}`;
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +35,7 @@ export default function Register() {
     try {
       const response = await api.auth.register({ name, email, password });
       console.log("Registered from server:", response);
+      window.location.href = redirectLink;
     } catch (error) {
       const message = handleApiError(error);
       console.error("Registration failed:", message);
@@ -104,7 +110,7 @@ export default function Register() {
           </div>
           <div className="flex items-center justify-between gap-4">
             <PrimaryButton text="Register" type="button" onClick={register} />
-            <Link href="/login">Already have an account? Login</Link>
+            <Link href={loginLink}>Already have an account? Login</Link>
           </div>
         </form>
       </main>
