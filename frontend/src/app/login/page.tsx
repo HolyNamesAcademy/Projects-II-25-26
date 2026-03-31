@@ -9,6 +9,15 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  
+  const searchParams = new URLSearchParams(window.location.search);
+  const encodedRedirect = searchParams.get("redirect") || "/";
+  const redirectLink = decodeURIComponent(encodedRedirect);
+  const registerLink = encodedRedirect === "/" ? "/register" : `/register?redirect=${encodedRedirect}`;
+  
+
+
+
   const login = async () => {
     //login logic here
     console.log("Logging in...");
@@ -18,11 +27,13 @@ export default function Login() {
     try {
       const response = await api.auth.login({ email, password });
       console.log("Logged in from server:", response);
+      window.location.href = redirectLink;
     } catch (error) {
       const message = handleApiError(error);
       console.error("Login failed:", message);
     }
   };
+  
   return (
     <div>
       <main className="flex flex-col h-dvh gap-[32px] row-start-2 items-center dark:bg-gray-900">
@@ -72,7 +83,7 @@ export default function Login() {
           </div>
           <div className="flex items-center justify-between gap-4">
           <PrimaryButton text="Login" type="button" onClick={login} />
-          <Link href="/register">Create an account</Link>
+          <Link href={registerLink}>Create an account</Link>
           </div>
           
         </form>
