@@ -6,14 +6,15 @@ import { api, handleApiError } from "@/lib/api";
 import Link from "next/link";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+
   const searchParams = new URLSearchParams(window.location.search);
   const encodedRedirect = searchParams.get("redirect") || "/";
   const redirectLink = decodeURIComponent(encodedRedirect);
   const registerLink = encodedRedirect === "/" ? "/register" : `/register?redirect=${encodedRedirect}`;
-  
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
+
   const login = async () => {
     //login logic here
     console.log("Logging in...");

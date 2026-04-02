@@ -6,16 +6,16 @@ import { api, handleApiError } from "@/lib/api";
 import Link from "next/link";
 
 export default function Register() {
-  const searchParams = new URLSearchParams(window.location.search);
-  const encodedRedirect = searchParams.get("redirect") || "/";
-  const redirectLink = decodeURIComponent(encodedRedirect);
-  const loginLink = encodedRedirect === "/" ? "/login" : `/login?redirect=${encodedRedirect}`;
-
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [agree, setAgree] = useState(false);
+
+  const searchParams = new URLSearchParams(window.location.search);
+  const encodedRedirect = searchParams.get("redirect") || "/";
+  const redirectLink = decodeURIComponent(encodedRedirect);
+  const loginLink = encodedRedirect === "/" ? "/login" : `/login?redirect=${encodedRedirect}`;
 
   //register logic here
   const register = async () => {
