@@ -15,7 +15,8 @@ export default function Register() {
   const searchParams = new URLSearchParams(window.location.search);
   const encodedRedirect = searchParams.get("redirect") || "/";
   const redirectLink = decodeURIComponent(encodedRedirect);
-  const loginLink = encodedRedirect === "/" ? "/login" : `/login?redirect=${encodedRedirect}`;
+  const loginLink =
+    encodedRedirect === "/" ? "/login" : `/login?redirect=${encodedRedirect}`;
 
   //register logic here
   const register = async () => {

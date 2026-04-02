@@ -13,7 +13,10 @@ export default function Login() {
   const searchParams = new URLSearchParams(window.location.search);
   const encodedRedirect = searchParams.get("redirect") || "/";
   const redirectLink = decodeURIComponent(encodedRedirect);
-  const registerLink = encodedRedirect === "/" ? "/register" : `/register?redirect=${encodedRedirect}`;
+  const registerLink =
+    encodedRedirect === "/"
+      ? "/register"
+      : `/register?redirect=${encodedRedirect}`;
 
   const login = async () => {
     //login logic here
