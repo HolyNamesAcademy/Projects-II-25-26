@@ -1,34 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import PrimaryButton from "@/components/primaryButton";
 import TextInput from "@/components/textInput";
 import { api, handleApiError } from "@/lib/api";
+import { getSafeRedirectPath } from "@/lib/authRedirect";
 import Link from "next/link";
 
-export default function Login() {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const searchParams = new URLSearchParams(window.location.search);
-  const encodedRedirect = searchParams.get("redirect") || "/";
-  const redirectLink = decodeURIComponent(encodedRedirect);
+  const searchParams = useSearchParams();
+  const redirectPath = getSafeRedirectPath(searchParams.get("redirect"));
   const registerLink =
-    encodedRedirect === "/"
+    redirectPath === "/"
       ? "/register"
-      : `/register?redirect=${encodedRedirect}`;
+      : `/register?redirect=${encodeURIComponent(redirectPath)}`;
 
   const login = async () => {
-    //login logic here
-    console.log("Logging in...");
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Remember Me:", rememberMe);
     try {
-      const response = await api.auth.login({ email, password });
-      console.log("Logged in from server:", response);
-      window.location.href = redirectLink;
+      await api.auth.login({ email, password });
+      window.location.href = redirectPath;
     } catch (error) {
       const message = handleApiError(error);
       console.error("Login failed:", message);
@@ -89,5 +84,19 @@ export default function Login() {
         </form>
       </main>
     </div>
+  );
+}
+
+export default function Login() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex flex-col h-dvh items-center justify-center dark:bg-gray-900">
+          <p className="text-gray-600 dark:text-gray-400">Loading…</p>
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }
