@@ -51,7 +51,16 @@ async function apiCall<T>(
   if (!response.ok) {
     if (response.status === 403) {
       removeAuthToken();
-      window.location.href = "/login";
+      const previousUrl = window.location.pathname + window.location.search;
+      if (
+        previousUrl != "/" &&
+        !previousUrl.startsWith("/login") &&
+        !previousUrl.startsWith("/register")
+      ) {
+        window.location.href = `/login?redirect=${encodeURIComponent(previousUrl)}`;
+      } else {
+        window.location.href = "/login";
+      }
     }
 
     throw new Error(
