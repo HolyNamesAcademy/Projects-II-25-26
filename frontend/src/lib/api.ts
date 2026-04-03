@@ -49,7 +49,7 @@ async function apiCall<T>(
   console.log("response", response);
 
   if (!response.ok) {
-    if (response.status === 403 && typeof window !== "undefined") {
+    if (response.status === 403) {
       removeAuthToken();
       const previousUrl = window.location.pathname + window.location.search;
       if (
