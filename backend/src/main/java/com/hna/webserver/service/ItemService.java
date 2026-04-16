@@ -122,6 +122,10 @@ public class ItemService {
         logger.info("Deleted item id={}", id);
     }
 
+    public Item saveItem(Item item) {
+        return itemRepository.save(item);
+    }
+
     //search items
     //apply filters
     public List<Item> search(String query, Size size, Integer minPrice, Integer maxPrice, Color color, Type type) {

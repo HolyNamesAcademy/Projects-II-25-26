@@ -324,6 +324,32 @@ export const api = {
       },
     },
   },
+
+  images: {
+    upload: async (itemId: number, file: File): Promise<string> => {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const token = getAuthToken();
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+
+      const response = await fetch(`${API_URL}/images/upload/${itemId}`, {
+        method: "POST",
+        headers,
+        body: formData,
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error(`Upload failed: ${response.status} ${response.statusText}`);
+      }
+
+      return response.text();
+    },
+  },
 };
 
 // Error handling utility
