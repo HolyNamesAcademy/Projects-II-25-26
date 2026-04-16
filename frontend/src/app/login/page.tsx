@@ -1,31 +1,38 @@
 "use client";
-import { useState } from "react";
+
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import PrimaryButton from "@/components/primaryButton";
 import TextInput from "@/components/textInput";
 import { api, handleApiError } from "@/lib/api";
+import { getSafeRedirectPath } from "@/lib/authRedirect";
 import Link from "next/link";
 
-export default function Login() {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+
+  const searchParams = useSearchParams();
+  const redirectPath = getSafeRedirectPath(searchParams.get("redirect"));
+  const registerLink =
+    redirectPath === "/"
+      ? "/register"
+      : `/register?redirect=${encodeURIComponent(redirectPath)}`;
+
   const login = async () => {
-    //login logic here
-    console.log("Logging in...");
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Remember Me:", rememberMe);
     try {
-      const response = await api.auth.login({ email, password });
-      console.log("Logged in from server:", response);
+      await api.auth.login({ email, password });
+      window.location.href = redirectPath;
     } catch (error) {
       const message = handleApiError(error);
       console.error("Login failed:", message);
     }
   };
+
   return (
     <div>
-      <main className="flex flex-col h-dvh gap-[32px] row-start-2 items-center dark:bg-gray-900">
+      <main className="flex flex-col h-dvh gap-[32px] row-start-2 items-center dark:bg-neutral-700">
         <h1 className="text-5xl dark:text-white">Login</h1>
 
         <form>
@@ -72,10 +79,24 @@ export default function Login() {
           </div>
           <div className="flex items-center justify-between gap-4">
             <PrimaryButton text="Login" type="button" onClick={login} />
-            <Link href="/register">Create an account</Link>
+            <Link href={registerLink}>Create an account</Link>
           </div>
         </form>
       </main>
     </div>
+  );
+}
+
+export default function Login() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex flex-col h-dvh items-center justify-center dark:bg-gray-900">
+          <p className="text-gray-600 dark:text-gray-400">Loading…</p>
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }

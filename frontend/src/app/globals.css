@@ -2,7 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #353734;
   --color-hna-color: #861f41;
   --color-hna-color-dark: #652239;
   /*--light-gray: #e8e8e8;*/
@@ -63,7 +63,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #404040;
     --foreground: #ededed;
   }
 }

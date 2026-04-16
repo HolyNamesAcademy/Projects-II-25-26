@@ -1,26 +1,28 @@
 "use client";
-import { useState } from "react";
+
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import PrimaryButton from "@/components/primaryButton";
 import TextInput from "@/components/textInput";
 import { api, handleApiError } from "@/lib/api";
+import { getSafeRedirectPath } from "@/lib/authRedirect";
 import Link from "next/link";
 
-export default function Register() {
+function RegisterForm() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [agree, setAgree] = useState(false);
 
-  //register logic here
-  const register = async () => {
-    console.log("Signing up...");
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Confirm:", confirm);
-    console.log("Agree:", agree);
+  const searchParams = useSearchParams();
+  const redirectPath = getSafeRedirectPath(searchParams.get("redirect"));
+  const loginLink =
+    redirectPath === "/"
+      ? "/login"
+      : `/login?redirect=${encodeURIComponent(redirectPath)}`;
 
+  const register = async () => {
     if (password !== confirm || !agree) {
       console.error(
         "Password and Confirm Password do not match or Terms not agreed."
@@ -28,8 +30,8 @@ export default function Register() {
       return;
     }
     try {
-      const response = await api.auth.register({ name, email, password });
-      console.log("Registered from server:", response);
+      await api.auth.register({ name, email, password });
+      window.location.href = redirectPath;
     } catch (error) {
       const message = handleApiError(error);
       console.error("Registration failed:", message);
@@ -37,7 +39,7 @@ export default function Register() {
   };
   return (
     <div>
-      <main className="flex flex-col h-dvh gap-[32px] row-start-2 items-center dark:bg-gray-900">
+      <main className="flex flex-col h-dvh gap-[32px] row-start-2 items-center dark:bg-neutral-700">
         <h1 className="text-5xl dark:text-white">Sign Up</h1>
 
         <form>
@@ -82,7 +84,7 @@ export default function Register() {
                 id="agree"
                 type="checkbox"
                 value=""
-                className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-neutral-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
                 required
                 checked={agree}
                 onChange={(e) => setAgree(e.target.checked)}
@@ -104,10 +106,24 @@ export default function Register() {
           </div>
           <div className="flex items-center justify-between gap-4">
             <PrimaryButton text="Register" type="button" onClick={register} />
-            <Link href="/login">Already have an account? Login</Link>
+            <Link href={loginLink}>Already have an account? Login</Link>
           </div>
         </form>
       </main>
     </div>
+  );
+}
+
+export default function Register() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex flex-col h-dvh items-center justify-center dark:bg-gray-900">
+          <p className="text-gray-600 dark:text-gray-400">Loading…</p>
+        </div>
+      }
+    >
+      <RegisterForm />
+    </Suspense>
   );
 }
