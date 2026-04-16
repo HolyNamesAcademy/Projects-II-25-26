@@ -24,6 +24,17 @@ export default function NavMenu() {
     checkAuth();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await api.auth.logout();
+      setIsLoggedIn(false);
+      // redirect to home page
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  }
+
   return (
     <>
       {sidebarOpen && (
@@ -221,8 +232,8 @@ export default function NavMenu() {
 
             {!authLoading && isLoggedIn && (
               <li>
-                <Link
-                  href="/logout"
+                <button
+                  onClick={handleLogout}
                   className="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group"
                 >
                   <svg
@@ -243,7 +254,7 @@ export default function NavMenu() {
                     />
                   </svg>
                   <span className="flex-1 ms-3 whitespace-nowrap">Log Out</span>
-                </Link>
+                </button>
               </li>
             )}
           </ul>
