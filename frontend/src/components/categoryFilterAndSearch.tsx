@@ -95,14 +95,13 @@ export default function CategoryFilterAndSearch({
     );
   }, [search, selectedType, size, color, minPrice, maxPrice, onCommitToUrl]);
 
+  // Auto-apply filters when any filter value changes
+  useEffect(() => {
+    apply();
+  }, [apply]);
+
   return (
-    <form
-      className="max-w-4xl mx-auto my-4 w-full px-4"
-      onSubmit={(e) => {
-        e.preventDefault();
-        apply();
-      }}
-    >
+    <div className="max-w-4xl mx-auto my-4 w-full px-4">
       <div
         className="relative flex shadow-xs rounded-lg -space-x-0.5"
         style={{ WebkitTapHighlightColor: "transparent" }}
@@ -119,7 +118,8 @@ export default function CategoryFilterAndSearch({
           onChange={(e) => setSearch(e.target.value)}
         />
         <button
-          type="submit"
+          type="button"
+          onClick={apply}
           onMouseDown={() => setIsSearchPressed(true)}
           onMouseUp={() => setIsSearchPressed(false)}
           onMouseLeave={() => setIsSearchPressed(false)}
@@ -246,12 +246,6 @@ export default function CategoryFilterAndSearch({
 
       <div className="mt-3 flex flex-wrap gap-2 justify-center sm:justify-start">
         <button
-          type="submit"
-          className="rounded-lg border-2 border-gray-300 bg-neutral-secondary-medium px-4 py-2 text-sm font-medium hover:bg-neutral-tertiary-medium dark:bg-neutral-700 dark:text-white dark:border-gray-600"
-        >
-          Apply filters
-        </button>
-        <button
           type="button"
           className="rounded-lg border-2 border-transparent px-4 py-2 text-sm text-body underline-offset-2 hover:underline dark:text-gray-300"
           onClick={() => {
@@ -267,6 +261,6 @@ export default function CategoryFilterAndSearch({
           Clear all
         </button>
       </div>
-    </form>
+    </div>
   );
 }
