@@ -122,6 +122,7 @@ export default function SellerItemEdit() {
           initialItem={item}
           submitLabel="Save changes"
           onSuccess={() => router.push("/sell")}
+          onCancel={() => router.push("/sell")}
         />
         <div className="w-full flex justify-center pb-8">
           <div className="max-w-xs w-full">

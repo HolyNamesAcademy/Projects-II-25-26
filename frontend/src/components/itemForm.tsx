@@ -23,6 +23,7 @@ export type ItemFormProps = {
   initialItem?: Item | null;
   submitLabel: string;
   onSuccess?: () => void;
+  onCancel?: () => void;
 };
 
 export default function ItemForm({
@@ -31,6 +32,7 @@ export default function ItemForm({
   initialItem,
   submitLabel,
   onSuccess,
+  onCancel,
 }: ItemFormProps) {
   const [_imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -120,6 +122,16 @@ export default function ItemForm({
 
   return (
     <section className="min-h-screen flex flex-col justify-between mx-4 py-8 bg-white md:py-16 dark:bg-neutral-700 antialiased">
+      {onCancel && (
+        <button
+          type="button"
+          onClick={onCancel}
+          className="self-start ml-4 mb-4 text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+          aria-label="Go back"
+        >
+          ←
+        </button>
+      )}
       <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
           <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
