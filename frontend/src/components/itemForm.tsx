@@ -89,31 +89,76 @@ export default function ItemForm({
       return;
     }
 
-    const imagePayload =
-      previewUrl ||
-      (mode === "edit" && initialItem?.image ? initialItem.image : "") ||
-      "";
-
-    const body = {
-      name: itemName.trim(),
-      price: priceNum,
-      size,
-      type,
-      color,
-      image: imagePayload,
-      description: description.trim(),
-    };
-
     try {
-      if (mode === "create") {
-        await api.items.create(body);
-      } else {
-        if (itemId == null) {
-          setSubmitError("Missing item id.");
-          return;
+      let imageUrl = mode === "edit" && initialItem?.image ? initialItem.image : "";
+
+      // If there's a new image file, upload it
+      if (_imageFile) {
+        let itemIdForUpload: number;
+        if (mode === "create") {
+          // Create item first without image
+          const tempBody = {
+            name: itemName.trim(),
+            price: priceNum,
+            size,
+            type,
+            color,
+            image: "",
+            description: description.trim(),
+          };
+          const createdItem = await api.items.create(tempBody);
+          itemIdForUpload = createdItem.id;
+        } else {
+          if (itemId == null) {
+            setSubmitError("Missing item id.");
+            return;
+          }
+          itemIdForUpload = itemId;
         }
-        await api.items.update(itemId, body);
+
+        // Upload the image
+        imageUrl = await api.images.upload(itemIdForUpload, _imageFile);
+
+        // Update the item with the image URL
+        const updateBody = {
+          name: itemName.trim(),
+          price: priceNum,
+          size,
+          type,
+          color,
+          image: imageUrl,
+          description: description.trim(),
+        };
+
+        if (mode === "create") {
+          // Item already created, just update the image
+          await api.items.update(itemIdForUpload, updateBody);
+        } else {
+          await api.items.update(itemId, updateBody);
+        }
+      } else {
+        // No new image, just create or update normally
+        const body = {
+          name: itemName.trim(),
+          price: priceNum,
+          size,
+          type,
+          color,
+          image: imageUrl,
+          description: description.trim(),
+        };
+
+        if (mode === "create") {
+          await api.items.create(body);
+        } else {
+          if (itemId == null) {
+            setSubmitError("Missing item id.");
+            return;
+          }
+          await api.items.update(itemId, body);
+        }
       }
+
       onSuccess?.();
     } catch (e) {
       setSubmitError(handleApiError(e));

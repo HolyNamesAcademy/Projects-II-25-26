@@ -2,6 +2,7 @@ package com.hna.webserver.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -48,6 +49,7 @@ public class SecurityConfig {
                 // Public endpoints
                 .requestMatchers("/api/health").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/images/**").permitAll() // Temporarily make all image endpoints public
                 // Protected endpoints
                 .requestMatchers("/api/items", "/api/items/**").authenticated()
                 // Allow all other requests (including misspelled API endpoints) to return proper 404s

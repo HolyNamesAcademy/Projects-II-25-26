@@ -1,0 +1,4 @@
+# Ignore all uploaded image files
+*
+# But keep the directory structure
+!.gitignore
