@@ -168,10 +168,9 @@ export default function ItemForm({
         <button
           type="button"
           onClick={onCancel}
-          className="self-start ml-4 mb-4 text-2xl font-bold text-gray-700 dark:text-white hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
-          aria-label="Go back"
+          className="self-start ml-4 mb-4 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition-colors"
         >
-          ←
+          ← Back
         </button>
       )}
       <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">

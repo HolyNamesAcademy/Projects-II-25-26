@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import PrimaryButton from "@/components/primaryButton";
 import TextInput from "@/components/textInput";
 import { api, handleApiError } from "@/lib/api";
@@ -9,6 +9,7 @@ import { getSafeRedirectPath } from "@/lib/authRedirect";
 import Link from "next/link";
 
 function LoginForm() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -33,6 +34,13 @@ function LoginForm() {
   return (
     <div>
       <main className="flex flex-col h-dvh gap-[32px] row-start-2 items-center dark:bg-neutral-700">
+        <button
+          type="button"
+          onClick={() => router.push("/")}
+          className="self-start ml-4 mt-4 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition-colors"
+        >
+          ← Back
+        </button>
         <h1 className="text-5xl dark:text-white">Login</h1>
 
         <form>
