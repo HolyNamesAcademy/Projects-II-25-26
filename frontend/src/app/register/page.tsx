@@ -32,7 +32,8 @@ function RegisterForm() {
     }
     try {
       await api.auth.register({ name, email, password });
-      window.location.href = redirectPath;
+      router.push(redirectPath);
+      router.refresh();
     } catch (error) {
       const message = handleApiError(error);
       console.error("Registration failed:", message);
@@ -103,12 +104,12 @@ function RegisterForm() {
               className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
             >
               I agree with the{" "}
-              <a
+              <Link
                 href="#"
                 className="text-blue-600 hover:underline dark:text-blue-500"
               >
                 terms and conditions
-              </a>
+              </Link>
               .
             </label>
           </div>

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function SecondaryButton({
   text,
   type,
@@ -13,9 +15,9 @@ export default function SecondaryButton({
     "rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-claret-500 text-white gap-2 hover:bg-claret-600 font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto";
   if (type === "link") {
     return (
-      <a className={classes} href={href}>
+      <Link className={classes} href={href ?? "/"}>
         {text}
-      </a>
+      </Link>
     );
   }
   return (

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { api } from "../lib/api";
 
 export default function NavMenu() {
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Placeholder for auth state
@@ -28,8 +30,8 @@ export default function NavMenu() {
     try {
       await api.auth.logout();
       setIsLoggedIn(false);
-      // redirect to home page
-      window.location.href = "/";
+      router.push("/");
+      router.refresh();
     } catch (error) {
       console.error("Logout failed:", error);
     }

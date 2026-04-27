@@ -24,7 +24,8 @@ function LoginForm() {
   const login = async () => {
     try {
       await api.auth.login({ email, password });
-      window.location.href = redirectPath;
+      router.push(redirectPath);
+      router.refresh();
     } catch (error) {
       const message = handleApiError(error);
       console.error("Login failed:", message);
