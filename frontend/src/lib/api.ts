@@ -353,7 +353,9 @@ export const api = {
       });
 
       if (!response.ok) {
-        throw new Error(`Upload failed: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Upload failed: ${response.status} ${response.statusText}`
+        );
       }
 
       return response.text();

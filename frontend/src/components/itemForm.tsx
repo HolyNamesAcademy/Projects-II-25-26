@@ -90,7 +90,8 @@ export default function ItemForm({
     }
 
     try {
-      let imageUrl = mode === "edit" && initialItem?.image ? initialItem.image : "";
+      let imageUrl =
+        mode === "edit" && initialItem?.image ? initialItem.image : "";
 
       // If there's a new image file, upload it
       if (_imageFile) {

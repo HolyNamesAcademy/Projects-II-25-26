@@ -33,7 +33,7 @@ export default function NavMenu() {
     } catch (error) {
       console.error("Logout failed:", error);
     }
-  }
+  };
 
   return (
     <>
