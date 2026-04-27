@@ -131,12 +131,8 @@ export default function ItemForm({
           description: description.trim(),
         };
 
-        if (mode === "create") {
-          // Item already created, just update the image
-          await api.items.update(itemIdForUpload, updateBody);
-        } else {
-          await api.items.update(itemId, updateBody);
-        }
+        // Item id is guaranteed here for both create and edit flows.
+        await api.items.update(itemIdForUpload, updateBody);
       } else {
         // No new image, just create or update normally
         const body = {
