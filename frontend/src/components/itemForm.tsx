@@ -163,7 +163,7 @@ export default function ItemForm({
   };
 
   return (
-    <section className="min-h-screen flex flex-col justify-between mx-4 py-8 bg-white md:py-16 dark:bg-neutral-700 antialiased">
+    <section className="min-h-screen flex flex-col mx-4 py-8 bg-white md:py-16 dark:bg-neutral-700 antialiased">
       {onCancel && (
         <button
           type="button"
