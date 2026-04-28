@@ -18,6 +18,7 @@ export default function AddItemPage() {
           mode="create"
           submitLabel="Post Item to Swapeeee"
           onCancel={() => router.push("/sell")}
+          onSuccess={() => router.push("/sell")}
         />
       </main>
     </>
