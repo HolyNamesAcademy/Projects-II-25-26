@@ -162,6 +162,19 @@ export default function ItemForm({
     }
   };
 
+  const handleRemove = async () => {
+      try{
+        if (itemId == null) {
+          setSubmitError("Missing item id.");
+          return;
+        }
+        await api.items.delete(itemId);
+        onSuccess?.();
+      } catch (e) {
+        setSubmitError(handleApiError(e));
+      }
+    }
+
   return (
     <section className="min-h-screen flex flex-col mx-4 py-8 bg-white md:py-16 dark:bg-neutral-700 antialiased">
       {onCancel && (
@@ -300,6 +313,12 @@ export default function ItemForm({
           text={submitLabel}
           type="button"
           onClick={handleSubmit}
+        />
+        <PrimaryButton
+          text="Remove Item"
+          type="button"
+          onClick={onCancel}
+          className="ms-4 bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200"
         />
       </div>
     </section>
